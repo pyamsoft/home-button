@@ -33,7 +33,6 @@ import timber.log.Timber;
 
 public final class MainActivity extends ActivityBase implements BillingProcessor.IBillingHandler {
 
-  private static final String TAG = MainActivity.class.getSimpleName();
   private BillingProcessor billingProcessor;
 
   @BindView(R.id.boot_icon) ImageView image;
@@ -48,7 +47,7 @@ public final class MainActivity extends ActivityBase implements BillingProcessor
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
 
-    billingProcessor = new BillingProcessor(this, getBillingKey(), this);
+    billingProcessor = new BillingProcessor(this, getPackageName(), this);
     unbinder = ButterKnife.bind(this);
 
     setupToolbar();
@@ -126,11 +125,11 @@ public final class MainActivity extends ActivityBase implements BillingProcessor
   }
 
   @Override public void onProductPurchased(String productId, TransactionDetails details) {
-    Timber.d("Product purchased: ", productId);
+    Timber.d("Product purchased: %s", productId);
     if (billingProcessor != null) {
       billingProcessor.consumePurchase(productId);
     } else {
-      Timber.e("Could not consume purchase: ", productId);
+      Timber.e("Could not consume purchase: %s", productId);
     }
   }
 
