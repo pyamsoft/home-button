@@ -24,6 +24,7 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.NotificationCompat;
+import android.widget.Toast;
 import com.pyamsoft.pydroid.base.ApplicationBase;
 
 public final class HomeButton extends ApplicationBase {
@@ -81,5 +82,6 @@ public final class HomeButton extends ApplicationBase {
   @Override public void onCreate() {
     super.onCreate();
     startHomeNotification(this);
+    Toast.makeText(this, getString(R.string.home_button_started), Toast.LENGTH_SHORT).show();
   }
 }
