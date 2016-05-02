@@ -20,13 +20,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="@bool/root_fits_system"
     >
 
   <android.support.design.widget.AppBarLayout
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:fitsSystemWindows="@bool/appbar_fits_system"
       android:orientation="vertical"
       android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
       >
