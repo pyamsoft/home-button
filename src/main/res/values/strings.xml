@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~ Copyright 2013 - 2016 Peter Kenji Yamanaka
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+<resources>
+
+  <string name="app_name">Home Button</string>
+  <string name="run_on_startup">Run on Device Startup</string>
+  <string name="home_button_explain">Home Button creates a persistent notification that is hidden in your Notification pull down menu. Pressing the Home Button notification will instantly take you out of any application you are in and back to the Home screen.</string>
+  <string name="build">Build:</string>
+  <string name="version">Version:</string>
+  <string name="format">%s</string>
+  <string name="home_button_started">Home Button Started</string>
+  <string name="press_to_home">Press to Go Home</string>
+
+</resources>
