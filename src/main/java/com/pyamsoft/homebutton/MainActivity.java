@@ -28,7 +28,7 @@ import com.anjlab.android.iab.v3.BillingProcessor;
 import com.pyamsoft.pydroid.base.ActivityBase;
 import java.util.Locale;
 
-public final class MainActivity extends ActivityBase implements BillingProcessor.IBillingHandler {
+public final class MainActivity extends ActivityBase {
 
   @BindView(R.id.boot_icon) ImageView image;
   @BindView(R.id.boot_enabled) SwitchCompat sw;
