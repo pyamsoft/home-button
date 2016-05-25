@@ -17,6 +17,7 @@
 package com.pyamsoft.homebutton;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.SwitchCompat;
 import android.support.v7.widget.Toolbar;
 import android.widget.ImageView;
@@ -25,10 +26,10 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import com.anjlab.android.iab.v3.BillingProcessor;
-import com.pyamsoft.pydroid.base.ActivityBase;
+import com.pyamsoft.pydroid.base.DonationActivityBase;
 import java.util.Locale;
 
-public final class MainActivity extends ActivityBase {
+public final class MainActivity extends DonationActivityBase {
 
   @BindView(R.id.boot_icon) ImageView image;
   @BindView(R.id.boot_enabled) SwitchCompat sw;
@@ -94,7 +95,7 @@ public final class MainActivity extends ActivityBase {
     }
   }
 
-  @Override protected String getPlayStoreAppPackage() {
+  @NonNull @Override protected String getPlayStoreAppPackage() {
     return getPackageName();
   }
 }

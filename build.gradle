@@ -28,7 +28,7 @@ buildscript {
     classpath 'me.tatarka:gradle-retrolambda:3.3.0-beta4'
 
     // Dex count
-    classpath 'com.getkeepsafe.dexcount:dexcount-gradle-plugin:0.5.0'
+    classpath 'com.getkeepsafe.dexcount:dexcount-gradle-plugin:0.5.2'
 
     // Android APT
     classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
@@ -54,8 +54,8 @@ android {
     applicationId "com.pyamsoft.homebutton"
     minSdkVersion 16
     targetSdkVersion 23
-    versionCode 19
-    versionName '3.1.1'
+    versionCode 20
+    versionName '3.2.0'
     // For vector drawables
     vectorDrawables.useSupportLibrary = true
   }
@@ -108,6 +108,7 @@ dependencies {
   compile 'com.jakewharton:butterknife:8.0.1'
   apt 'com.jakewharton:butterknife-compiler:8.0.1'
 
+  // Pydroid 15 1.3.8
   compile project(':PYDroid')
 }
 
