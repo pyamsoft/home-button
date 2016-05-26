@@ -20,6 +20,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.SwitchCompat;
 import android.support.v7.widget.Toolbar;
+import android.text.Spannable;
 import android.widget.ImageView;
 import android.widget.TextView;
 import butterknife.BindView;
@@ -27,9 +28,12 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import com.anjlab.android.iab.v3.BillingProcessor;
 import com.pyamsoft.pydroid.base.DonationActivityBase;
+import com.pyamsoft.pydroid.support.RatingDialog;
+import com.pyamsoft.pydroid.util.StringUtil;
 import java.util.Locale;
 
-public final class MainActivity extends DonationActivityBase {
+public final class MainActivity extends DonationActivityBase
+    implements RatingDialog.ChangeLogProvider {
 
   @BindView(R.id.boot_icon) ImageView image;
   @BindView(R.id.boot_enabled) SwitchCompat sw;
@@ -82,11 +86,14 @@ public final class MainActivity extends DonationActivityBase {
 
   @Override protected void onPostResume() {
     super.onPostResume();
-    setImageState();
-    setEnabledState();
     if (!BillingProcessor.isIabServiceAvailable(this)) {
       showDonationUnavailableDialog();
     }
+
+    RatingDialog.showRatingDialog(this, this);
+
+    setImageState();
+    setEnabledState();
   }
 
   private void setEnabledState() {
@@ -97,5 +104,50 @@ public final class MainActivity extends DonationActivityBase {
 
   @NonNull @Override protected String getPlayStoreAppPackage() {
     return getPackageName();
+  }
+
+  @NonNull @Override public Spannable getChangeLogText() {
+    // The changelog text
+    final String title = "What's New in Version " + BuildConfig.VERSION_NAME;
+    final String line1 = "BUGFIX: Code cleanup and general bugfixes";
+    final String line2 = "FEATURE: This change log screen";
+
+    // Turn it into a spannable
+    final Spannable spannable = StringUtil.createBuilder(title, "\n\n", line1, "\n\n", line2);
+
+    int start = 0;
+    int end = title.length();
+    final int largeSize =
+        StringUtil.getTextSizeFromAppearance(this, android.R.attr.textAppearanceLarge);
+    final int largeColor =
+        StringUtil.getTextColorFromAppearance(this, android.R.attr.textAppearanceLarge);
+    final int smallSize =
+        StringUtil.getTextSizeFromAppearance(this, android.R.attr.textAppearanceSmall);
+    final int smallColor =
+        StringUtil.getTextColorFromAppearance(this, android.R.attr.textAppearanceSmall);
+
+    StringUtil.boldSpan(spannable, start, end);
+    StringUtil.sizeSpan(spannable, start, end, largeSize);
+    StringUtil.colorSpan(spannable, start, end, largeColor);
+
+    start += end + 2;
+    end += 2 + line1.length() + 2 + line2.length();
+
+    StringUtil.sizeSpan(spannable, start, end, smallSize);
+    StringUtil.colorSpan(spannable, start, end, smallColor);
+
+    return spannable;
+  }
+
+  @Override public int getChangeLogIcon() {
+    return R.mipmap.ic_launcher;
+  }
+
+  @NonNull @Override public String getChangeLogPackageName() {
+    return getPackageName();
+  }
+
+  @Override public int getChangeLogVersion() {
+    return BuildConfig.VERSION_CODE;
   }
 }
