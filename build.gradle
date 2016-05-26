@@ -108,7 +108,7 @@ dependencies {
   compile 'com.jakewharton:butterknife:8.0.1'
   apt 'com.jakewharton:butterknife-compiler:8.0.1'
 
-  // Pydroid 15 1.3.8
+  // Pydroid 16 1.3.9
   compile project(':PYDroid')
 }
 
