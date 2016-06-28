@@ -25,7 +25,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.NotificationCompat;
 import android.widget.Toast;
-import com.pyamsoft.pydroid.base.ApplicationBase;
+import com.pyamsoft.pydroid.base.app.ApplicationBase;
 
 public final class HomeButton extends ApplicationBase {
 
