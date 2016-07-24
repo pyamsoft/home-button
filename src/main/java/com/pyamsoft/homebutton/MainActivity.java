@@ -44,13 +44,17 @@ public final class MainActivity extends DonationActivityBase
 
   @Override protected final void onCreate(final Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_main);
 
     unbinder = ButterKnife.bind(this);
 
     setupToolbar();
     setupContent();
     setupBuildAndVersion();
+  }
+
+  @Override protected int bindActivityToView() {
+    setContentView(R.layout.activity_main);
+    return R.id.ad_view;
   }
 
   // Display basic version information

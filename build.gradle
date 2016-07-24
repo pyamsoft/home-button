@@ -28,13 +28,13 @@ buildscript {
     classpath 'me.tatarka:gradle-retrolambda:3.3.0-beta4'
 
     // Dex count
-    classpath 'com.getkeepsafe.dexcount:dexcount-gradle-plugin:0.5.4'
+    classpath 'com.getkeepsafe.dexcount:dexcount-gradle-plugin:0.5.5'
 
     // Android APT
     classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
 
     // Gradle version checked
-    classpath 'com.github.ben-manes:gradle-versions-plugin:0.12.0'
+    classpath 'com.github.ben-manes:gradle-versions-plugin:0.13.0'
 
     // Facebook ReDex
     classpath 'au.com.timmutton:redex:1.1.0'
@@ -54,7 +54,7 @@ android {
     applicationId "com.pyamsoft.homebutton"
     minSdkVersion 16
     targetSdkVersion 24
-    versionCode 20
+    versionCode 21
     versionName '3.2.1'
     // For vector drawables
     vectorDrawables.useSupportLibrary = true
@@ -91,10 +91,10 @@ dependencies {
   retrolambdaConfig 'net.orfjackal.retrolambda:retrolambda:2.3.0'
 
   // Butterknife
-  compile 'com.jakewharton:butterknife:8.1.0'
-  apt 'com.jakewharton:butterknife-compiler:8.1.0'
+  compile 'com.jakewharton:butterknife:8.2.1'
+  apt 'com.jakewharton:butterknife-compiler:8.2.1'
 
-  // Pydroid 2.2.2
+  // Pydroid 3.0.1
   compile project(':PYDroid')
 }
 
