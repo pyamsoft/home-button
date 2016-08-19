@@ -21,11 +21,13 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.os.StrictMode;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.NotificationCompat;
 import android.widget.Toast;
 import com.pyamsoft.pydroid.base.app.ApplicationBase;
+import com.pyamsoft.pydroid.crash.CrashHandler;
 
 public final class HomeButton extends ApplicationBase {
 
@@ -75,13 +77,26 @@ public final class HomeButton extends ApplicationBase {
     return BuildConfig.VERSION_CODE;
   }
 
-  @NonNull @Override public String getApplicationPackageName() {
-    return getPackageName();
-  }
-
   @Override public void onCreate() {
     super.onCreate();
+
+    if (buildConfigDebug()) {
+      new CrashHandler(getApplicationContext(), this).register();
+      setStrictMode();
+    }
+
     startHomeNotification(this);
     Toast.makeText(this, getString(R.string.home_button_started), Toast.LENGTH_SHORT).show();
+  }
+
+  private void setStrictMode() {
+    StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder().detectAll()
+        .penaltyLog()
+        .penaltyDeath()
+        .permitDiskReads()
+        .permitDiskWrites()
+        .penaltyFlashScreen()
+        .build());
+    StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder().detectAll().penaltyLog().build());
   }
 }
