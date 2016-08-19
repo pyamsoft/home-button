@@ -72,9 +72,7 @@ public final class MainActivity extends DonationActivityBase
 
   @Override protected void onDestroy() {
     super.onDestroy();
-    if (unbinder != null) {
-      unbinder.unbind();
-    }
+    unbinder.unbind();
   }
 
   private void setupToolbar() {
@@ -83,9 +81,7 @@ public final class MainActivity extends DonationActivityBase
   }
 
   private void setImageState() {
-    if (image != null) {
-      image.setEnabled(BootActionReceiver.isBootEnabled(this));
-    }
+    image.setEnabled(BootActionReceiver.isBootEnabled(this));
   }
 
   @Override protected void onPostResume() {
@@ -101,13 +97,7 @@ public final class MainActivity extends DonationActivityBase
   }
 
   private void setEnabledState() {
-    if (sw != null) {
-      sw.setChecked(BootActionReceiver.isBootEnabled(this));
-    }
-  }
-
-  @NonNull @Override protected String getPlayStoreAppPackage() {
-    return getPackageName();
+    sw.setChecked(BootActionReceiver.isBootEnabled(this));
   }
 
   @NonNull @Override public Spannable getChangeLogText() {
