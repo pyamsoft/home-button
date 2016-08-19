@@ -13,33 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-tasks.whenTaskAdded { task ->
-  if (task.name.startsWith("lint")) {
-    task.enabled = false
-  }
-}
-
-buildscript {
-  repositories {
-    jcenter()
-  }
-  dependencies {
-    // Retro lambda
-    classpath 'me.tatarka:gradle-retrolambda:3.3.0-beta4'
-
-    // Dex count
-    classpath 'com.getkeepsafe.dexcount:dexcount-gradle-plugin:0.5.5'
-
-    // Android APT
-    classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
-
-    // Gradle version checked
-    classpath 'com.github.ben-manes:gradle-versions-plugin:0.13.0'
-
-    // Facebook ReDex
-    classpath 'au.com.timmutton:redex:1.1.0'
-  }
-}
 
 apply plugin: 'com.android.application'
 apply plugin: 'com.github.ben-manes.versions'
@@ -50,6 +23,7 @@ apply plugin: 'me.tatarka.retrolambda'
 android {
   compileSdkVersion 24
   buildToolsVersion '24.0.1'
+
   defaultConfig {
     applicationId "com.pyamsoft.homebutton"
     minSdkVersion 16
