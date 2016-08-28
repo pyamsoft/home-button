@@ -28,14 +28,15 @@ import android.support.v7.app.NotificationCompat;
 import android.widget.Toast;
 import com.pyamsoft.pydroid.base.app.ApplicationBase;
 import com.pyamsoft.pydroid.crash.CrashHandler;
+import com.squareup.leakcanary.LeakCanary;
 
-public final class HomeButton extends ApplicationBase {
+public class HomeButton extends ApplicationBase {
 
-  private final static int ID = 1001;
-  private final static int RC = 1004;
+  final static int ID = 1001;
+  final static int RC = 1004;
 
   // The application is simple, so we don't really add options to enable or disable a notification
-  private static void startHomeNotification(final Context c) {
+  static void startHomeNotification(final Context c) {
     final Intent home = new Intent(Intent.ACTION_MAIN).addCategory(Intent.CATEGORY_HOME);
     final Context context = c.getApplicationContext();
     final PendingIntent pe =
@@ -83,13 +84,14 @@ public final class HomeButton extends ApplicationBase {
     if (buildConfigDebug()) {
       new CrashHandler(getApplicationContext(), this).register();
       setStrictMode();
+      LeakCanary.install(this);
     }
 
     startHomeNotification(this);
     Toast.makeText(this, getString(R.string.home_button_started), Toast.LENGTH_SHORT).show();
   }
 
-  private void setStrictMode() {
+  void setStrictMode() {
     StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder().detectAll()
         .penaltyLog()
         .penaltyDeath()

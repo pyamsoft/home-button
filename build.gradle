@@ -22,14 +22,14 @@ apply plugin: 'me.tatarka.retrolambda'
 
 android {
   compileSdkVersion 24
-  buildToolsVersion '24.0.1'
+  buildToolsVersion '24.0.2'
 
   defaultConfig {
     applicationId "com.pyamsoft.homebutton"
     minSdkVersion 16
     targetSdkVersion 24
     versionCode 21
-    versionName '3.2.1'
+    versionName '3.2.2'
     // For vector drawables
     vectorDrawables.useSupportLibrary = true
   }
@@ -62,13 +62,18 @@ android {
 dependencies {
   compile fileTree(dir: 'libs', include: ['*.jar'])
 
+  // Leak Canary
+  debugCompile 'com.squareup.leakcanary:leakcanary-android:1.4-beta2'
+  releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.4-beta2'
+  testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.4-beta2'
+
   retrolambdaConfig 'net.orfjackal.retrolambda:retrolambda:2.3.0'
 
   // Butterknife
   compile 'com.jakewharton:butterknife:8.2.1'
   apt 'com.jakewharton:butterknife-compiler:8.2.1'
 
-  // Pydroid 3.1.1
+  // Pydroid 3.3.0
   compile project(':PYDroid')
 }
 
