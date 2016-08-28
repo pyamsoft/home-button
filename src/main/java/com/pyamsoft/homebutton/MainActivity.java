@@ -26,25 +26,22 @@ import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-import com.anjlab.android.iab.v3.BillingProcessor;
 import com.pyamsoft.pydroid.base.activity.DonationActivityBase;
 import com.pyamsoft.pydroid.support.RatingDialog;
 import com.pyamsoft.pydroid.util.StringUtil;
 import java.util.Locale;
 
-public final class MainActivity extends DonationActivityBase
-    implements RatingDialog.ChangeLogProvider {
+public class MainActivity extends DonationActivityBase implements RatingDialog.ChangeLogProvider {
 
   @BindView(R.id.boot_icon) ImageView image;
   @BindView(R.id.boot_enabled) SwitchCompat sw;
   @BindView(R.id.toolbar) Toolbar toolbar;
   @BindView(R.id.version) TextView version;
   @BindView(R.id.build) TextView build;
-  private Unbinder unbinder;
+  Unbinder unbinder;
 
   @Override protected final void onCreate(final Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-
     unbinder = ButterKnife.bind(this);
 
     setupToolbar();
@@ -58,12 +55,12 @@ public final class MainActivity extends DonationActivityBase
   }
 
   // Display basic version information
-  private void setupBuildAndVersion() {
+  void setupBuildAndVersion() {
     version.setText(BuildConfig.VERSION_NAME);
     build.setText(String.format(Locale.US, "%d", BuildConfig.VERSION_CODE));
   }
 
-  private void setupContent() {
+  void setupContent() {
     sw.setOnCheckedChangeListener((buttonView, isChecked) -> {
       BootActionReceiver.setBootEnabled(buttonView.getContext(), isChecked);
       setImageState();
@@ -75,28 +72,24 @@ public final class MainActivity extends DonationActivityBase
     unbinder.unbind();
   }
 
-  private void setupToolbar() {
+  void setupToolbar() {
     toolbar.setTitle(getString(R.string.app_name));
     setSupportActionBar(toolbar);
   }
 
-  private void setImageState() {
+  void setImageState() {
     image.setEnabled(BootActionReceiver.isBootEnabled(this));
   }
 
   @Override protected void onPostResume() {
     super.onPostResume();
-    if (!BillingProcessor.isIabServiceAvailable(this)) {
-      showDonationUnavailableDialog();
-    }
-
     RatingDialog.showRatingDialog(this, this);
 
     setImageState();
     setEnabledState();
   }
 
-  private void setEnabledState() {
+  void setEnabledState() {
     sw.setChecked(BootActionReceiver.isBootEnabled(this));
   }
 

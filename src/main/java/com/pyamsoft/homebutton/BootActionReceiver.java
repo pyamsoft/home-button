@@ -23,7 +23,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.widget.Toast;
 
-public final class BootActionReceiver extends BroadcastReceiver {
+public class BootActionReceiver extends BroadcastReceiver {
 
   public static void setBootEnabled(final Context c, final boolean bootEnabled) {
     // Because the application context is a singleton, we can init a static component name
