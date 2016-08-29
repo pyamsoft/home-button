@@ -71,7 +71,7 @@ dependencies {
   retrolambdaConfig 'net.orfjackal.retrolambda:retrolambda:2.3.0'
 
   // Butterknife
-  apt 'com.jakewharton:butterknife-compiler:8.2.1'
+  apt 'com.jakewharton:butterknife-compiler:8.4.0'
 
   // Pydroid 3.3.1
   compile project(':PYDroid')
