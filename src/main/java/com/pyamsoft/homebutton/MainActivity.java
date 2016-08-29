@@ -26,12 +26,12 @@ import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-import com.pyamsoft.pydroid.base.activity.DonationActivityBase;
+import com.pyamsoft.pydroid.base.activity.DonationActivity;
 import com.pyamsoft.pydroid.support.RatingDialog;
 import com.pyamsoft.pydroid.util.StringUtil;
 import java.util.Locale;
 
-public class MainActivity extends DonationActivityBase implements RatingDialog.ChangeLogProvider {
+public class MainActivity extends DonationActivity implements RatingDialog.ChangeLogProvider {
 
   @BindView(R.id.boot_icon) ImageView image;
   @BindView(R.id.boot_enabled) SwitchCompat sw;

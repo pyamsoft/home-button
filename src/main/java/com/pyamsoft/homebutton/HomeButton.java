@@ -28,7 +28,6 @@ import android.support.v7.app.NotificationCompat;
 import android.widget.Toast;
 import com.pyamsoft.pydroid.base.app.ApplicationBase;
 import com.pyamsoft.pydroid.crash.CrashHandler;
-import com.squareup.leakcanary.LeakCanary;
 
 public class HomeButton extends ApplicationBase {
 
@@ -84,7 +83,6 @@ public class HomeButton extends ApplicationBase {
     if (buildConfigDebug()) {
       new CrashHandler(getApplicationContext(), this).register();
       setStrictMode();
-      LeakCanary.install(this);
     }
 
     startHomeNotification(this);
