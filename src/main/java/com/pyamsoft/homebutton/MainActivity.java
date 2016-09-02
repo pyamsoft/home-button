@@ -102,7 +102,7 @@ public class MainActivity extends DonationActivity implements RatingDialog.Chang
     StringUtil.colorSpan(spannable, start, end, largeColor);
 
     start += end + 2;
-    end += 2 + line1.length() + 2;
+    end += 2 + line1.length();
 
     StringUtil.sizeSpan(spannable, start, end, smallSize);
     StringUtil.colorSpan(spannable, start, end, smallColor);
