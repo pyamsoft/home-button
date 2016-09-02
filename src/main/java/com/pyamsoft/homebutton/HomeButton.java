@@ -21,13 +21,11 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.os.StrictMode;
-import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.NotificationCompat;
 import android.widget.Toast;
 import com.pyamsoft.pydroid.base.app.ApplicationBase;
-import com.pyamsoft.pydroid.crash.CrashHandler;
+import com.squareup.leakcanary.LeakCanary;
 
 public class HomeButton extends ApplicationBase {
 
@@ -61,42 +59,14 @@ public class HomeButton extends ApplicationBase {
     return BuildConfig.DEBUG;
   }
 
-  @NonNull @Override public String appName() {
-    return "Home Button";
-  }
-
-  @NonNull @Override public String buildConfigApplicationId() {
-    return BuildConfig.APPLICATION_ID;
-  }
-
-  @NonNull @Override public String buildConfigVersionName() {
-    return BuildConfig.VERSION_NAME;
-  }
-
-  @Override public int buildConfigVersionCode() {
-    return BuildConfig.VERSION_CODE;
+  @Override protected void installInDebugMode() {
+    super.installInDebugMode();
+    LeakCanary.install(this);
   }
 
   @Override public void onCreate() {
     super.onCreate();
-
-    if (buildConfigDebug()) {
-      new CrashHandler(getApplicationContext(), this).register();
-      setStrictMode();
-    }
-
     startHomeNotification(this);
     Toast.makeText(this, getString(R.string.home_button_started), Toast.LENGTH_SHORT).show();
-  }
-
-  void setStrictMode() {
-    StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder().detectAll()
-        .penaltyLog()
-        .penaltyDeath()
-        .permitDiskReads()
-        .permitDiskWrites()
-        .penaltyFlashScreen()
-        .build());
-    StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder().detectAll().penaltyLog().build());
   }
 }
