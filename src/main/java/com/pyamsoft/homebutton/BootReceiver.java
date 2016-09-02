@@ -21,26 +21,27 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.support.annotation.CheckResult;
 import android.widget.Toast;
 
-public class BootActionReceiver extends BroadcastReceiver {
+public class BootReceiver extends BroadcastReceiver {
 
   public static void setBootEnabled(final Context c, final boolean bootEnabled) {
     // Because the application context is a singleton, we can init a static component name
     // using it for the two boot related functions
     final Context context = c.getApplicationContext();
-    final ComponentName cmp = new ComponentName(context, BootActionReceiver.class);
+    final ComponentName cmp = new ComponentName(context, BootReceiver.class);
     final int componentState = bootEnabled ? PackageManager.COMPONENT_ENABLED_STATE_ENABLED
         : PackageManager.COMPONENT_ENABLED_STATE_DISABLED;
     context.getPackageManager()
         .setComponentEnabledSetting(cmp, componentState, PackageManager.DONT_KILL_APP);
   }
 
-  public static boolean isBootEnabled(final Context c) {
+  @CheckResult public static boolean isBootEnabled(final Context c) {
     // Because the application context is a singleton, we can init a static component name
     // using it for the two boot related functions
     final Context context = c.getApplicationContext();
-    final ComponentName cmp = new ComponentName(context, BootActionReceiver.class);
+    final ComponentName cmp = new ComponentName(context, BootReceiver.class);
     final int componentState = context.getPackageManager().getComponentEnabledSetting(cmp);
     return componentState == PackageManager.COMPONENT_ENABLED_STATE_ENABLED;
   }

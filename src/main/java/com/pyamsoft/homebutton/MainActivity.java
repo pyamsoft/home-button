@@ -18,35 +18,36 @@ package com.pyamsoft.homebutton;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v7.widget.SwitchCompat;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.Toolbar;
 import android.text.Spannable;
-import android.widget.ImageView;
-import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import com.pyamsoft.pydroid.base.activity.DonationActivity;
 import com.pyamsoft.pydroid.support.RatingDialog;
 import com.pyamsoft.pydroid.util.StringUtil;
-import java.util.Locale;
 
 public class MainActivity extends DonationActivity implements RatingDialog.ChangeLogProvider {
 
-  @BindView(R.id.boot_icon) ImageView image;
-  @BindView(R.id.boot_enabled) SwitchCompat sw;
   @BindView(R.id.toolbar) Toolbar toolbar;
-  @BindView(R.id.version) TextView version;
-  @BindView(R.id.build) TextView build;
-  Unbinder unbinder;
+  private Unbinder unbinder;
 
   @Override protected final void onCreate(final Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     unbinder = ButterKnife.bind(this);
 
     setupToolbar();
-    setupContent();
-    setupBuildAndVersion();
+    addPreferenceFragment();
+  }
+
+  private void addPreferenceFragment() {
+    final FragmentManager fragmentManager = getSupportFragmentManager();
+    if (fragmentManager.findFragmentByTag(HomePreferencesFragment.TAG) == null) {
+      fragmentManager.beginTransaction()
+          .add(R.id.main_view_container, new HomePreferencesFragment(), HomePreferencesFragment.TAG)
+          .commit();
+    }
   }
 
   @Override protected int bindActivityToView() {
@@ -54,17 +55,12 @@ public class MainActivity extends DonationActivity implements RatingDialog.Chang
     return R.id.ad_view;
   }
 
-  // Display basic version information
-  void setupBuildAndVersion() {
-    version.setText(BuildConfig.VERSION_NAME);
-    build.setText(String.format(Locale.US, "%d", BuildConfig.VERSION_CODE));
+  @NonNull @Override protected String provideAdViewUnitId() {
+    return getString(R.string.banner_ad_id);
   }
 
-  void setupContent() {
-    sw.setOnCheckedChangeListener((buttonView, isChecked) -> {
-      BootActionReceiver.setBootEnabled(buttonView.getContext(), isChecked);
-      setImageState();
-    });
+  @Override protected boolean isAdDebugMode() {
+    return BuildConfig.DEBUG;
   }
 
   @Override protected void onDestroy() {
@@ -77,30 +73,18 @@ public class MainActivity extends DonationActivity implements RatingDialog.Chang
     setSupportActionBar(toolbar);
   }
 
-  void setImageState() {
-    image.setEnabled(BootActionReceiver.isBootEnabled(this));
-  }
-
   @Override protected void onPostResume() {
     super.onPostResume();
     RatingDialog.showRatingDialog(this, this);
-
-    setImageState();
-    setEnabledState();
-  }
-
-  void setEnabledState() {
-    sw.setChecked(BootActionReceiver.isBootEnabled(this));
   }
 
   @NonNull @Override public Spannable getChangeLogText() {
     // The changelog text
     final String title = "What's New in Version " + BuildConfig.VERSION_NAME;
     final String line1 = "BUGFIX: Code cleanup and general bugfixes";
-    final String line2 = "FEATURE: This change log screen";
 
     // Turn it into a spannable
-    final Spannable spannable = StringUtil.createBuilder(title, "\n\n", line1, "\n\n", line2);
+    final Spannable spannable = StringUtil.createLineBreakBuilder(title, line1);
 
     int start = 0;
     int end = title.length();
@@ -118,7 +102,7 @@ public class MainActivity extends DonationActivity implements RatingDialog.Chang
     StringUtil.colorSpan(spannable, start, end, largeColor);
 
     start += end + 2;
-    end += 2 + line1.length() + 2 + line2.length();
+    end += 2 + line1.length() + 2;
 
     StringUtil.sizeSpan(spannable, start, end, smallSize);
     StringUtil.colorSpan(spannable, start, end, smallColor);

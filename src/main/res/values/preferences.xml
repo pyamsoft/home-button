@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <!--
-  ~ Copyright 2013 - 2016 Peter Kenji Yamanaka
+  ~ Copyright 2016 Peter Kenji Yamanaka
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
   ~ you may not use this file except in compliance with the License.
@@ -15,10 +14,15 @@
   ~ See the License for the specific language governing permissions and
   ~ limitations under the License.
   -->
+
 <resources>
 
-  <string name="app_name">Home Button</string>
-  <string name="home_button_started">Home Button Started</string>
-  <string name="press_to_home">Press to Go Home</string>
+  <string name="boot_key">boot_key</string>
+  <string name="boot_summary">Start Home Button on boot</string>
+  <string name="boot_title">Run on Startup</string>
+
+  <string name="upgrade_info_key">upgrade_info</string>
+  <string name="upgrade_info_title">Show Upgrade Information</string>
+  <string name="upgrade_info_summary">Show the most recent upgrade change log</string>
 
 </resources>

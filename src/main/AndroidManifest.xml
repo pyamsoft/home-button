@@ -47,7 +47,7 @@
     </activity>
 
     <receiver
-        android:name=".BootActionReceiver"
+        android:name=".BootReceiver"
         android:enabled="false"
         android:exported="false">
       <intent-filter>
