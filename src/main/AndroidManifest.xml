@@ -36,8 +36,8 @@
     <activity
         android:name=".MainActivity"
         android:exported="true"
-        android:launchMode="singleTop"
         android:label="@string/app_name"
+        android:launchMode="singleTop"
         >
       <intent-filter>
         <action android:name="android.intent.action.MAIN"/>
@@ -54,6 +54,13 @@
         <action android:name="android.intent.action.BOOT_COMPLETED"/>
       </intent-filter>
     </receiver>
+
+    <provider
+        android:name=".HomeButtonSingleInitProvider"
+        android:authorities="DONOTUSE"
+        android:exported="false"
+        android:syncable="false"/>
+
   </application>
 
 </manifest>
