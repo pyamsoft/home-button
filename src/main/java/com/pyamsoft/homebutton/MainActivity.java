@@ -21,6 +21,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.Toolbar;
 import android.text.Spannable;
+import android.view.MenuItem;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -62,6 +63,30 @@ public class MainActivity extends DonationActivity implements RatingDialog.Chang
   @Override protected void onDestroy() {
     super.onDestroy();
     unbinder.unbind();
+  }
+
+  @Override public void onBackPressed() {
+    final FragmentManager fragmentManager = getSupportFragmentManager();
+    final int backStackCount = fragmentManager.getBackStackEntryCount();
+    if (backStackCount > 0) {
+      fragmentManager.popBackStack();
+    } else {
+      super.onBackPressed();
+    }
+  }
+
+  @Override public boolean onOptionsItemSelected(final @NonNull MenuItem item) {
+    final int itemId = item.getItemId();
+    boolean handled;
+    switch (itemId) {
+      case android.R.id.home:
+        onBackPressed();
+        handled = true;
+        break;
+      default:
+        handled = false;
+    }
+    return handled || super.onOptionsItemSelected(item);
   }
 
   void setupToolbar() {
