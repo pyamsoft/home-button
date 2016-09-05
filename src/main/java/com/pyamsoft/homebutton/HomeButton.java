@@ -24,7 +24,7 @@ import android.content.Intent;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.NotificationCompat;
 import android.widget.Toast;
-import com.pyamsoft.pydroid.base.app.ApplicationBase;
+import com.pyamsoft.pydroid.base.ApplicationBase;
 import com.squareup.leakcanary.LeakCanary;
 
 public class HomeButton extends ApplicationBase {
@@ -55,17 +55,13 @@ public class HomeButton extends ApplicationBase {
     notificationManager.notify(ID, n);
   }
 
-  @Override protected boolean buildConfigDebug() {
-    return BuildConfig.DEBUG;
-  }
-
   @Override protected void installInDebugMode() {
     super.installInDebugMode();
     LeakCanary.install(this);
   }
 
-  @Override public void onCreate() {
-    super.onCreate();
+  @Override protected void installInNonTestMode() {
+    super.installInNonTestMode();
     startHomeNotification(this);
     Toast.makeText(this, getString(R.string.home_button_started), Toast.LENGTH_SHORT).show();
   }

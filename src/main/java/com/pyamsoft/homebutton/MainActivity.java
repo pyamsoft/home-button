@@ -24,7 +24,7 @@ import android.text.Spannable;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-import com.pyamsoft.pydroid.base.activity.DonationActivity;
+import com.pyamsoft.pydroid.app.activity.DonationActivity;
 import com.pyamsoft.pydroid.support.RatingDialog;
 import com.pyamsoft.pydroid.util.StringUtil;
 
@@ -57,10 +57,6 @@ public class MainActivity extends DonationActivity implements RatingDialog.Chang
 
   @NonNull @Override protected String provideAdViewUnitId() {
     return getString(R.string.banner_ad_id);
-  }
-
-  @Override protected boolean isAdDebugMode() {
-    return BuildConfig.DEBUG;
   }
 
   @Override protected void onDestroy() {
@@ -114,11 +110,11 @@ public class MainActivity extends DonationActivity implements RatingDialog.Chang
     return R.mipmap.ic_launcher;
   }
 
-  @NonNull @Override public String getChangeLogPackageName() {
-    return getPackageName();
+  @NonNull @Override public String provideApplicationName() {
+    return "Home Button";
   }
 
-  @Override public int getChangeLogVersion() {
+  @Override public int getCurrentApplicationVersion() {
     return BuildConfig.VERSION_CODE;
   }
 }

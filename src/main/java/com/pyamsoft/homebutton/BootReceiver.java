@@ -22,7 +22,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.annotation.CheckResult;
-import android.widget.Toast;
+import timber.log.Timber;
 
 public class BootReceiver extends BroadcastReceiver {
 
@@ -50,8 +50,7 @@ public class BootReceiver extends BroadcastReceiver {
     if (null != intent) {
       final String action = intent.getAction();
       if (action != null && action.equals(Intent.ACTION_BOOT_COMPLETED)) {
-        // Display a simple Toast that the application has started
-        Toast.makeText(context, R.string.home_button_started, Toast.LENGTH_SHORT).show();
+        Timber.d("Home Button has started via boot receiver");
       }
     }
   }
