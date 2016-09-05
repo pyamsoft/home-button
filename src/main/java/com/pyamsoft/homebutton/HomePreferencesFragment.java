@@ -30,6 +30,10 @@ public class HomePreferencesFragment extends ActionBarSettingsPreferenceFragment
 
   @NonNull public static final String TAG = "HomePreferencesFragment";
 
+  @Override protected boolean isLastOnBackStack() {
+    return true;
+  }
+
   @Override public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
     addPreferencesFromResource(R.xml.preferences);
   }
@@ -56,7 +60,10 @@ public class HomePreferencesFragment extends ActionBarSettingsPreferenceFragment
     final Preference showAboutLicenses = findPreference(getString(R.string.about_license_key));
     showAboutLicenses.setOnPreferenceClickListener(
         preference -> showAboutLicensesFragment(R.id.main_view_container,
-            AboutLibrariesFragment.Styling.LIGHT, Licenses.ANDROID, Licenses.PYDROID));
+            AboutLibrariesFragment.Styling.LIGHT, Licenses.ANDROID, Licenses.ANDROID_SUPPORT,
+            Licenses.PYDROID, Licenses.GOOGLE_PLAY_SERVICES, Licenses.ANDROID_IN_APP_BILLING,
+            Licenses.BUTTERKNIFE, Licenses.DAGGER, Licenses.FAST_ADAPTER, Licenses.FIREBASE,
+            Licenses.LEAK_CANARY, Licenses.RETROFIT2, Licenses.RXANDROID, Licenses.RXJAVA));
 
     final Preference checkVersion = findPreference(getString(R.string.check_version_key));
     checkVersion.setOnPreferenceClickListener(preference -> checkForUpdate());
