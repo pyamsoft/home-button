@@ -30,8 +30,8 @@ public class HomePreferencesFragment extends ActionBarSettingsPreferenceFragment
 
   @NonNull public static final String TAG = "HomePreferencesFragment";
 
-  @Override protected boolean isLastOnBackStack() {
-    return true;
+  @NonNull @Override protected AboutLibrariesFragment.BackStackState isLastOnBackStack() {
+    return AboutLibrariesFragment.BackStackState.LAST;
   }
 
   @Override public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
