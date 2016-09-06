@@ -26,4 +26,8 @@
   <style name="Theme.HomeButton.Light" parent="@style/Base.Theme.HomeButton.Light">
     <item name="preferenceTheme">@style/PreferenceThemeOverlay.v14.Material</item>
   </style>
+
+  <style name="Theme.HomeButton.Light.Splash" parent="@style/Base.Theme.HomeButton.Light">
+    <item name="android:windowBackground">@drawable/splash_screen</item>
+  </style>
 </resources>
