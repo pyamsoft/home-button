@@ -36,6 +36,7 @@ public class MainActivity extends DonationActivity implements RatingDialog.Chang
   private Unbinder unbinder;
 
   @Override protected final void onCreate(final Bundle savedInstanceState) {
+    setTheme(R.style.Theme_HomeButton_Light);
     super.onCreate(savedInstanceState);
     unbinder = ButterKnife.bind(this);
 
