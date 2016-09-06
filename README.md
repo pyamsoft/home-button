@@ -2,6 +2,8 @@
 
 Home Button Android application by pyamsoft
 
+[![Get it on Google Play](art/google-play-badge.png)][1]
+
 ## What is Home Button
 
 Home Button is a small android application which originally served as 
@@ -44,3 +46,5 @@ will be accepted on GitHub only after extensive reading and as long as the reque
 goes in line with the design of the application. Pull Requests will only be 
 accepted for new features of the application, for general purpose bug fixes, creating 
 an issue is simply faster.
+
+[1]: https://play.google.com/store/apps/details?id=com.pyamsoft.homebutton
