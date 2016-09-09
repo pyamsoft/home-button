@@ -25,8 +25,8 @@ import android.view.MenuItem;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-import com.pyamsoft.pydroid.lib.AboutLibrariesFragment;
 import com.pyamsoft.pydroid.app.activity.DonationActivity;
+import com.pyamsoft.pydroid.lib.AboutLibrariesFragment;
 import com.pyamsoft.pydroid.support.RatingDialog;
 import com.pyamsoft.pydroid.util.StringUtil;
 
@@ -50,7 +50,7 @@ public class MainActivity extends DonationActivity implements RatingDialog.Chang
         && fragmentManager.findFragmentByTag(AboutLibrariesFragment.TAG) == null) {
       fragmentManager.beginTransaction()
           .add(R.id.main_view_container, new HomePreferencesFragment(), HomePreferencesFragment.TAG)
-          .commit();
+          .commitNow();
     }
   }
 
