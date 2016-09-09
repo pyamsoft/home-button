@@ -57,8 +57,8 @@ public class HomeButtonSingleInitProvider extends SingleInitContentProvider {
     notificationManager.notify(ID, n);
   }
 
-  @Override protected void installInNonTestMode(@NonNull Context context) {
-    super.installInNonTestMode(context);
+  @Override protected void install(@NonNull Context context) {
+    super.install(context);
     notificationManager =
         (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
 
