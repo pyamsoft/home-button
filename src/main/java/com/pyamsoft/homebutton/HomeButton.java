@@ -16,8 +16,8 @@
 
 package com.pyamsoft.homebutton;
 
-import com.pyamsoft.pydroid.base.ApplicationBase;
+import com.pyamsoft.pydroid.lib.PYDroidApplication;
 
-public class HomeButton extends ApplicationBase {
+public class HomeButton extends PYDroidApplication {
 
 }
