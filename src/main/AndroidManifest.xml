@@ -27,17 +27,15 @@
   <application
       android:name=".HomeButton"
       android:allowBackup="false"
-      android:enabled="true"
       android:icon="@mipmap/ic_launcher"
       android:label="@string/app_name"
-      android:supportsRtl="false"
       android:theme="@style/Theme.HomeButton.Light">
 
     <activity
         android:name=".MainActivity"
         android:exported="true"
         android:label="@string/app_name"
-        android:launchMode="singleTop"
+        android:launchMode="singleTask"
         android:theme="@style/Theme.HomeButton.Light.Splash"
         >
       <intent-filter>
