@@ -105,7 +105,7 @@ public class MainActivity extends DonationActivity implements RatingDialog.Chang
   @NonNull @Override public Spannable getChangeLogText() {
     // The changelog text
     final String title = "What's New in Version " + BuildConfig.VERSION_NAME;
-    final String line1 = "BUGFIX: Code cleanup and general bugfixes";
+    final String line1 = "BUGFIX: Code clean up, better memory management";
 
     // Turn it into a spannable
     final Spannable spannable = StringUtil.createLineBreakBuilder(title, line1);
