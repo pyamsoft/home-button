@@ -25,7 +25,7 @@ import android.view.MenuItem;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-import com.pyamsoft.pydroid.app.activity.DonationActivity;
+import com.pyamsoft.pydroid.lib.DonationActivity;
 import com.pyamsoft.pydroid.lib.AboutLibrariesFragment;
 import com.pyamsoft.pydroid.support.RatingDialog;
 import com.pyamsoft.pydroid.util.StringUtil;
@@ -134,7 +134,7 @@ public class MainActivity extends DonationActivity implements RatingDialog.Chang
     return spannable;
   }
 
-  @Override public int getChangeLogIcon() {
+  @Override public int getApplicationIcon() {
     return R.mipmap.ic_launcher;
   }
 
