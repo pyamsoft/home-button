@@ -81,13 +81,12 @@ dependencies {
   compile "com.android.support:support-annotations:$supportLib"
 
   // Firebase Crash and Analytics
-  compile "com.google.firebase:firebase-core:$firebase"
   compile "com.google.firebase:firebase-crash:$firebase"
 
   // Butterknife
   apt "com.jakewharton:butterknife-compiler:$butterknife"
 
-  // PYDroid 4.1.3
+  // PYDroid 4.2.0
   debugCompile project(path: ":PYDroid", configuration: "debug")
   releaseCompile project(path: ":PYDroid", configuration: "release")
 }

@@ -50,12 +50,6 @@
       </intent-filter>
     </receiver>
 
-    <provider
-        android:name=".HomeButtonSingleInitProvider"
-        android:authorities="com.pyamsoft.homebuttom.HomeButtonSingleInitProvider"
-        android:exported="false"
-        android:syncable="false"/>
-
   </application>
 
 </manifest>

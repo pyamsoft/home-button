@@ -24,7 +24,7 @@ import android.support.v7.preference.SwitchPreferenceCompat;
 import android.view.View;
 import com.pyamsoft.pydroid.lib.AboutLibrariesFragment;
 import com.pyamsoft.pydroid.lib.ActionBarSettingsPreferenceFragment;
-import com.pyamsoft.pydroid.model.Licenses;
+import com.pyamsoft.pydroid.lib.Licenses;
 
 public class HomePreferencesFragment extends ActionBarSettingsPreferenceFragment {
 
@@ -61,7 +61,7 @@ public class HomePreferencesFragment extends ActionBarSettingsPreferenceFragment
     showAboutLicenses.setOnPreferenceClickListener(
         preference -> showAboutLicensesFragment(R.id.main_view_container,
             AboutLibrariesFragment.Styling.LIGHT, Licenses.ANDROID, Licenses.ANDROID_SUPPORT,
-            Licenses.PYDROID, Licenses.GOOGLE_PLAY_SERVICES, Licenses.ANDROID_IN_APP_BILLING,
+            Licenses.PYDROID, Licenses.GOOGLE_PLAY_SERVICES, Licenses.ANDROID_CHECKOUT,
             Licenses.BUTTERKNIFE, Licenses.DAGGER, Licenses.FAST_ADAPTER, Licenses.FIREBASE,
             Licenses.LEAK_CANARY, Licenses.RETROFIT2, Licenses.RXANDROID, Licenses.RXJAVA));
 
