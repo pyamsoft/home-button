@@ -22,9 +22,9 @@ import android.support.annotation.Nullable;
 import android.support.v7.preference.Preference;
 import android.support.v7.preference.SwitchPreferenceCompat;
 import android.view.View;
-import com.pyamsoft.pydroid.lib.AboutLibrariesFragment;
-import com.pyamsoft.pydroid.lib.ActionBarSettingsPreferenceFragment;
-import com.pyamsoft.pydroid.lib.Licenses;
+import com.pyamsoft.pydroid.AboutLibrariesFragment;
+import com.pyamsoft.pydroid.ActionBarSettingsPreferenceFragment;
+import com.pyamsoft.pydroid.about.Licenses;
 
 public class HomePreferencesFragment extends ActionBarSettingsPreferenceFragment {
 

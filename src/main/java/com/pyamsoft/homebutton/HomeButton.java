@@ -18,7 +18,7 @@ package com.pyamsoft.homebutton;
 
 import android.support.annotation.Nullable;
 import com.google.android.gms.common.GoogleApiAvailability;
-import com.pyamsoft.pydroid.lib.PYDroidApplication;
+import com.pyamsoft.pydroid.PYDroidApplication;
 
 public class HomeButton extends PYDroidApplication {
 
