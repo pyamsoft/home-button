@@ -85,7 +85,7 @@ dependencies {
   // Butterknife
   annotationProcessor"com.jakewharton:butterknife-compiler:$butterknife"
 
-  // PYDroid 4.4.1
+  // PYDroid 4.4.2
   debugCompile project(path: ":PYDroid", configuration: "debug")
   releaseCompile project(path: ":PYDroid", configuration: "release")
 }
