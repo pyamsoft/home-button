@@ -24,7 +24,6 @@ import android.support.v7.preference.SwitchPreferenceCompat;
 import android.view.View;
 import com.pyamsoft.pydroid.about.AboutLibrariesFragment;
 import com.pyamsoft.pydroid.app.fragment.ActionBarSettingsPreferenceFragment;
-import com.pyamsoft.pydroid.about.Licenses;
 
 public class HomePreferencesFragment extends ActionBarSettingsPreferenceFragment {
 
@@ -60,11 +59,7 @@ public class HomePreferencesFragment extends ActionBarSettingsPreferenceFragment
     final Preference showAboutLicenses = findPreference(getString(R.string.about_license_key));
     showAboutLicenses.setOnPreferenceClickListener(
         preference -> showAboutLicensesFragment(R.id.main_view_container,
-            AboutLibrariesFragment.Styling.LIGHT, Licenses.Id.ANDROID, Licenses.Id.ANDROID_SUPPORT,
-            Licenses.Id.PYDROID, Licenses.Id.GOOGLE_PLAY_SERVICES, Licenses.Id.ANDROID_CHECKOUT,
-            Licenses.Id.BUTTERKNIFE, Licenses.Id.DAGGER, Licenses.Id.FAST_ADAPTER,
-            Licenses.Id.FIREBASE, Licenses.Id.LEAK_CANARY, Licenses.Id.RETROFIT2,
-            Licenses.Id.RXANDROID, Licenses.Id.RXJAVA));
+            AboutLibrariesFragment.Styling.LIGHT));
 
     final Preference checkVersion = findPreference(getString(R.string.check_version_key));
     checkVersion.setOnPreferenceClickListener(preference -> checkForUpdate());

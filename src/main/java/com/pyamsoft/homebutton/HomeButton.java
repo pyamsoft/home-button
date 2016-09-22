@@ -25,4 +25,8 @@ public class HomeButton extends PYDroidApplication {
   @Nullable @Override public String provideGoogleOpenSourceLicenses() {
     return GoogleApiAvailability.getInstance().getOpenSourceSoftwareLicenseInfo(this);
   }
+
+  @Override public void insertCustomLicensesIntoMap() {
+
+  }
 }
