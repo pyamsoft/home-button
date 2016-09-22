@@ -17,13 +17,12 @@
 package com.pyamsoft.homebutton;
 
 import android.support.annotation.Nullable;
-import com.google.android.gms.common.GoogleApiAvailability;
 import com.pyamsoft.pydroid.PYDroidApplication;
 
 public class HomeButton extends PYDroidApplication {
 
   @Nullable @Override public String provideGoogleOpenSourceLicenses() {
-    return GoogleApiAvailability.getInstance().getOpenSourceSoftwareLicenseInfo(this);
+    return null;
   }
 
   @Override public void insertCustomLicensesIntoMap() {
