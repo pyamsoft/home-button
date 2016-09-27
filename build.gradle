@@ -83,7 +83,7 @@ dependencies {
   compile "com.google.firebase:firebase-crash:$firebase"
 
   // Butterknife
-  annotationProcessor"com.jakewharton:butterknife-compiler:$butterknife"
+  annotationProcessor "com.jakewharton:butterknife-compiler:$butterknife"
 
   // PYDroid 4.4.2
   debugCompile project(path: ":PYDroid", configuration: "debug")
