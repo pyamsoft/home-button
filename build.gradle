@@ -39,6 +39,11 @@ android {
     // For vector drawables
     vectorDrawables.useSupportLibrary = true
   }
+
+  dataBinding {
+    enabled true
+  }
+
   compileOptions {
     sourceCompatibility JavaVersion.VERSION_1_8
     targetCompatibility JavaVersion.VERSION_1_8
@@ -82,10 +87,7 @@ dependencies {
   // Firebase Crash and Analytics
   compile "com.google.firebase:firebase-crash:$firebase"
 
-  // Butterknife
-  annotationProcessor "com.jakewharton:butterknife-compiler:$butterknife"
-
-  // PYDroid 4.4.2
+  // PYDroid 4.6.0
   debugCompile project(path: ":PYDroid", configuration: "debug")
   releaseCompile project(path: ":PYDroid", configuration: "release")
 }

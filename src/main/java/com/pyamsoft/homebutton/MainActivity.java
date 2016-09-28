@@ -16,15 +16,13 @@
 
 package com.pyamsoft.homebutton;
 
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentManager;
-import android.support.v7.widget.Toolbar;
 import android.text.Spannable;
 import android.view.MenuItem;
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
+import com.pyamsoft.homebutton.databinding.ActivityMainBinding;
 import com.pyamsoft.pydroid.about.AboutLibrariesFragment;
 import com.pyamsoft.pydroid.support.DonationActivity;
 import com.pyamsoft.pydroid.support.RatingDialog;
@@ -32,13 +30,11 @@ import com.pyamsoft.pydroid.util.StringUtil;
 
 public class MainActivity extends DonationActivity implements RatingDialog.ChangeLogProvider {
 
-  @BindView(R.id.toolbar) Toolbar toolbar;
-  private Unbinder unbinder;
+  private ActivityMainBinding binding;
 
   @Override protected final void onCreate(final Bundle savedInstanceState) {
     setTheme(R.style.Theme_HomeButton_Light);
     super.onCreate(savedInstanceState);
-    unbinder = ButterKnife.bind(this);
 
     setupToolbar();
     addPreferenceFragment();
@@ -55,13 +51,13 @@ public class MainActivity extends DonationActivity implements RatingDialog.Chang
   }
 
   @Override protected int bindActivityToView() {
-    setContentView(R.layout.activity_main);
+    binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
     return R.id.ad_view;
   }
 
   @Override protected void onDestroy() {
     super.onDestroy();
-    unbinder.unbind();
+    binding.unbind();
   }
 
   @Override public void onBackPressed() {
@@ -89,8 +85,8 @@ public class MainActivity extends DonationActivity implements RatingDialog.Chang
   }
 
   void setupToolbar() {
-    toolbar.setTitle(getString(R.string.app_name));
-    setSupportActionBar(toolbar);
+    binding.toolbar.setTitle(getString(R.string.app_name));
+    setSupportActionBar(binding.toolbar);
   }
 
   @Override protected void onPostResume() {
