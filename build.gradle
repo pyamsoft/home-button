@@ -64,7 +64,7 @@ android {
       shrinkResources true
       minifyEnabled true
       proguardFiles getDefaultProguardFile("proguard-android-optimize.txt"),
-          "proguard-rules.txt"
+          "proguard-rules.pro"
     }
   }
 
@@ -87,7 +87,7 @@ dependencies {
   // Firebase Crash and Analytics
   compile "com.google.firebase:firebase-crash:$firebase"
 
-  // PYDroid 4.6.0
+  // PYDroid 4.6.1
   debugCompile project(path: ":PYDroid", configuration: "debug")
   releaseCompile project(path: ":PYDroid", configuration: "release")
 }
