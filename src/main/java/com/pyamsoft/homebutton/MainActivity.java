@@ -82,7 +82,7 @@ public class MainActivity extends RatingActivity {
     return handled || super.onOptionsItemSelected(item);
   }
 
-  void setupToolbar() {
+  private void setupToolbar() {
     binding.toolbar.setTitle(getString(R.string.app_name));
     setSupportActionBar(binding.toolbar);
   }
