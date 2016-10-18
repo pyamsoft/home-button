@@ -1,7 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?>
-
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
-  ~ Copyright 2013 - 2016 Peter Kenji Yamanaka
+  ~ Copyright 2016 Peter Kenji Yamanaka
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
   ~ you may not use this file except in compliance with the License.
@@ -15,9 +14,11 @@
   ~ See the License for the specific language governing permissions and
   ~ limitations under the License.
   -->
-<shape xmlns:android="http://schemas.android.com/apk/res/android"
-    android:shape="oval">
 
-  <solid android:color="#ff3551b5"/>
-
-</shape>
+<lint>
+  <issue id="all">
+    <ignore path="build"/>
+    <ignore path="assets"/>
+    <ignore path="rel"/>
+  </issue>
+</lint>
