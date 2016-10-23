@@ -15,6 +15,7 @@
   ~ See the License for the specific language governing permissions and
   ~ limitations under the License.
   -->
+
 <resources>
   <color name="primary">#FF3F51B5</color>
   <color name="primaryDark">#FF303F9F</color>
