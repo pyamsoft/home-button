@@ -27,13 +27,13 @@ apply plugin: "net.ltgt.errorprone"
 apply plugin: "me.tatarka.retrolambda"
 
 android {
-  compileSdkVersion 24
+  compileSdkVersion 25
   buildToolsVersion "$buildTools"
 
   defaultConfig {
     applicationId "com.pyamsoft.homebutton"
     minSdkVersion 16
-    targetSdkVersion 24
+    targetSdkVersion 25
     versionCode 38
     versionName "3.3.4"
     // For vector drawables
@@ -87,7 +87,7 @@ dependencies {
   // Firebase Crash and Analytics
   compile "com.google.firebase:firebase-crash:$firebase"
 
-  // PYDroid 4.7.2
+  // PYDroid 4.8.0
   debugCompile project(path: ":PYDroid", configuration: "debug")
   releaseCompile project(path: ":PYDroid", configuration: "release")
 }
