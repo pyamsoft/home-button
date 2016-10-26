@@ -16,16 +16,7 @@
 
 package com.pyamsoft.homebutton;
 
-import android.support.annotation.Nullable;
 import com.pyamsoft.pydroid.PYDroidApplication;
 
 public class HomeButton extends PYDroidApplication {
-
-  @Nullable @Override public String provideGoogleOpenSourceLicenses() {
-    return null;
-  }
-
-  @Override public void insertCustomLicensesIntoMap() {
-
-  }
 }
