@@ -30,6 +30,10 @@ import com.pyamsoft.pydroid.SingleInitContentProvider;
 
 public class HomeButtonSingleInitProvider extends SingleInitContentProvider {
 
+  @Override protected void onInstanceCreated() {
+
+  }
+
   @Override protected void onFirstCreate(@NonNull Context context) {
     super.onFirstCreate(context);
     startHomeNotification(context);
