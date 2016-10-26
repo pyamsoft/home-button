@@ -30,7 +30,7 @@ import com.pyamsoft.pydroid.SingleInitContentProvider;
 
 public class HomeButtonSingleInitProvider extends SingleInitContentProvider {
 
-  @Override protected void onInstanceCreated() {
+  @Override protected void onInstanceCreated(@NonNull Context context) {
 
   }
 
