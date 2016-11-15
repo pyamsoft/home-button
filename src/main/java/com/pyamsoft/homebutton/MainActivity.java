@@ -20,11 +20,13 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.view.ViewCompat;
 import android.view.MenuItem;
 import com.pyamsoft.homebutton.databinding.ActivityMainBinding;
 import com.pyamsoft.pydroid.about.AboutLibrariesFragment;
 import com.pyamsoft.pydroid.support.RatingActivity;
 import com.pyamsoft.pydroid.support.RatingDialog;
+import com.pyamsoft.pydroid.util.AppUtil;
 
 public class MainActivity extends RatingActivity {
 
@@ -83,8 +85,9 @@ public class MainActivity extends RatingActivity {
   }
 
   private void setupToolbar() {
-    binding.toolbar.setTitle(getString(R.string.app_name));
     setSupportActionBar(binding.toolbar);
+    binding.toolbar.setTitle(getString(R.string.app_name));
+    ViewCompat.setElevation(binding.toolbar, AppUtil.convertToDP(this, 4));
   }
 
   @Override protected void onPostResume() {
