@@ -96,9 +96,8 @@ public class MainActivity extends RatingActivity {
   }
 
   @NonNull @Override protected String[] getChangeLogLines() {
-    final String line1 = "BUGFIX: Fixed a crash in About screen on Jelly Bean";
-    final String line2 = "CHANGE: Smaller APK size";
-    return new String[] { line1, line2 };
+    final String line1 = "FEATURE: Support latest Android 7.1 (API 25)";
+    return new String[] { line1 };
   }
 
   @NonNull @Override protected String getVersionName() {
