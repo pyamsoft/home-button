@@ -23,13 +23,6 @@
 
     <!--suppress AndroidElementNotAllowed -->
     <SwitchPreferenceCompat
-        android:key="@string/boot_key"
-        android:summary="@string/boot_summary"
-        android:title="@string/boot_title"
-        />
-
-    <!--suppress AndroidElementNotAllowed -->
-    <SwitchPreferenceCompat
         android:defaultValue="@bool/adview_default"
         android:key="@string/adview_key"
         android:summaryOff="@string/adview_summary_unchecked"
