@@ -87,7 +87,7 @@ dependencies {
   // Firebase Crash and Analytics
   compile "com.google.firebase:firebase-crash:$firebase"
 
-  // PYDroid 4.9.0
+  // PYDroid 4.9.1
   debugCompile project(path: ":PYDroid", configuration: "debug")
   releaseCompile project(path: ":PYDroid", configuration: "release")
 }
