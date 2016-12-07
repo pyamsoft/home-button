@@ -21,7 +21,7 @@ import android.content.Context;
 import android.content.Intent;
 import timber.log.Timber;
 
-public class BootReceiver extends BroadcastReceiver {
+public class BootCompletedReceiver extends BroadcastReceiver {
 
   @Override public final void onReceive(final Context context, final Intent intent) {
     if (null != intent) {
