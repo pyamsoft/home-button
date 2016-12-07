@@ -96,8 +96,10 @@ public class MainActivity extends RatingActivity {
   }
 
   @NonNull @Override protected String[] getChangeLogLines() {
-    final String line1 = "FEATURE: Support latest Android 7.1 (API 25)";
-    return new String[] { line1 };
+    final String line1 =
+        "CHANGE: Always start the application on boot. This change is done to fix an issue where, on some devices, Home Button does not always start on boot.";
+    final String line2 = "BUGFIX: Fixes a crash in the donation page";
+    return new String[] { line1, line2 };
   }
 
   @NonNull @Override protected String getVersionName() {
