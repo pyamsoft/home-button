@@ -100,10 +100,8 @@ public class MainActivity extends TamperActivity {
   }
 
   @NonNull @Override protected String[] getChangeLogLines() {
-    final String line1 =
-        "CHANGE: Always start the application on boot. This change is done to fix an issue where, on some devices, Home Button does not always start on boot.";
-    final String line2 = "BUGFIX: Fixes a crash in the donation page";
-    return new String[] { line1, line2 };
+    final String line1 = "BUGFIX: Some additional stability fixes";
+    return new String[] { line1 };
   }
 
   @NonNull @Override protected String getVersionName() {
