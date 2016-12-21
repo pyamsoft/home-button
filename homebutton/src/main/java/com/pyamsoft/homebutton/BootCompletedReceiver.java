@@ -26,7 +26,7 @@ public class BootCompletedReceiver extends BroadcastReceiver {
   @Override public final void onReceive(final Context context, final Intent intent) {
     if (null != intent) {
       final String action = intent.getAction();
-      if (action != null && action.equals(Intent.ACTION_BOOT_COMPLETED)) {
+      if (Intent.ACTION_BOOT_COMPLETED.equals(action)) {
         Timber.d("Home Button has started via boot receiver");
       }
     }
