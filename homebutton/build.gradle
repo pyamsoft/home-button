@@ -91,7 +91,7 @@ dependencies {
   compile "com.google.firebase:firebase-crash:$firebase"
 
   // PYDroid
-  compile("com.github.pyamsoft.pydroid:pydroidui:5.1.0@aar") {
+  compile("com.github.pyamsoft.pydroid:pydroidui:$pydroid@aar") {
     transitive = true
   }
 }
