@@ -32,7 +32,7 @@ public class HomeButton extends PYDroidApplication {
   @CheckResult @NonNull static RefWatcher getRefWatcher(@NonNull Fragment fragment) {
     final Application application = fragment.getActivity().getApplication();
     if (application instanceof HomeButton) {
-      return ((HomeButton) application).getRefWatcher();
+      return ((HomeButton) application).getWatcher();
     } else {
       throw new IllegalStateException("Application is not Home Button");
     }
@@ -48,7 +48,7 @@ public class HomeButton extends PYDroidApplication {
     refWatcher = RefWatcher.DISABLED;
   }
 
-  @NonNull @CheckResult RefWatcher getRefWatcher() {
+  @NonNull @CheckResult private RefWatcher getWatcher() {
     if (refWatcher == null) {
       throw new IllegalStateException("RefWatcher is NULL");
     }
