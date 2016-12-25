@@ -17,8 +17,8 @@
 package com.pyamsoft.homebutton;
 
 import android.support.annotation.NonNull;
-import com.pyamsoft.pydroidui.about.AboutLibrariesFragment;
-import com.pyamsoft.pydroidui.app.fragment.ActionBarSettingsPreferenceFragment;
+import com.pyamsoft.pydroid.ui.about.AboutLibrariesFragment;
+import com.pyamsoft.pydroid.ui.app.fragment.ActionBarSettingsPreferenceFragment;
 
 public class HomePreferencesFragment extends ActionBarSettingsPreferenceFragment {
 

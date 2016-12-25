@@ -24,9 +24,9 @@ import android.support.v4.view.ViewCompat;
 import android.view.MenuItem;
 import com.pyamsoft.homebutton.databinding.ActivityMainBinding;
 import com.pyamsoft.pydroid.util.AppUtil;
-import com.pyamsoft.pydroidui.about.AboutLibrariesFragment;
-import com.pyamsoft.pydroidui.rating.RatingDialog;
-import com.pyamsoft.pydroidui.sec.TamperActivity;
+import com.pyamsoft.pydroid.ui.about.AboutLibrariesFragment;
+import com.pyamsoft.pydroid.ui.rating.RatingDialog;
+import com.pyamsoft.pydroid.ui.sec.TamperActivity;
 
 public class MainActivity extends TamperActivity {
 
