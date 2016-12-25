@@ -34,8 +34,8 @@ android {
     applicationId "com.pyamsoft.homebutton"
     minSdkVersion 16
     targetSdkVersion 25
-    versionCode 58
-    versionName "3.5.5"
+    versionCode 59
+    versionName "3.5.6pre1"
 
     // For vector drawables
     vectorDrawables.useSupportLibrary = true
@@ -92,7 +92,7 @@ dependencies {
   compile "com.google.firebase:firebase-crash:$firebase"
 
   // PYDroid
-  compile("com.github.pyamsoft.pydroid:pydroidui:$pydroid@aar") {
+  compile("com.github.pyamsoft.pydroid:pydroid-ui:$pydroid@aar") {
     transitive = true
   }
 }
