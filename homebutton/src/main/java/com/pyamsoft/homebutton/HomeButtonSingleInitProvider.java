@@ -28,6 +28,7 @@ import android.support.v7.app.NotificationCompat;
 import android.widget.Toast;
 import com.pyamsoft.pydroid.BuildConfigChecker;
 import com.pyamsoft.pydroid.SingleInitContentProvider;
+import com.pyamsoft.pydroid.ui.UiLicenses;
 
 public class HomeButtonSingleInitProvider extends SingleInitContentProvider {
 
@@ -81,6 +82,6 @@ public class HomeButtonSingleInitProvider extends SingleInitContentProvider {
   }
 
   @Override public void insertCustomLicensesIntoMap() {
-
+    UiLicenses.addLicenses();
   }
 }
