@@ -34,8 +34,8 @@ android {
     applicationId "com.pyamsoft.homebutton"
     minSdkVersion 16
     targetSdkVersion 25
-    versionCode 62
-    versionName "3.5.7"
+    versionCode 63
+    versionName "3.5.8pre1"
 
     // For vector drawables
     vectorDrawables.useSupportLibrary = true
@@ -72,10 +72,6 @@ android {
   dexOptions {
     javaMaxHeapSize "$heapSize"
   }
-}
-
-ext {
-  leakCanary = "1.4-beta2"
 }
 
 dependencies {
