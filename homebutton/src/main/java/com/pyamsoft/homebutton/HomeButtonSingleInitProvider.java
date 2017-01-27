@@ -41,11 +41,6 @@ public class HomeButtonSingleInitProvider extends SingleInitContentProvider {
   }
 
   @Override protected void onInstanceCreated(@NonNull Context context) {
-
-  }
-
-  @Override protected void onFirstCreate(@NonNull Context context) {
-    super.onFirstCreate(context);
     startHomeNotification(context);
     Toast.makeText(context, context.getString(R.string.home_button_started), Toast.LENGTH_SHORT)
         .show();
