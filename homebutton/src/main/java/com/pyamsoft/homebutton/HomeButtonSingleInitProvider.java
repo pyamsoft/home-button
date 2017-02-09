@@ -27,8 +27,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.NotificationCompat;
 import android.widget.Toast;
 import com.pyamsoft.pydroid.BuildConfigChecker;
-import com.pyamsoft.pydroid.SingleInitContentProvider;
-import com.pyamsoft.pydroid.ui.UiLicenses;
+import com.pyamsoft.pydroid.ui.SingleInitContentProvider;
 
 public class HomeButtonSingleInitProvider extends SingleInitContentProvider {
 
@@ -74,9 +73,5 @@ public class HomeButtonSingleInitProvider extends SingleInitContentProvider {
 
   @Nullable @Override public String provideGoogleOpenSourceLicenses(@NonNull Context context) {
     return null;
-  }
-
-  @Override public void insertCustomLicensesIntoMap() {
-    UiLicenses.addLicenses();
   }
 }
