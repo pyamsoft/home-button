@@ -16,14 +16,6 @@ the user can select to immediately be brought back to the device Home screen.
 Home Button creates a single persistent notification that is accessable from 
 any application as long as the notification drawer is expandable.
 
-## Ads and network usage
-
-Home Button requires the Internet and Network state permissions to only do one 
-thing: load an optional AdMob interstitial ad. The interstital ad can be viewed 
-if desired by selecting the redeem icon on the top right hand side of the screen. 
-Aside from that single optional advertisement, Home Button does not access the 
-internet or utilize device resources in any other way.
-
 ## Development
 
 Home Button is developed in the Open on GitHub at:  
