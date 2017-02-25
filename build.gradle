@@ -35,7 +35,7 @@ buildscript {
     retrolambda = "2.5.0"
     supportLib = "25.2.0"
     firebase = "10.2.0"
-    pydroid = "8.0.1"
+    pydroid = "8.0.3"
     leakCanary = "1.5"
   }
 
