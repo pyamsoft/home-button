@@ -19,11 +19,14 @@ package com.pyamsoft.homebutton;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewCompat;
 import android.view.MenuItem;
 import com.pyamsoft.homebutton.databinding.ActivityMainBinding;
+import com.pyamsoft.pydroid.ads.AdSource;
 import com.pyamsoft.pydroid.ui.about.AboutLibrariesFragment;
+import com.pyamsoft.pydroid.ui.ads.OnlineAdSource;
 import com.pyamsoft.pydroid.ui.rating.RatingDialog;
 import com.pyamsoft.pydroid.ui.sec.TamperActivity;
 import com.pyamsoft.pydroid.util.AppUtil;
@@ -118,5 +121,9 @@ public class MainActivity extends TamperActivity {
 
   @Override public int getCurrentApplicationVersion() {
     return BuildConfig.VERSION_CODE;
+  }
+
+  @Nullable @Override protected AdSource provideOnlineAdSource() {
+    return new OnlineAdSource(R.string.banner_main_ad_id);
   }
 }
