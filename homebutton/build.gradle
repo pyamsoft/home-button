@@ -35,7 +35,7 @@ android {
     minSdkVersion rootProject.ext.minSdk
     targetSdkVersion rootProject.ext.maxSdk
     versionCode 68
-    versionName "3.5.11pre1"
+    versionName "3.5.11"
 
     // For vector drawables
     vectorDrawables.useSupportLibrary = true
@@ -68,6 +68,10 @@ android {
       minifyEnabled true
       proguardFiles getDefaultProguardFile("proguard-android-optimize.txt"),
           "proguard-rules.pro"
+    }
+
+    debug {
+      versionNameSuffix "-dev"
     }
   }
 
