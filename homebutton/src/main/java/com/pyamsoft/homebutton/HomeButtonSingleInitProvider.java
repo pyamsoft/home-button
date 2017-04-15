@@ -26,6 +26,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.NotificationCompat;
 import android.widget.Toast;
+import com.pyamsoft.pydroid.about.Licenses;
 import com.pyamsoft.pydroid.helper.BuildConfigChecker;
 import com.pyamsoft.pydroid.ui.SingleInitContentProvider;
 
@@ -73,5 +74,9 @@ public class HomeButtonSingleInitProvider extends SingleInitContentProvider {
 
   @Nullable @Override public String provideGoogleOpenSourceLicenses(@NonNull Context context) {
     return null;
+  }
+
+  @Override public void insertCustomLicensesIntoMap() {
+    Licenses.create("Firebase", "https://firebase.google.com", "licenses/firebase");
   }
 }

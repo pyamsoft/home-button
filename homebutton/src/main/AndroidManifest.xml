@@ -28,6 +28,11 @@
       android:label="@string/app_name"
       android:theme="@style/Theme.HomeButton.Light">
 
+    <!-- Support super wide screen -->
+    <meta-data
+        android:name="android.max_aspect"
+        android:value="2.1"/>
+
     <activity
         android:name=".MainActivity"
         android:exported="true"
