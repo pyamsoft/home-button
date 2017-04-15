@@ -97,7 +97,9 @@ public class MainActivity extends TamperActivity {
 
   @NonNull @Override protected String[] getChangeLogLines() {
     final String line1 = "BUGFIX: Bugfixes and improvements";
-    return new String[] { line1 };
+    final String line2 = "BUGFIX: Removed all Advertisements";
+    final String line3 = "BUGFIX: Faster loading of Open Source Licenses page";
+    return new String[] { line1, line2, line3 };
   }
 
   @NonNull @Override protected String getVersionName() {
