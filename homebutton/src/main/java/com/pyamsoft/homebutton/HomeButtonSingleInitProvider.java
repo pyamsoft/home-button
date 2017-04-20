@@ -1,5 +1,5 @@
 /*
- * Copyright 2016 Peter Kenji Yamanaka
+ * Copyright 2017 Peter Kenji Yamanaka
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,7 +22,6 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.NotificationCompat;
 import android.widget.Toast;
@@ -72,11 +71,8 @@ public class HomeButtonSingleInitProvider extends SingleInitContentProvider {
     notificationManager.notify(ID, n);
   }
 
-  @Nullable @Override public String provideGoogleOpenSourceLicenses(@NonNull Context context) {
-    return null;
-  }
-
-  @Override public void insertCustomLicensesIntoMap() {
+  @Override protected void insertCustomLicensesIntoMap(@NonNull Context context) {
+    super.insertCustomLicensesIntoMap(context);
     Licenses.create("Firebase", "https://firebase.google.com", "licenses/firebase");
   }
 }
