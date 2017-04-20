@@ -1,5 +1,5 @@
 /*
- * Copyright 2016 Peter Kenji Yamanaka
+ * Copyright 2017 Peter Kenji Yamanaka
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -34,7 +34,7 @@ buildscript {
 
     retrolambda = "2.5.1"
     firebase = "10.2.1"
-    pydroid = "9.1.0"
+    pydroid = "9.1.2"
     leakCanary = "1.5"
   }
 
@@ -67,7 +67,8 @@ allprojects {
 
   gradle.projectsEvaluated {
     tasks.withType(JavaCompile) {
-      options.compilerArgs << '-XepDisableWarningsInGeneratedCode' << '-Xep:MissingOverride:OFF'
+      options.compilerArgs << '-XepDisableWarningsInGeneratedCode' \
+             << '-Xep:MissingOverride:OFF' << "-Xlint:unchecked" << "-Xlint:deprecation"
     }
   }
 }
