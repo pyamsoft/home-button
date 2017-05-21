@@ -25,6 +25,7 @@ apply plugin: "com.github.ben-manes.versions"
 apply plugin: "com.getkeepsafe.dexcount"
 apply plugin: "net.ltgt.errorprone"
 apply plugin: "me.tatarka.retrolambda"
+apply plugin: "com.google.gms.google-services"
 
 android {
   compileSdkVersion rootProject.ext.maxSdk
@@ -94,11 +95,8 @@ dependencies {
   compile "com.google.firebase:firebase-crash:$firebase"
 
   // PYDroid
-  compile("com.github.pyamsoft.pydroid:pydroid-ui:$pydroid@aar") {
+  compile("com.github.pyamsoft.pydroid:pydroid-ui:$pydroid:@aar") {
     transitive = true
   }
 }
-
-// AdView
-apply plugin: "com.google.gms.google-services"
 

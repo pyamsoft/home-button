@@ -19,6 +19,8 @@ package com.pyamsoft.homebutton;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import com.pyamsoft.pydroid.*;
+import com.pyamsoft.pydroid.BuildConfig;
 import timber.log.Timber;
 
 public class BootCompletedReceiver extends BroadcastReceiver {
