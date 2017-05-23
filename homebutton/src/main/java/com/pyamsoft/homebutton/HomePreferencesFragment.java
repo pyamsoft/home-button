@@ -17,31 +17,40 @@
 package com.pyamsoft.homebutton;
 
 import android.support.annotation.NonNull;
+
 import com.pyamsoft.pydroid.ui.about.AboutLibrariesFragment;
 import com.pyamsoft.pydroid.ui.app.fragment.ActionBarSettingsPreferenceFragment;
 
 public class HomePreferencesFragment extends ActionBarSettingsPreferenceFragment {
 
-  @NonNull public static final String TAG = "HomePreferencesFragment";
+    @NonNull
+    public static final String TAG = "HomePreferencesFragment";
 
-  @NonNull @Override protected AboutLibrariesFragment.BackStackState isLastOnBackStack() {
-    return AboutLibrariesFragment.BackStackState.LAST;
-  }
+    @NonNull
+    @Override
+    protected AboutLibrariesFragment.BackStackState isLastOnBackStack() {
+        return AboutLibrariesFragment.BackStackState.LAST;
+    }
 
-  @Override protected int getRootViewContainer() {
-    return R.id.main_view_container;
-  }
+    @Override
+    protected int getRootViewContainer() {
+        return R.id.main_view_container;
+    }
 
-  @NonNull @Override protected String getApplicationName() {
-    return getString(R.string.app_name);
-  }
+    @NonNull
+    @Override
+    protected String getApplicationName() {
+        return getString(R.string.app_name);
+    }
 
-  @Override protected boolean hideClearAll() {
-    return true;
-  }
+    @Override
+    protected boolean getHideClearAll() {
+        return true;
+    }
 
-  @Override public void onDestroy() {
-    super.onDestroy();
-    HomeButton.getRefWatcher(this).watch(this);
-  }
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        HomeButton.getRefWatcher(this).watch(this);
+    }
 }
