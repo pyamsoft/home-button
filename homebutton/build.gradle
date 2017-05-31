@@ -14,12 +14,6 @@
  * limitations under the License.
  */
 
-tasks.whenTaskAdded { task ->
-  if (task.name.startsWith("lint")) {
-    task.enabled = false
-  }
-}
-
 apply plugin: "com.android.application"
 apply plugin: "kotlin-android"
 apply plugin: "kotlin-android-extensions"
@@ -43,10 +37,6 @@ android {
     vectorDrawables.useSupportLibrary = true
 
     resConfigs "en"
-  }
-
-  dataBinding {
-    enabled true
   }
 
   compileOptions {
