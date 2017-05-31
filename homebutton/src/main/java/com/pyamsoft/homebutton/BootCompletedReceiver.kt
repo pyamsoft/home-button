@@ -14,20 +14,20 @@
  * limitations under the License.
  */
 
-package com.pyamsoft.homebutton;
+package com.pyamsoft.homebutton
 
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
-import timber.log.Timber;
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
+import timber.log.Timber
 
-public class BootCompletedReceiver extends BroadcastReceiver {
+class BootCompletedReceiver : BroadcastReceiver() {
 
-  @Override public final void onReceive(final Context context, final Intent intent) {
+  override fun onReceive(context: Context, intent: Intent?) {
     if (null != intent) {
-      final String action = intent.getAction();
-      if (Intent.ACTION_BOOT_COMPLETED.equals(action)) {
-        Timber.d("Home Button has started via boot receiver");
+      val action = intent.action
+      if (Intent.ACTION_BOOT_COMPLETED == action) {
+        Timber.d("Home Button has started via boot receiver")
       }
     }
   }
