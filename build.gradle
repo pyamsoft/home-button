@@ -54,7 +54,7 @@ buildscript {
     classpath 'com.google.gms:google-services:3.0.0'
 
     // Error prone compiler
-    classpath "net.ltgt.gradle:gradle-errorprone-plugin:0.0.8"
+    classpath "net.ltgt.gradle:gradle-errorprone-plugin:0.0.10"
   }
 }
 
@@ -67,8 +67,8 @@ allprojects {
 
   gradle.projectsEvaluated {
     tasks.withType(JavaCompile) {
-      options.compilerArgs << '-XepDisableWarningsInGeneratedCode' \
-             << '-Xep:MissingOverride:OFF' << "-Xlint:unchecked" << "-Xlint:deprecation"
+      options.compilerArgs += [ '-XepDisableWarningsInGeneratedCode',
+        '-Xep:MissingOverride:OFF', '-Xlint:unchecked', '-Xlint:deprecation' ]
     }
   }
 }
