@@ -24,9 +24,9 @@ import android.support.v4.app.Fragment
 import android.support.v4.app.NotificationManagerCompat
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.NotificationCompat
-import android.widget.Toast
 import com.pyamsoft.pydroid.about.Licenses
 import com.pyamsoft.pydroid.ui.PYDroid
+import com.pyamsoft.pydroid.ui.helper.Toasty
 import com.squareup.leakcanary.LeakCanary
 import com.squareup.leakcanary.RefWatcher
 
@@ -40,18 +40,20 @@ class HomeButton : Application() {
     if (LeakCanary.isInAnalyzerProcess(this)) {
       return
     }
+
     PYDroid.initialize(this, BuildConfig.DEBUG)
+    Licenses.create("Firebase", "https://firebase.google.com", "licenses/firebase")
+
     if (BuildConfig.DEBUG) {
       watcher = LeakCanary.install(this)
     } else {
       watcher = RefWatcher.DISABLED
     }
 
-    Licenses.create("Firebase", "https://firebase.google.com", "licenses/firebase")
     startHomeNotification()
 
-    Toast.makeText(applicationContext, getString(R.string.home_button_started),
-        Toast.LENGTH_SHORT).show()
+    Toasty.makeText(applicationContext, getString(R.string.home_button_started),
+        Toasty.LENGTH_SHORT).show()
   }
 
   // The application is simple, so we don't really add options to enable or disable a notification
