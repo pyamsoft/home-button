@@ -61,8 +61,6 @@ class HomeButton : Application() {
     val ID = 1001
     val RC = 1004
 
-    val notificationManager = NotificationManagerCompat.from(applicationContext)
-
     val pe = PendingIntent.getActivity(applicationContext, RC, home,
         PendingIntent.FLAG_UPDATE_CURRENT)
     val n = NotificationCompat.Builder(applicationContext).setContentIntent(pe).setSmallIcon(
@@ -71,8 +69,7 @@ class HomeButton : Application() {
         NotificationCompat.VISIBILITY_PUBLIC).setColor(
         ContextCompat.getColor(applicationContext, R.color.primary)).setContentTitle(
         getString(R.string.app_name)).setContentText(getString(R.string.press_to_home)).build()
-
-    notificationManager.notify(ID, n)
+    NotificationManagerCompat.from(applicationContext).notify(ID, n)
   }
 
   companion object {
