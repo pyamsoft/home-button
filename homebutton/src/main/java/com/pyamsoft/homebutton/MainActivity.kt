@@ -16,21 +16,24 @@
 
 package com.pyamsoft.homebutton
 
+import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v4.view.ViewCompat
 import android.view.MenuItem
+import com.pyamsoft.homebutton.databinding.ActivityMainBinding
 import com.pyamsoft.pydroid.ui.about.AboutLibrariesFragment
 import com.pyamsoft.pydroid.ui.rating.RatingDialog
 import com.pyamsoft.pydroid.ui.sec.TamperActivity
 import com.pyamsoft.pydroid.util.AppUtil
-import kotlinx.android.synthetic.main.activity_main.toolbar
 
 class MainActivity : TamperActivity() {
+
+  private lateinit var binding: ActivityMainBinding
 
   override fun onCreate(savedInstanceState: Bundle?) {
     setTheme(R.style.Theme_HomeButton_Light)
     super.onCreate(savedInstanceState)
-    setContentView(R.layout.activity_main)
+    binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
     setupToolbar()
     addPreferenceFragment()
@@ -70,9 +73,9 @@ class MainActivity : TamperActivity() {
   }
 
   private fun setupToolbar() {
-    setSupportActionBar(toolbar)
-    toolbar.title = getString(R.string.app_name)
-    ViewCompat.setElevation(toolbar, AppUtil.convertToDP(this, 4f))
+    setSupportActionBar(binding.toolbar)
+    binding.toolbar.title = getString(R.string.app_name)
+    ViewCompat.setElevation(binding.toolbar, AppUtil.convertToDP(this, 4f))
   }
 
   override fun onPostResume() {
