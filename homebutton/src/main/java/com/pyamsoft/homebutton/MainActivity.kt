@@ -22,7 +22,6 @@ import android.support.v4.view.ViewCompat
 import android.view.MenuItem
 import com.pyamsoft.homebutton.databinding.ActivityMainBinding
 import com.pyamsoft.pydroid.ui.about.AboutLibrariesFragment
-import com.pyamsoft.pydroid.ui.rating.RatingDialog
 import com.pyamsoft.pydroid.ui.sec.TamperActivity
 import com.pyamsoft.pydroid.util.AppUtil
 
@@ -76,11 +75,6 @@ class MainActivity : TamperActivity() {
     setSupportActionBar(binding.toolbar)
     binding.toolbar.title = getString(R.string.app_name)
     ViewCompat.setElevation(binding.toolbar, AppUtil.convertToDP(this, 4f))
-  }
-
-  override fun onPostResume() {
-    super.onPostResume()
-    RatingDialog.showRatingDialog(this, this, false)
   }
 
   override val safePackageName: String
