@@ -94,9 +94,8 @@ class MainActivity : TamperActivity() {
   override val applicationIcon: Int
     get() = R.mipmap.ic_launcher
 
-  override fun provideApplicationName(): String {
-    return "Home Button"
-  }
+  override val applicationName: String
+    get() = getString(R.string.app_name)
 
   override val currentApplicationVersion: Int
     get() = BuildConfig.VERSION_CODE
