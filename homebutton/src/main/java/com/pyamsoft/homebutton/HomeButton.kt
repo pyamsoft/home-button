@@ -52,10 +52,12 @@ class HomeButton : Application() {
     PYDroid.initialize(this, BuildConfig.DEBUG)
     Licenses.create("Firebase", "https://firebase.google.com", "licenses/firebase")
 
-    if (BuildConfig.DEBUG) {
-      watcher = LeakCanary.install(this)
+    watcher = if (BuildConfig.DEBUG) {
+      // Assign
+      LeakCanary.install(this)
     } else {
-      watcher = RefWatcher.DISABLED
+      // Assign
+      RefWatcher.DISABLED
     }
 
     startHomeNotification()
@@ -69,7 +71,7 @@ class HomeButton : Application() {
     val ID = 1001
     val RC = 1004
 
-    val notificationChannelId: String = "power_manager_foreground"
+    val notificationChannelId = "home_button_foreground"
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
       setupNotificationChannel(notificationChannelId)
     }
@@ -88,8 +90,8 @@ class HomeButton : Application() {
 
   @RequiresApi(VERSION_CODES.O) private fun setupNotificationChannel(
       notificationChannelId: String) {
-    val name = "Manager Service"
-    val description = "Notification related to the Power Manager service"
+    val name = "Home Service"
+    val description = "Notification related to the Home Button service"
     val importance = NotificationManagerCompat.IMPORTANCE_MIN
     val notificationChannel = NotificationChannel(notificationChannelId, name, importance)
     notificationChannel.lockscreenVisibility = Notification.VISIBILITY_PUBLIC
