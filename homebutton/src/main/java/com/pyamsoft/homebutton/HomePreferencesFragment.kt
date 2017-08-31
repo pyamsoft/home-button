@@ -18,6 +18,7 @@ package com.pyamsoft.homebutton
 
 import com.pyamsoft.pydroid.ui.about.AboutLibrariesFragment
 import com.pyamsoft.pydroid.ui.app.fragment.ActionBarSettingsPreferenceFragment
+import com.pyamsoft.pydroid.ui.util.ActionBarUtil
 
 class HomePreferencesFragment : ActionBarSettingsPreferenceFragment() {
 
@@ -36,6 +37,11 @@ class HomePreferencesFragment : ActionBarSettingsPreferenceFragment() {
   override fun onDestroy() {
     super.onDestroy()
     HomeButton.getRefWatcher(this).watch(this)
+  }
+
+  override fun onResume() {
+    super.onResume()
+    ActionBarUtil.setActionBarTitle(activity, getString(R.string.app_name))
   }
 
   companion object {
