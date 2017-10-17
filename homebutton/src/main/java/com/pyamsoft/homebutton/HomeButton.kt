@@ -51,7 +51,7 @@ class HomeButton : Application() {
       return
     }
 
-    PYDroid.initialize(this, BuildConfig.DEBUG)
+    PYDroid.init(this, BuildConfig.DEBUG)
     Licenses.create("Firebase", "https://firebase.google.com", "licenses/firebase")
 
     watcher = if (BuildConfig.DEBUG) {
@@ -70,15 +70,15 @@ class HomeButton : Application() {
 
   // The application is simple, so we don't really add options to enable or disable a notification
   private fun startHomeNotification() {
-    val ID = 1001
-    val RC = 1004
+    val id = 1001
+    val requestCode = 1004
 
     val notificationChannelId = "home_button_foreground"
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
       setupNotificationChannel(notificationChannelId)
     }
 
-    val pe = PendingIntent.getActivity(applicationContext, RC, home,
+    val pe = PendingIntent.getActivity(applicationContext, requestCode, home,
         PendingIntent.FLAG_UPDATE_CURRENT)
     val n = NotificationCompat.Builder(applicationContext, notificationChannelId).setContentIntent(
         pe).setSmallIcon(
@@ -87,7 +87,7 @@ class HomeButton : Application() {
         NotificationCompat.VISIBILITY_PUBLIC).setColor(
         ContextCompat.getColor(applicationContext, R.color.primary)).setContentTitle(
         getString(R.string.app_name)).setContentText(getString(R.string.press_to_home)).build()
-    NotificationManagerCompat.from(applicationContext).notify(ID, n)
+    NotificationManagerCompat.from(applicationContext).notify(id, n)
   }
 
   @RequiresApi(VERSION_CODES.O) private fun setupNotificationChannel(
