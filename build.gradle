@@ -39,7 +39,7 @@ buildscript {
     buildTools = "26.0.2"
 
     firebase = "11.4.2"
-    pydroid = "13.1.7"
+    pydroid = "13.2.2"
     leakCanary = "1.5.4"
   }
 
