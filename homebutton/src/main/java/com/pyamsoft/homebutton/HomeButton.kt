@@ -33,7 +33,9 @@ import android.support.v4.app.Fragment
 import android.support.v4.app.NotificationCompat
 import android.support.v4.app.NotificationManagerCompat
 import android.support.v4.content.ContextCompat
+import com.pyamsoft.pydroid.PYDroidModule
 import com.pyamsoft.pydroid.about.Licenses
+import com.pyamsoft.pydroid.loader.LoaderModule
 import com.pyamsoft.pydroid.ui.PYDroid
 import com.pyamsoft.pydroid.ui.helper.Toasty
 import com.squareup.leakcanary.LeakCanary
@@ -51,7 +53,7 @@ class HomeButton : Application() {
       return
     }
 
-    PYDroid.init(this, BuildConfig.DEBUG)
+    PYDroid.init(PYDroidModule(this, BuildConfig.DEBUG), LoaderModule(this))
     Licenses.create("Firebase", "https://firebase.google.com", "licenses/firebase")
 
     watcher = if (BuildConfig.DEBUG) {
@@ -94,7 +96,7 @@ class HomeButton : Application() {
       notificationChannelId: String) {
     val name = "Home Service"
     val description = "Notification related to the Home Button service"
-    val importance = NotificationManagerCompat.IMPORTANCE_MIN
+    val importance = NotificationManager.IMPORTANCE_MIN
     val notificationChannel = NotificationChannel(notificationChannelId, name, importance)
     notificationChannel.lockscreenVisibility = Notification.VISIBILITY_PUBLIC
     notificationChannel.description = description
@@ -110,7 +112,7 @@ class HomeButton : Application() {
   companion object {
 
     @JvmStatic @CheckResult internal fun getRefWatcher(fragment: Fragment): RefWatcher {
-      val application = fragment.activity.application
+      val application = fragment.activity!!.application
       if (application is HomeButton) {
         return application.watcher
       } else {
