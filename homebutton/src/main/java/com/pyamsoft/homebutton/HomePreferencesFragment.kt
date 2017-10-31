@@ -43,7 +43,7 @@ class HomePreferencesFragment : ActionBarSettingsPreferenceFragment() {
 
   override fun onResume() {
     super.onResume()
-    ActionBarUtil.setActionBarTitle(activity, getString(R.string.app_name))
+    ActionBarUtil.setActionBarTitle(activity!!, getString(R.string.app_name))
   }
 
   companion object {
