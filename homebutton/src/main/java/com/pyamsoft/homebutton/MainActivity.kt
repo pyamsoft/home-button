@@ -34,7 +34,7 @@ class MainActivity : TamperActivity() {
   override val safePackageName: String = "com.pyamsoft.homebutton"
 
   override val changeLogLines: Array<String> = arrayOf(
-      "BUGFIX: Faster application startup"
+      "BUGFIX: Better support for small screen devices"
   )
 
   override val versionName: String = BuildConfig.VERSION_NAME
