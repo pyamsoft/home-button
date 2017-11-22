@@ -29,69 +29,69 @@ import com.pyamsoft.pydroid.util.AppUtil
 
 class MainActivity : TamperActivity() {
 
-  private lateinit var binding: ActivityMainBinding
+    private lateinit var binding: ActivityMainBinding
 
-  override val safePackageName: String = "com.pyamsoft.homebutton"
+    override val safePackageName: String = "com.pyamsoft.homebutton"
 
-  override val changeLogLines: Array<String> = arrayOf(
-      "BUGFIX: Better support for small screen devices"
-  )
+    override val changeLogLines: Array<String> = arrayOf(
+            "BUGFIX: Better support for small screen devices"
+    )
 
-  override val versionName: String = BuildConfig.VERSION_NAME
+    override val versionName: String = BuildConfig.VERSION_NAME
 
-  override val applicationIcon: Int = R.mipmap.ic_launcher
+    override val applicationIcon: Int = R.mipmap.ic_launcher
 
-  override val currentApplicationVersion: Int = BuildConfig.VERSION_CODE
+    override val currentApplicationVersion: Int = BuildConfig.VERSION_CODE
 
-  override val applicationName: String
-    get() = getString(R.string.app_name)
+    override val applicationName: String
+        get() = getString(R.string.app_name)
 
-  override fun onCreate(savedInstanceState: Bundle?) {
-    setTheme(R.style.Theme_HomeButton_Light)
-    super.onCreate(savedInstanceState)
-    binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        setTheme(R.style.Theme_HomeButton_Light)
+        super.onCreate(savedInstanceState)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
-    setupToolbar()
-    addPreferenceFragment()
-  }
-
-  private fun addPreferenceFragment() {
-    val fragmentManager = supportFragmentManager
-    if (fragmentManager.findFragmentByTag(
-        HomeFragment.TAG) == null && fragmentManager.findFragmentByTag(
-        AboutLibrariesFragment.TAG) == null) {
-      fragmentManager.beginTransaction().add(R.id.main_view_container, HomeFragment(),
-          HomeFragment.TAG).commit()
+        setupToolbar()
+        addPreferenceFragment()
     }
-  }
 
-  override fun onBackPressed() {
-    val fragmentManager = supportFragmentManager
-    val backStackCount = fragmentManager.backStackEntryCount
-    if (backStackCount > 0) {
-      fragmentManager.popBackStack()
-    } else {
-      super.onBackPressed()
+    private fun addPreferenceFragment() {
+        val fragmentManager = supportFragmentManager
+        if (fragmentManager.findFragmentByTag(
+                HomeFragment.TAG) == null && fragmentManager.findFragmentByTag(
+                AboutLibrariesFragment.TAG) == null) {
+            fragmentManager.beginTransaction().add(R.id.main_view_container, HomeFragment(),
+                    HomeFragment.TAG).commit()
+        }
     }
-  }
 
-  override fun onOptionsItemSelected(item: MenuItem): Boolean {
-    val itemId = item.itemId
-    val handled: Boolean = when (itemId) {
-      android.R.id.home -> {
-        onBackPressed()
-
-        // Assign
-        true
-      }
-      else -> false
+    override fun onBackPressed() {
+        val fragmentManager = supportFragmentManager
+        val backStackCount = fragmentManager.backStackEntryCount
+        if (backStackCount > 0) {
+            fragmentManager.popBackStack()
+        } else {
+            super.onBackPressed()
+        }
     }
-    return handled || super.onOptionsItemSelected(item)
-  }
 
-  private fun setupToolbar() {
-    setSupportActionBar(binding.toolbar)
-    binding.toolbar.title = getString(R.string.app_name)
-    ViewCompat.setElevation(binding.toolbar, AppUtil.convertToDP(this, 4f))
-  }
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val itemId = item.itemId
+        val handled: Boolean = when (itemId) {
+            android.R.id.home -> {
+                onBackPressed()
+
+                // Assign
+                true
+            }
+            else -> false
+        }
+        return handled || super.onOptionsItemSelected(item)
+    }
+
+    private fun setupToolbar() {
+        setSupportActionBar(binding.toolbar)
+        binding.toolbar.title = getString(R.string.app_name)
+        ViewCompat.setElevation(binding.toolbar, AppUtil.convertToDP(this, 4f))
+    }
 }

@@ -24,15 +24,15 @@ import com.pyamsoft.pydroid.ui.app.fragment.AppSettingsFragment
 
 class HomeFragment : AppSettingsFragment() {
 
-  override fun provideBoundPresenters(): List<Presenter<*>> = emptyList()
+    override fun provideBoundPresenters(): List<Presenter<*>> = emptyList()
 
-  override fun provideSettingsFragment(): ActionBarSettingsPreferenceFragment =
-      HomePreferencesFragment()
+    override fun provideSettingsFragment(): ActionBarSettingsPreferenceFragment =
+            HomePreferencesFragment()
 
-  override fun provideSettingsTag(): String = HomePreferencesFragment.TAG
+    override fun provideSettingsTag(): String = HomePreferencesFragment.TAG
 
-  companion object {
-    const val TAG = "HomeFragment"
-  }
+    companion object {
+        const val TAG = "HomeFragment"
+    }
 }
 

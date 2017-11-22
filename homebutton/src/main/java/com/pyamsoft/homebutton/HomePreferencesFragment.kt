@@ -24,30 +24,30 @@ import com.pyamsoft.pydroid.ui.util.ActionBarUtil
 
 class HomePreferencesFragment : ActionBarSettingsPreferenceFragment() {
 
-  override val isLastOnBackStack: AboutLibrariesFragment.BackStackState
-    get() = AboutLibrariesFragment.BackStackState.LAST
+    override val isLastOnBackStack: AboutLibrariesFragment.BackStackState
+        get() = AboutLibrariesFragment.BackStackState.LAST
 
-  override val rootViewContainer: Int
-    get() = R.id.main_view_container
+    override val rootViewContainer: Int
+        get() = R.id.main_view_container
 
-  override val applicationName: String
-    get() = getString(R.string.app_name)
+    override val applicationName: String
+        get() = getString(R.string.app_name)
 
-  override val hideClearAll: Boolean
-    get() = true
+    override val hideClearAll: Boolean
+        get() = true
 
-  override fun onDestroy() {
-    super.onDestroy()
-    HomeButton.getRefWatcher(this).watch(this)
-  }
+    override fun onDestroy() {
+        super.onDestroy()
+        HomeButton.getRefWatcher(this).watch(this)
+    }
 
-  override fun onResume() {
-    super.onResume()
-    ActionBarUtil.setActionBarTitle(activity!!, getString(R.string.app_name))
-  }
+    override fun onResume() {
+        super.onResume()
+        ActionBarUtil.setActionBarTitle(activity!!, getString(R.string.app_name))
+    }
 
-  companion object {
+    companion object {
 
-    const val TAG = "HomePreferencesFragment"
-  }
+        const val TAG = "HomePreferencesFragment"
+    }
 }

@@ -44,80 +44,86 @@ import timber.log.Timber
 
 class HomeButton : Application() {
 
-  private val home = Intent(Intent.ACTION_MAIN).addCategory(Intent.CATEGORY_HOME)
-  @get:CheckResult private lateinit var watcher: RefWatcher
+    private val home = Intent(Intent.ACTION_MAIN).addCategory(Intent.CATEGORY_HOME)
+    @get:CheckResult private lateinit var watcher: RefWatcher
 
-  override fun onCreate() {
-    super.onCreate()
-    if (LeakCanary.isInAnalyzerProcess(this)) {
-      return
+    override fun onCreate() {
+        super.onCreate()
+        if (LeakCanary.isInAnalyzerProcess(this)) {
+            return
+        }
+
+        PYDroid.init(PYDroidModule(this, BuildConfig.DEBUG), LoaderModule(this))
+        Licenses.create("Firebase", "https://firebase.google.com", "licenses/firebase")
+
+        watcher = if (BuildConfig.DEBUG) {
+            // Assign
+            LeakCanary.install(this)
+        } else {
+            // Assign
+            RefWatcher.DISABLED
+        }
+
+        startHomeNotification()
+
+        Toasty.makeText(applicationContext, getString(R.string.home_button_started),
+                Toasty.LENGTH_SHORT).show()
     }
 
-    PYDroid.init(PYDroidModule(this, BuildConfig.DEBUG), LoaderModule(this))
-    Licenses.create("Firebase", "https://firebase.google.com", "licenses/firebase")
+    // The application is simple, so we don't really add options to enable or disable a notification
+    private fun startHomeNotification() {
+        val id = 1001
+        val requestCode = 1004
 
-    watcher = if (BuildConfig.DEBUG) {
-      // Assign
-      LeakCanary.install(this)
-    } else {
-      // Assign
-      RefWatcher.DISABLED
+        val notificationChannelId = "home_button_foreground"
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            setupNotificationChannel(notificationChannelId)
+        }
+
+        val pe = PendingIntent.getActivity(applicationContext, requestCode, home,
+                PendingIntent.FLAG_UPDATE_CURRENT)
+        val builder = NotificationCompat.Builder(applicationContext, notificationChannelId).apply {
+            setContentIntent(pe)
+            setSmallIcon(R.drawable.ic_home_notification)
+            setOngoing(true)
+            setWhen(0)
+            setNumber(0)
+            setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
+            setContentTitle(getString(R.string.app_name))
+            setContentText(getString(R.string.press_to_home))
+            color = ContextCompat.getColor(applicationContext, R.color.primary)
+            priority = NotificationCompat.PRIORITY_MIN
+        }
+        NotificationManagerCompat.from(applicationContext).notify(id, builder.build())
     }
 
-    startHomeNotification()
+    @RequiresApi(VERSION_CODES.O) private fun setupNotificationChannel(
+            notificationChannelId: String) {
+        val name = "Home Service"
+        val description = "Notification related to the Home Button service"
+        val importance = NotificationManager.IMPORTANCE_MIN
+        val notificationChannel = NotificationChannel(notificationChannelId, name, importance)
+        notificationChannel.lockscreenVisibility = Notification.VISIBILITY_PUBLIC
+        notificationChannel.description = description
+        notificationChannel.enableLights(false)
+        notificationChannel.enableVibration(false)
 
-    Toasty.makeText(applicationContext, getString(R.string.home_button_started),
-        Toasty.LENGTH_SHORT).show()
-  }
-
-  // The application is simple, so we don't really add options to enable or disable a notification
-  private fun startHomeNotification() {
-    val id = 1001
-    val requestCode = 1004
-
-    val notificationChannelId = "home_button_foreground"
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-      setupNotificationChannel(notificationChannelId)
+        Timber.d("Create notification channel with id: %s", notificationChannelId)
+        val notificationManager: NotificationManager = applicationContext.getSystemService(
+                Context.NOTIFICATION_SERVICE) as NotificationManager
+        notificationManager.createNotificationChannel(notificationChannel)
     }
 
-    val pe = PendingIntent.getActivity(applicationContext, requestCode, home,
-        PendingIntent.FLAG_UPDATE_CURRENT)
-    val n = NotificationCompat.Builder(applicationContext, notificationChannelId).setContentIntent(
-        pe).setSmallIcon(
-        R.mipmap.ic_launcher).setOngoing(true).setWhen(0).setNumber(0).setPriority(
-        NotificationCompat.PRIORITY_MIN).setVisibility(
-        NotificationCompat.VISIBILITY_PUBLIC).setColor(
-        ContextCompat.getColor(applicationContext, R.color.primary)).setContentTitle(
-        getString(R.string.app_name)).setContentText(getString(R.string.press_to_home)).build()
-    NotificationManagerCompat.from(applicationContext).notify(id, n)
-  }
+    companion object {
 
-  @RequiresApi(VERSION_CODES.O) private fun setupNotificationChannel(
-      notificationChannelId: String) {
-    val name = "Home Service"
-    val description = "Notification related to the Home Button service"
-    val importance = NotificationManager.IMPORTANCE_MIN
-    val notificationChannel = NotificationChannel(notificationChannelId, name, importance)
-    notificationChannel.lockscreenVisibility = Notification.VISIBILITY_PUBLIC
-    notificationChannel.description = description
-    notificationChannel.enableLights(false)
-    notificationChannel.enableVibration(false)
-
-    Timber.d("Create notification channel with id: %s", notificationChannelId)
-    val notificationManager: NotificationManager = applicationContext.getSystemService(
-        Context.NOTIFICATION_SERVICE) as NotificationManager
-    notificationManager.createNotificationChannel(notificationChannel)
-  }
-
-  companion object {
-
-    @JvmStatic @CheckResult internal fun getRefWatcher(fragment: Fragment): RefWatcher {
-      val application = fragment.activity!!.application
-      if (application is HomeButton) {
-        return application.watcher
-      } else {
-        throw IllegalStateException("Application is not Home Button")
-      }
+        @JvmStatic
+        @CheckResult internal fun getRefWatcher(fragment: Fragment): RefWatcher {
+            val application = fragment.activity!!.application
+            if (application is HomeButton) {
+                return application.watcher
+            } else {
+                throw IllegalStateException("Application is not Home Button")
+            }
+        }
     }
-  }
 }
