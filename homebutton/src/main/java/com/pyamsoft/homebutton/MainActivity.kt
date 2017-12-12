@@ -77,7 +77,7 @@ class MainActivity : TamperActivity() {
     private fun setupToolbar() {
         binding.toolbar.apply {
             setToolbar(this)
-            title = getString(R.string.app_name)
+            setTitle(R.string.app_name)
             ViewCompat.setElevation(this, AppUtil.convertToDP(context, 4f))
 
             setNavigationOnClickListener(DebouncedOnClickListener.create {
