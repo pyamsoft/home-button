@@ -20,11 +20,12 @@ package com.pyamsoft.homebutton
 
 import android.databinding.DataBindingUtil
 import android.os.Bundle
+import android.support.v4.app.Fragment
 import android.support.v4.view.ViewCompat
-import android.view.MenuItem
 import com.pyamsoft.backstack.BackStack
 import com.pyamsoft.homebutton.databinding.ActivityMainBinding
 import com.pyamsoft.pydroid.ui.about.AboutLibrariesFragment
+import com.pyamsoft.pydroid.ui.helper.DebouncedOnClickListener
 import com.pyamsoft.pydroid.ui.sec.TamperActivity
 import com.pyamsoft.pydroid.util.AppUtil
 
@@ -60,9 +61,9 @@ class MainActivity : TamperActivity() {
     }
 
     private fun addPreferenceFragment() {
-        val fragmentManager = supportFragmentManager
-        if (fragmentManager.findFragmentByTag(HomeFragment.TAG) == null
-                && fragmentManager.findFragmentByTag(AboutLibrariesFragment.TAG) == null) {
+        val fm = supportFragmentManager
+        val aboutLibrariesFragment: Fragment? = fm.findFragmentByTag(AboutLibrariesFragment.TAG)
+        if (fm.findFragmentByTag(HomeFragment.TAG) == null && aboutLibrariesFragment == null) {
             backstack.set(HomeFragment.TAG) { HomeFragment() }
         }
     }
@@ -73,23 +74,15 @@ class MainActivity : TamperActivity() {
         }
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        val itemId = item.itemId
-        val handled: Boolean = when (itemId) {
-            android.R.id.home -> {
-                onBackPressed()
-
-                // Assign
-                true
-            }
-            else -> false
-        }
-        return handled || super.onOptionsItemSelected(item)
-    }
-
     private fun setupToolbar() {
-        setSupportActionBar(binding.toolbar)
-        binding.toolbar.title = getString(R.string.app_name)
-        ViewCompat.setElevation(binding.toolbar, AppUtil.convertToDP(this, 4f))
+        binding.toolbar.apply {
+            setToolbar(this)
+            title = getString(R.string.app_name)
+            ViewCompat.setElevation(this, AppUtil.convertToDP(context, 4f))
+
+            setNavigationOnClickListener(DebouncedOnClickListener.create {
+                onBackPressed()
+            })
+        }
     }
 }

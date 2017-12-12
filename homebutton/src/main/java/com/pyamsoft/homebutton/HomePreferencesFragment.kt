@@ -18,23 +18,17 @@
 
 package com.pyamsoft.homebutton
 
-import com.pyamsoft.pydroid.ui.about.AboutLibrariesFragment
-import com.pyamsoft.pydroid.ui.app.fragment.ActionBarSettingsPreferenceFragment
-import com.pyamsoft.pydroid.ui.util.ActionBarUtil
+import com.pyamsoft.pydroid.ui.app.fragment.SettingsPreferenceFragment
+import com.pyamsoft.pydroid.ui.util.setUpEnabled
 
-class HomePreferencesFragment : ActionBarSettingsPreferenceFragment() {
-
-    override val isLastOnBackStack: AboutLibrariesFragment.BackStackState
-        get() = AboutLibrariesFragment.BackStackState.LAST
-
-    override val rootViewContainer: Int
-        get() = R.id.main_view_container
+class HomePreferencesFragment : SettingsPreferenceFragment() {
 
     override val applicationName: String
         get() = getString(R.string.app_name)
 
-    override val hideClearAll: Boolean
-        get() = true
+    override val rootViewContainer: Int = R.id.main_view_container
+
+    override val hideClearAll: Boolean = true
 
     override fun onDestroy() {
         super.onDestroy()
@@ -43,7 +37,10 @@ class HomePreferencesFragment : ActionBarSettingsPreferenceFragment() {
 
     override fun onResume() {
         super.onResume()
-        ActionBarUtil.setActionBarTitle(activity!!, getString(R.string.app_name))
+        toolbarActivity.withToolbar {
+            it.setTitle(R.string.app_name)
+            it.setUpEnabled(false)
+        }
     }
 
     companion object {
