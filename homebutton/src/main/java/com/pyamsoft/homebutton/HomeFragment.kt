@@ -19,15 +19,14 @@
 package com.pyamsoft.homebutton
 
 import com.pyamsoft.pydroid.presenter.Presenter
-import com.pyamsoft.pydroid.ui.app.fragment.ActionBarSettingsPreferenceFragment
 import com.pyamsoft.pydroid.ui.app.fragment.AppSettingsFragment
+import com.pyamsoft.pydroid.ui.app.fragment.SettingsPreferenceFragment
 
 class HomeFragment : AppSettingsFragment() {
 
     override fun provideBoundPresenters(): List<Presenter<*>> = emptyList()
 
-    override fun provideSettingsFragment(): ActionBarSettingsPreferenceFragment =
-            HomePreferencesFragment()
+    override fun provideSettingsFragment(): SettingsPreferenceFragment = HomePreferencesFragment()
 
     override fun provideSettingsTag(): String = HomePreferencesFragment.TAG
 
