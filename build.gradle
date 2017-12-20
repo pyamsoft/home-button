@@ -20,11 +20,17 @@
 
 buildscript {
   ext {
-    kotlin_version = '1.2.0'
+    kotlin_version = '1.2.10'
     plugin_version = '3.0.1'
   }
   repositories {
     jcenter()
+    google()
+
+    maven {
+      url "https://plugins.gradle.org/m2/"
+    }
+
     maven {
       url 'https://jitpack.io'
     }
@@ -37,9 +43,10 @@ buildscript {
     minSdk = 16
     maxSdk = 27
 
-    firebase = "11.6.2"
-    pydroid = "14.2.3"
+    firebase = "11.8.0"
+    pydroid = "14.2.7"
     leakCanary = "1.5.4"
+    ktlint = "2.3.0"
   }
 
   dependencies {
@@ -56,13 +63,20 @@ buildscript {
 
     // Kotlin
     classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+
+    classpath "gradle.plugin.org.jlleitschuh.gradle:ktlint-gradle:$ktlint"
   }
 }
 
-allprojects {
+subprojects {
+  apply plugin: "org.jlleitschuh.gradle.ktlint"
+  apply plugin: "com.github.ben-manes.versions"
+}
 
+allprojects {
   repositories {
     jcenter()
+    google()
 
     maven {
       url 'https://jitpack.io'
