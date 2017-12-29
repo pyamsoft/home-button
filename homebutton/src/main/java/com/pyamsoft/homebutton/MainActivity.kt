@@ -23,6 +23,7 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.view.ViewCompat
 import com.pyamsoft.backstack.BackStack
+import com.pyamsoft.backstack.BackStacks
 import com.pyamsoft.homebutton.databinding.ActivityMainBinding
 import com.pyamsoft.pydroid.ui.about.AboutLibrariesFragment
 import com.pyamsoft.pydroid.ui.helper.DebouncedOnClickListener
@@ -54,7 +55,7 @@ class MainActivity : TamperActivity() {
         setTheme(R.style.Theme_HomeButton_Light)
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
-        backstack = BackStack.create(this, R.id.main_view_container)
+        backstack = BackStacks.create(this, R.id.main_view_container)
 
         setupToolbar()
         addPreferenceFragment()

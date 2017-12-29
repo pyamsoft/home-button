@@ -33,8 +33,8 @@ import android.support.v4.app.Fragment
 import android.support.v4.app.NotificationCompat
 import android.support.v4.app.NotificationManagerCompat
 import android.support.v4.content.ContextCompat
-import com.pyamsoft.pydroid.PYDroidModule
-import com.pyamsoft.pydroid.about.Licenses
+import com.pyamsoft.pydroid.base.PYDroidModule
+import com.pyamsoft.pydroid.base.about.Licenses
 import com.pyamsoft.pydroid.loader.LoaderModule
 import com.pyamsoft.pydroid.ui.PYDroid
 import com.pyamsoft.pydroid.ui.helper.Toasty
