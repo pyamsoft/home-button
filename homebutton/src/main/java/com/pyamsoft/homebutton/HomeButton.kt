@@ -33,9 +33,11 @@ import android.support.v4.app.Fragment
 import android.support.v4.app.NotificationCompat
 import android.support.v4.app.NotificationManagerCompat
 import android.support.v4.content.ContextCompat
-import com.pyamsoft.pydroid.base.PYDroidModule
+import com.pyamsoft.pydroid.PYDroidModule
+import com.pyamsoft.pydroid.PYDroidModuleImpl
 import com.pyamsoft.pydroid.base.about.Licenses
 import com.pyamsoft.pydroid.loader.LoaderModule
+import com.pyamsoft.pydroid.loader.LoaderModuleImpl
 import com.pyamsoft.pydroid.ui.PYDroid
 import com.pyamsoft.pydroid.ui.helper.Toasty
 import com.squareup.leakcanary.LeakCanary
@@ -53,7 +55,9 @@ class HomeButton : Application() {
             return
         }
 
-        PYDroid.init(PYDroidModule(this, BuildConfig.DEBUG), LoaderModule(this))
+        val pydroidModule: PYDroidModule = PYDroidModuleImpl(this, BuildConfig.DEBUG)
+        val loaderModule: LoaderModule = LoaderModuleImpl(pydroidModule)
+        PYDroid.init(pydroidModule, loaderModule)
         Licenses.create("Firebase", "https://firebase.google.com", "licenses/firebase")
 
         watcher = if (BuildConfig.DEBUG) {
