@@ -22,8 +22,6 @@ import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.view.ViewCompat
-import com.pyamsoft.backstack.BackStack
-import com.pyamsoft.backstack.BackStacks
 import com.pyamsoft.homebutton.databinding.ActivityMainBinding
 import com.pyamsoft.pydroid.ui.about.AboutLibrariesFragment
 import com.pyamsoft.pydroid.ui.helper.DebouncedOnClickListener
@@ -49,13 +47,10 @@ class MainActivity : TamperActivity() {
     override val applicationName: String
         get() = getString(R.string.app_name)
 
-    private lateinit var backstack: BackStack
-
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.Theme_HomeButton_Light)
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
-        backstack = BackStacks.create(this, R.id.main_view_container)
 
         setupToolbar()
         addPreferenceFragment()
@@ -65,13 +60,8 @@ class MainActivity : TamperActivity() {
         val fm = supportFragmentManager
         val aboutLibrariesFragment: Fragment? = fm.findFragmentByTag(AboutLibrariesFragment.TAG)
         if (fm.findFragmentByTag(HomeFragment.TAG) == null && aboutLibrariesFragment == null) {
-            backstack.set(HomeFragment.TAG) { HomeFragment() }
-        }
-    }
-
-    override fun onBackPressed() {
-        if (!backstack.back()) {
-            super.onBackPressed()
+            fm.beginTransaction().add(R.id.main_view_container, HomeFragment(), HomeFragment.TAG)
+                    .commit()
         }
     }
 
