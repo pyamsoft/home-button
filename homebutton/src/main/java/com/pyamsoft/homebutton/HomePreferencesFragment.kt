@@ -18,6 +18,7 @@
 
 package com.pyamsoft.homebutton
 
+import android.support.v4.app.Fragment
 import com.pyamsoft.pydroid.ui.app.fragment.SettingsPreferenceFragment
 import com.pyamsoft.pydroid.ui.util.setUpEnabled
 
@@ -29,6 +30,8 @@ class HomePreferencesFragment : SettingsPreferenceFragment() {
     override val rootViewContainer: Int = R.id.main_view_container
 
     override val hideClearAll: Boolean = true
+
+    override val aboutReplaceFragment: Fragment? = parentFragment
 
     override fun onDestroy() {
         super.onDestroy()
