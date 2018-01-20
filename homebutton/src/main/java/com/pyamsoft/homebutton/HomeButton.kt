@@ -47,7 +47,8 @@ import timber.log.Timber
 class HomeButton : Application() {
 
     private val home = Intent(Intent.ACTION_MAIN).addCategory(Intent.CATEGORY_HOME)
-    @get:CheckResult private lateinit var watcher: RefWatcher
+    @get:CheckResult
+    private lateinit var watcher: RefWatcher
 
     override fun onCreate() {
         super.onCreate()
@@ -70,8 +71,10 @@ class HomeButton : Application() {
 
         startHomeNotification()
 
-        Toasty.makeText(applicationContext, getString(R.string.home_button_started),
-                Toasty.LENGTH_SHORT).show()
+        Toasty.makeText(
+            applicationContext, getString(R.string.home_button_started),
+            Toasty.LENGTH_SHORT
+        ).show()
     }
 
     // The application is simple, so we don't really add options to enable or disable a notification
@@ -84,8 +87,10 @@ class HomeButton : Application() {
             setupNotificationChannel(notificationChannelId)
         }
 
-        val pe = PendingIntent.getActivity(applicationContext, requestCode, home,
-                PendingIntent.FLAG_UPDATE_CURRENT)
+        val pe = PendingIntent.getActivity(
+            applicationContext, requestCode, home,
+            PendingIntent.FLAG_UPDATE_CURRENT
+        )
         val builder = NotificationCompat.Builder(applicationContext, notificationChannelId).apply {
             setContentIntent(pe)
             setSmallIcon(R.drawable.ic_home_notification)
@@ -101,8 +106,10 @@ class HomeButton : Application() {
         NotificationManagerCompat.from(applicationContext).notify(id, builder.build())
     }
 
-    @RequiresApi(VERSION_CODES.O) private fun setupNotificationChannel(
-            notificationChannelId: String) {
+    @RequiresApi(VERSION_CODES.O)
+    private fun setupNotificationChannel(
+        notificationChannelId: String
+    ) {
         val name = "Home Service"
         val description = "Notification related to the Home Button service"
         val importance = NotificationManager.IMPORTANCE_MIN
@@ -114,14 +121,16 @@ class HomeButton : Application() {
 
         Timber.d("Create notification channel with id: %s", notificationChannelId)
         val notificationManager: NotificationManager = applicationContext.getSystemService(
-                Context.NOTIFICATION_SERVICE) as NotificationManager
+            Context.NOTIFICATION_SERVICE
+        ) as NotificationManager
         notificationManager.createNotificationChannel(notificationChannel)
     }
 
     companion object {
 
         @JvmStatic
-        @CheckResult internal fun getRefWatcher(fragment: Fragment): RefWatcher {
+        @CheckResult
+        internal fun getRefWatcher(fragment: Fragment): RefWatcher {
             val application = fragment.activity!!.application
             if (application is HomeButton) {
                 return application.watcher
