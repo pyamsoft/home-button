@@ -1,9 +1,9 @@
 .idea
+!.idea/codeStyleSettings.xml
+
 *.iml
 .gradle
 /local.properties
-/.idea/workspace.xml
-/.idea/libraries
 /build
 /captures
-/homebutton/src/main/res/values/ads.xml
+.externalNativeBuild
