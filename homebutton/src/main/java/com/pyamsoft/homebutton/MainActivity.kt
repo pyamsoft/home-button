@@ -35,7 +35,7 @@ class MainActivity : TamperActivity() {
     override val safePackageName: String = "com.pyamsoft.homebutton"
 
     override val changeLogLines: Array<String> = arrayOf(
-            "BUGFIX: Bugfixes and optimizations"
+        "BUGFIX: Bugfixes and optimizations"
     )
 
     override val versionName: String = BuildConfig.VERSION_NAME
@@ -61,7 +61,7 @@ class MainActivity : TamperActivity() {
         val aboutLibrariesFragment: Fragment? = fm.findFragmentByTag(AboutLibrariesFragment.TAG)
         if (fm.findFragmentByTag(HomeFragment.TAG) == null && aboutLibrariesFragment == null) {
             fm.beginTransaction().add(R.id.main_view_container, HomeFragment(), HomeFragment.TAG)
-                    .commit()
+                .commit()
         }
     }
 

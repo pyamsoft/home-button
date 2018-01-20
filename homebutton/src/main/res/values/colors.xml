@@ -19,8 +19,8 @@
   -->
 
 <resources>
-  <color name="primary">#FF3F51B5</color>
-  <color name="primaryDark">#FF303F9F</color>
-  <color name="accent">#FFE91E63</color>
-  <color name="gray400">#FFBDBDBD</color>
+    <color name="primary">#FF3F51B5</color>
+    <color name="primaryDark">#FF303F9F</color>
+    <color name="accent">#FFE91E63</color>
+    <color name="gray400">#FFBDBDBD</color>
 </resources>
