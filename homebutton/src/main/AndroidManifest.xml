@@ -21,42 +21,42 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.pyamsoft.homebutton">
 
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+  <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
 
-    <application
-        android:name=".HomeButton"
-        android:icon="@mipmap/ic_launcher"
+  <application
+      android:name=".HomeButton"
+      android:icon="@mipmap/ic_launcher"
+      android:label="@string/app_name"
+      android:roundIcon="@mipmap/ic_launcher"
+      android:theme="@style/Theme.HomeButton.Light">
+
+    <!-- Support super wide screen -->
+    <meta-data
+        android:name="android.max_aspect"
+        android:value="2.1"/>
+
+    <activity
+        android:name=".MainActivity"
+        android:exported="true"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher"
-        android:theme="@style/Theme.HomeButton.Light">
+        android:launchMode="singleTask"
+        android:theme="@style/Theme.HomeButton.Light.Splash">
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN"/>
 
-        <!-- Support super wide screen -->
-        <meta-data
-            android:name="android.max_aspect"
-            android:value="2.1" />
+        <category android:name="android.intent.category.LAUNCHER"/>
+      </intent-filter>
+    </activity>
 
-        <activity
-            android:name=".MainActivity"
-            android:exported="true"
-            android:label="@string/app_name"
-            android:launchMode="singleTask"
-            android:theme="@style/Theme.HomeButton.Light.Splash">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+    <receiver
+        android:name=".BootCompletedReceiver"
+        android:enabled="true"
+        android:exported="true">
+      <intent-filter>
+        <action android:name="android.intent.action.BOOT_COMPLETED"/>
+      </intent-filter>
+    </receiver>
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-
-        <receiver
-            android:name=".BootCompletedReceiver"
-            android:enabled="true"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
-            </intent-filter>
-        </receiver>
-
-    </application>
+  </application>
 
 </manifest>
