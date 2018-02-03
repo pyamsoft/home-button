@@ -25,12 +25,15 @@ import timber.log.Timber
 
 class BootCompletedReceiver : BroadcastReceiver() {
 
-    override fun onReceive(context: Context, intent: Intent?) {
-        if (null != intent) {
-            val action = intent.action
-            if (Intent.ACTION_BOOT_COMPLETED == action) {
-                Timber.d("Home Button has started via boot receiver")
-            }
-        }
+  override fun onReceive(
+    context: Context,
+    intent: Intent?
+  ) {
+    if (null != intent) {
+      val action = intent.action
+      if (Intent.ACTION_BOOT_COMPLETED == action) {
+        Timber.d("Home Button has started via boot receiver")
+      }
     }
+  }
 }

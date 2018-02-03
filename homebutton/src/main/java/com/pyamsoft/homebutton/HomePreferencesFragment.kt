@@ -24,32 +24,33 @@ import com.pyamsoft.pydroid.ui.util.setUpEnabled
 
 class HomePreferencesFragment : SettingsPreferenceFragment() {
 
-    override val applicationName: String
-        get() = getString(R.string.app_name)
+  override val applicationName: String
+    get() = getString(R.string.app_name)
 
-    override val rootViewContainer: Int = R.id.main_view_container
+  override val rootViewContainer: Int = R.id.main_view_container
 
-    override val hideClearAll: Boolean = true
+  override val hideClearAll: Boolean = true
 
-    override val aboutReplaceFragment: Fragment?
-            // Must be here so its pulled on demand instead of assigned
-        get() = parentFragment
+  override val aboutReplaceFragment: Fragment?
+      // Must be here so its pulled on demand instead of assigned
+    get() = parentFragment
 
-    override fun onDestroy() {
-        super.onDestroy()
-        HomeButton.getRefWatcher(this).watch(this)
+  override fun onDestroy() {
+    super.onDestroy()
+    HomeButton.getRefWatcher(this)
+        .watch(this)
+  }
+
+  override fun onResume() {
+    super.onResume()
+    toolbarActivity.withToolbar {
+      it.setTitle(R.string.app_name)
+      it.setUpEnabled(false)
     }
+  }
 
-    override fun onResume() {
-        super.onResume()
-        toolbarActivity.withToolbar {
-            it.setTitle(R.string.app_name)
-            it.setUpEnabled(false)
-        }
-    }
+  companion object {
 
-    companion object {
-
-        const val TAG = "HomePreferencesFragment"
-    }
+    const val TAG = "HomePreferencesFragment"
+  }
 }
