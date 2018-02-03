@@ -27,6 +27,8 @@ import com.pyamsoft.pydroid.ui.about.AboutLibrariesFragment
 import com.pyamsoft.pydroid.ui.helper.DebouncedOnClickListener
 import com.pyamsoft.pydroid.ui.sec.TamperActivity
 import com.pyamsoft.pydroid.util.AppUtil
+import com.pyamsoft.homebutton.R
+import com.pyamsoft.homebutton.BuildConfig
 
 class MainActivity : TamperActivity() {
 
