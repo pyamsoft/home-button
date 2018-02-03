@@ -114,13 +114,14 @@ class HomeButton : Application() {
     notificationChannelId: String
   ) {
     val name = "Home Service"
-    val description = "Notification related to the Home Button service"
+    val desc = "Notification related to the Home Button service"
     val importance = NotificationManager.IMPORTANCE_MIN
-    val notificationChannel = NotificationChannel(notificationChannelId, name, importance)
-    notificationChannel.lockscreenVisibility = Notification.VISIBILITY_PUBLIC
-    notificationChannel.description = description
-    notificationChannel.enableLights(false)
-    notificationChannel.enableVibration(false)
+    val notificationChannel = NotificationChannel(notificationChannelId, name, importance).apply {
+      lockscreenVisibility = Notification.VISIBILITY_PUBLIC
+      description = desc
+      enableLights(false)
+      enableVibration(false)
+    }
 
     Timber.d("Create notification channel with id: %s", notificationChannelId)
     val notificationManager: NotificationManager = applicationContext.getSystemService(
