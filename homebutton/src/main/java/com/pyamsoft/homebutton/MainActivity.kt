@@ -18,13 +18,12 @@ package com.pyamsoft.homebutton
 
 import android.databinding.DataBindingUtil
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.support.v4.view.ViewCompat
 import com.pyamsoft.homebutton.databinding.ActivityMainBinding
 import com.pyamsoft.pydroid.ui.about.AboutLibrariesFragment
-import com.pyamsoft.pydroid.ui.helper.DebouncedOnClickListener
 import com.pyamsoft.pydroid.ui.sec.TamperActivity
-import com.pyamsoft.pydroid.util.AppUtil
+import com.pyamsoft.pydroid.ui.util.DebouncedOnClickListener
+import com.pyamsoft.pydroid.util.toDp
 
 class MainActivity : TamperActivity() {
 
@@ -56,8 +55,7 @@ class MainActivity : TamperActivity() {
 
   private fun addPreferenceFragment() {
     val fm = supportFragmentManager
-    val aboutLibrariesFragment: Fragment? = fm.findFragmentByTag(AboutLibrariesFragment.TAG)
-    if (fm.findFragmentByTag(HomeFragment.TAG) == null && aboutLibrariesFragment == null) {
+    if (fm.findFragmentByTag(HomeFragment.TAG) == null && !AboutLibrariesFragment.isPresent(this)) {
       fm.beginTransaction()
           .add(R.id.main_view_container, HomeFragment(), HomeFragment.TAG)
           .commit()
@@ -68,7 +66,7 @@ class MainActivity : TamperActivity() {
     binding.toolbar.apply {
       setToolbar(this)
       setTitle(R.string.app_name)
-      ViewCompat.setElevation(this, AppUtil.convertToDP(context, 4f))
+      ViewCompat.setElevation(this, 4f.toDp(context).toFloat())
 
       setNavigationOnClickListener(DebouncedOnClickListener.create {
         onBackPressed()

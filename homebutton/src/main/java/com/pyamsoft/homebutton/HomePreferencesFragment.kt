@@ -29,10 +29,6 @@ class HomePreferencesFragment : SettingsPreferenceFragment() {
 
   override val hideClearAll: Boolean = true
 
-  override val aboutReplaceFragment: Fragment?
-      // Must be here so its pulled on demand instead of assigned
-    get() = parentFragment
-
   override fun onDestroy() {
     super.onDestroy()
     HomeButton.getRefWatcher(this)
