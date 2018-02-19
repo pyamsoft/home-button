@@ -42,7 +42,7 @@ buildscript {
     maxSdk = 27
 
     firebase = "11.8.0"
-    pydroid = "16.2.1"
+    pydroid = "16.2.2"
     leakCanary = "1.5.4"
     ktlint = "3.0.0"
   }

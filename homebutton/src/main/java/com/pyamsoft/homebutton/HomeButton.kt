@@ -73,7 +73,6 @@ class HomeButton : Application() {
         applicationContext, getString(R.string.home_button_started),
         Toasty.LENGTH_SHORT
     )
-        .show()
   }
 
   // The application is simple, so we don't really add options to enable or disable a notification
@@ -122,9 +121,8 @@ class HomeButton : Application() {
     }
 
     Timber.d("Create notification channel with id: %s", notificationChannelId)
-    val notificationManager: NotificationManager = applicationContext.getSystemService(
-        Context.NOTIFICATION_SERVICE
-    ) as NotificationManager
+    val notificationManager: NotificationManager =
+      getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
     notificationManager.createNotificationChannel(notificationChannel)
   }
 
