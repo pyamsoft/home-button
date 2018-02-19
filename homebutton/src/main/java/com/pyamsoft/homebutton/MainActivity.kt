@@ -21,6 +21,8 @@ import android.os.Bundle
 import android.support.v4.view.ViewCompat
 import com.pyamsoft.homebutton.databinding.ActivityMainBinding
 import com.pyamsoft.pydroid.ui.about.AboutLibrariesFragment
+import com.pyamsoft.pydroid.ui.rating.ChangeLogBuilder
+import com.pyamsoft.pydroid.ui.rating.buildChangeLog
 import com.pyamsoft.pydroid.ui.sec.TamperActivity
 import com.pyamsoft.pydroid.ui.util.DebouncedOnClickListener
 import com.pyamsoft.pydroid.util.toDp
@@ -31,9 +33,9 @@ class MainActivity : TamperActivity() {
 
   override val safePackageName: String = "com.pyamsoft.homebutton"
 
-  override val changeLogLines: Array<String> = arrayOf(
-      "BUGFIX: Smoother animations"
-  )
+  override val changeLogLines: ChangeLogBuilder = buildChangeLog {
+    bugfix("Smoother animations")
+  }
 
   override val versionName: String = BuildConfig.VERSION_NAME
 
