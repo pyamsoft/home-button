@@ -54,18 +54,18 @@ class HomeButton : Application() {
       return
     }
 
+    if (BuildConfig.DEBUG) {
+      // Assign
+      watcher = LeakCanary.install(this)
+    } else {
+      // Assign
+      watcher = RefWatcher.DISABLED
+    }
+
     val pydroidModule: PYDroidModule = PYDroidModuleImpl(this, BuildConfig.DEBUG)
     val loaderModule: LoaderModule = LoaderModuleImpl(pydroidModule)
     PYDroid.init(pydroidModule, loaderModule)
     Licenses.create("Firebase", "https://firebase.google.com", "licenses/firebase")
-
-    watcher = if (BuildConfig.DEBUG) {
-      // Assign
-      LeakCanary.install(this)
-    } else {
-      // Assign
-      RefWatcher.DISABLED
-    }
 
     startHomeNotification()
 
