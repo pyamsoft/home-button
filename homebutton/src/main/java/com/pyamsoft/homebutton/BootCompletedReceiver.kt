@@ -27,11 +27,8 @@ class BootCompletedReceiver : BroadcastReceiver() {
     context: Context,
     intent: Intent?
   ) {
-    if (null != intent) {
-      val action = intent.action
-      if (Intent.ACTION_BOOT_COMPLETED == action) {
-        Timber.d("Home Button has started via boot receiver")
-      }
+    if (Intent.ACTION_BOOT_COMPLETED == intent?.action) {
+      Timber.d("Home Button has started via boot receiver")
     }
   }
 }

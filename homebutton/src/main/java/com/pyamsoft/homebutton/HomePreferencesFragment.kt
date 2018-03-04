@@ -16,7 +16,6 @@
 
 package com.pyamsoft.homebutton
 
-import android.support.v4.app.Fragment
 import com.pyamsoft.pydroid.ui.app.fragment.SettingsPreferenceFragment
 import com.pyamsoft.pydroid.ui.util.setUpEnabled
 
