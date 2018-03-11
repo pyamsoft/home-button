@@ -131,7 +131,8 @@ class HomeButton : Application() {
     @JvmStatic
     @CheckResult
     internal fun getRefWatcher(fragment: Fragment): RefWatcher {
-      val application = fragment.requireActivity().application
+      val application = fragment.requireActivity()
+          .application
       if (application is HomeButton) {
         return application.watcher
       } else {
