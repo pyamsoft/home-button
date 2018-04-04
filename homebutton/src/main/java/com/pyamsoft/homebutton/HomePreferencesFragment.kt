@@ -16,6 +16,8 @@
 
 package com.pyamsoft.homebutton
 
+import android.os.Bundle
+import android.view.View
 import com.pyamsoft.pydroid.ui.app.fragment.SettingsPreferenceFragment
 import com.pyamsoft.pydroid.ui.util.setUpEnabled
 
@@ -28,6 +30,8 @@ class HomePreferencesFragment : SettingsPreferenceFragment() {
 
   override val hideClearAll: Boolean = true
 
+  override val preferenceXmlResId: Int = R.xml.preferences
+
   override fun onDestroy() {
     super.onDestroy()
     HomeButton.getRefWatcher(this)
@@ -39,6 +43,22 @@ class HomePreferencesFragment : SettingsPreferenceFragment() {
     toolbarActivity.withToolbar {
       it.setTitle(R.string.app_name)
       it.setUpEnabled(false)
+    }
+  }
+
+  override fun onViewCreated(
+    view: View,
+    savedInstanceState: Bundle?
+  ) {
+    super.onViewCreated(view, savedInstanceState)
+    findPreference(getString(R.string.priority_key)).setOnPreferenceChangeListener { _, newValue ->
+      if (newValue is Boolean) {
+        HomeButton.notificationHandler(view.context)
+            .start(newValue)
+        return@setOnPreferenceChangeListener true
+      } else {
+        return@setOnPreferenceChangeListener false
+      }
     }
   }
 
