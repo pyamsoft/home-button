@@ -20,6 +20,7 @@ import android.content.Context
 import android.support.annotation.CheckResult
 import android.support.v7.preference.PreferenceManager
 import androidx.content.edit
+import java.util.UUID
 
 class HomeButtonPreferences(context: Context) {
 
@@ -39,4 +40,18 @@ class HomeButtonPreferences(context: Context) {
   val notificationPriority: Boolean
     @get:CheckResult get() = preferences.getBoolean(keyNotificationPriority, true)
 
+  val notificationChannelId: String
+    get() {
+      val channelId = preferences.getString(KEY_CHANNEL_ID, UUID.randomUUID().toString())
+      preferences.edit { putString(KEY_CHANNEL_ID, channelId) }
+      return channelId
+    }
+
+  fun clearNotificationChannel() {
+    preferences.edit { remove(KEY_CHANNEL_ID) }
+  }
+
+  companion object {
+    private const val KEY_CHANNEL_ID = "key_notification_channel_id"
+  }
 }

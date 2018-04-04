@@ -18,7 +18,6 @@ package com.pyamsoft.homebutton
 
 import android.app.Notification
 import android.app.NotificationChannel
-import android.app.NotificationChannelGroup
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
@@ -28,7 +27,6 @@ import android.support.v4.app.NotificationCompat
 import android.support.v4.app.NotificationManagerCompat
 import android.support.v4.content.ContextCompat
 import timber.log.Timber
-import java.util.UUID
 
 class NotificationHandler(
   private val context: Context,
@@ -82,8 +80,7 @@ class NotificationHandler(
     val name = "Home Service"
     val desc = "Notification related to the Home Button service"
 
-    val channelId = UUID.randomUUID()
-        .toString()
+    var channelId = preferences.notificationChannelId
     if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
       return channelId
     } else {
@@ -94,30 +91,29 @@ class NotificationHandler(
         importance = NotificationManager.IMPORTANCE_MIN
       }
 
+      // Delete the old notification if it exists, we don't use this ID anymore
+      if (notificationManager.getNotificationChannel(OLD_CHANNEL_ID) != null) {
+        notificationManager.deleteNotificationChannel(OLD_CHANNEL_ID)
+      }
+
+      // If the notification channel exists, delete it so we can create a new one
+      if (notificationManager.getNotificationChannel(channelId) != null) {
+        notificationManager.deleteNotificationChannel(channelId)
+        preferences.clearNotificationChannel()
+        channelId = preferences.notificationChannelId
+      }
+
       val notificationChannel =
         NotificationChannel(channelId, name, importance).apply {
           lockscreenVisibility = Notification.VISIBILITY_PUBLIC
           description = desc
-          group = GROUP_ID
           enableLights(false)
           enableVibration(false)
           setSound(null, null)
           setShowBadge(false)
         }
 
-      // Delete the old notification if it exists
-      if (notificationManager.getNotificationChannel(OLD_CHANNEL_ID) != null) {
-        notificationManager.deleteNotificationChannel(OLD_CHANNEL_ID)
-      }
-
-      // Delete any old notification groups
-      val notificationGroups = notificationManager.notificationChannelGroups ?: emptyList()
-      for (group in notificationGroups.asSequence()) {
-        notificationManager.deleteNotificationChannelGroup(group.id)
-      }
-
       Timber.d("Create notification channel with id: %s", notificationChannel.id)
-      notificationManager.createNotificationChannelGroup(NotificationChannelGroup(GROUP_ID, title))
       notificationManager.createNotificationChannel(notificationChannel)
 
       return channelId
@@ -132,7 +128,6 @@ class NotificationHandler(
     private val HOME = Intent(Intent.ACTION_MAIN).addCategory(Intent.CATEGORY_HOME)
 
     private const val OLD_CHANNEL_ID = "home_button_foreground"
-    private const val GROUP_ID = "com.pyamsoft.homebutton"
   }
 
 }
