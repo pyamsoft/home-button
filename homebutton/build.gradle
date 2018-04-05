@@ -80,14 +80,8 @@ dependencies {
   releaseImplementation "com.squareup.leakcanary:leakcanary-android-no-op:$leakCanary"
   testImplementation "com.squareup.leakcanary:leakcanary-android-no-op:$leakCanary"
 
-  // Firebase Crash and Analytics
-  implementation "com.google.firebase:firebase-crash:$firebase"
-
   // PYDroid
   implementation "com.github.pyamsoft.pydroid:pydroid-ui:$pydroid"
 
   api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }
-
-// Firebase
-apply plugin: "com.google.gms.google-services"

@@ -58,7 +58,6 @@ class HomeButton : Application() {
     val pydroidModule: PYDroidModule = PYDroidModuleImpl(this, BuildConfig.DEBUG)
     val loaderModule: LoaderModule = LoaderModuleImpl(pydroidModule)
     PYDroid.init(pydroidModule, loaderModule)
-    Licenses.create("Firebase", "https://firebase.google.com", "licenses/firebase")
 
     Toasty.makeText(
         applicationContext, getString(R.string.home_button_started),
