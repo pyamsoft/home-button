@@ -22,11 +22,9 @@ import android.support.annotation.CheckResult
 import android.support.v4.app.Fragment
 import com.pyamsoft.pydroid.PYDroidModule
 import com.pyamsoft.pydroid.base.PYDroidModuleImpl
-import com.pyamsoft.pydroid.base.about.Licenses
 import com.pyamsoft.pydroid.loader.LoaderModule
 import com.pyamsoft.pydroid.loader.LoaderModuleImpl
 import com.pyamsoft.pydroid.ui.PYDroid
-import com.pyamsoft.pydroid.util.Toasty
 import com.squareup.leakcanary.LeakCanary
 import com.squareup.leakcanary.RefWatcher
 import kotlin.LazyThreadSafetyMode.NONE
@@ -58,11 +56,6 @@ class HomeButton : Application() {
     val pydroidModule: PYDroidModule = PYDroidModuleImpl(this, BuildConfig.DEBUG)
     val loaderModule: LoaderModule = LoaderModuleImpl(pydroidModule)
     PYDroid.init(pydroidModule, loaderModule)
-
-    Toasty.makeText(
-        applicationContext, getString(R.string.home_button_started),
-        Toasty.LENGTH_SHORT
-    )
 
     notificationHandler.start()
   }
