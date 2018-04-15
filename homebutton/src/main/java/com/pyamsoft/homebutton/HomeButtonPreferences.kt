@@ -19,7 +19,7 @@ package com.pyamsoft.homebutton
 import android.content.Context
 import android.support.annotation.CheckResult
 import android.support.v7.preference.PreferenceManager
-import androidx.content.edit
+import androidx.core.content.edit
 import java.util.UUID
 
 class HomeButtonPreferences(context: Context) {
