@@ -18,8 +18,8 @@
 
 buildscript {
   ext {
-    kotlin_version = '1.2.31'
-    plugin_version = '3.1.1'
+    kotlin_version = '1.2.41'
+    plugin_version = '3.1.2'
   }
   repositories {
     jcenter()
@@ -34,7 +34,7 @@ buildscript {
     minSdk = 16
     maxSdk = 27
 
-    pydroid = "16.6.3"
+    pydroid = "16.7.2"
     leakCanary = "1.5.4"
   }
 

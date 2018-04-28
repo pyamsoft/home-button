@@ -23,20 +23,14 @@ import android.view.View
 import com.pyamsoft.homebutton.databinding.ActivityMainBinding
 import com.pyamsoft.pydroid.ui.about.AboutLibrariesFragment
 import com.pyamsoft.pydroid.ui.rating.ChangeLogBuilder
+import com.pyamsoft.pydroid.ui.rating.RatingActivity
 import com.pyamsoft.pydroid.ui.rating.buildChangeLog
-import com.pyamsoft.pydroid.ui.sec.TamperActivity
 import com.pyamsoft.pydroid.ui.util.DebouncedOnClickListener
 import com.pyamsoft.pydroid.util.toDp
 
-class MainActivity : TamperActivity() {
+class MainActivity : RatingActivity() {
 
   private lateinit var binding: ActivityMainBinding
-
-  override val safePackageName: String = "com.pyamsoft.homebutton"
-
-  override val changeLogLines: ChangeLogBuilder = buildChangeLog {
-    bugfix("Smoother animations")
-  }
 
   override val versionName: String = BuildConfig.VERSION_NAME
 
@@ -49,6 +43,10 @@ class MainActivity : TamperActivity() {
 
   override val rootView: View
     get() = binding.root
+
+  override val changeLogLines: ChangeLogBuilder = buildChangeLog {
+    bugfix("Smoother animations")
+  }
 
   override fun onCreate(savedInstanceState: Bundle?) {
     setTheme(R.style.Theme_HomeButton_Light)

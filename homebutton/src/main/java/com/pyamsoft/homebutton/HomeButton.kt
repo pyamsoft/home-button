@@ -20,30 +20,23 @@ import android.app.Application
 import android.content.Context
 import android.support.annotation.CheckResult
 import android.support.v4.app.Fragment
-import com.pyamsoft.pydroid.PYDroidModule
-import com.pyamsoft.pydroid.base.PYDroidModuleImpl
-import com.pyamsoft.pydroid.loader.LoaderModule
-import com.pyamsoft.pydroid.loader.LoaderModuleImpl
 import com.pyamsoft.pydroid.ui.PYDroid
 import com.squareup.leakcanary.LeakCanary
 import com.squareup.leakcanary.RefWatcher
 import kotlin.LazyThreadSafetyMode.NONE
 
-class HomeButton : Application() {
+class HomeButton : Application(), PYDroid.Instance {
 
+  private var pyDroid: PYDroid? = null
   private lateinit var watcher: RefWatcher
-  private lateinit var preferences: HomeButtonPreferences
-  private val notificationHandler by lazy(NONE) {
-    NotificationHandler(this, preferences)
-  }
+  private val preferences by lazy(NONE) { HomeButtonPreferences(this) }
+  private val notificationHandler by lazy(NONE) { NotificationHandler(this, preferences) }
 
   override fun onCreate() {
     super.onCreate()
     if (LeakCanary.isInAnalyzerProcess(this)) {
       return
     }
-
-    preferences = HomeButtonPreferences(this)
 
     if (BuildConfig.DEBUG) {
       // Assign
@@ -52,12 +45,15 @@ class HomeButton : Application() {
       // Assign
       watcher = RefWatcher.DISABLED
     }
-
-    val pydroidModule: PYDroidModule = PYDroidModuleImpl(this, BuildConfig.DEBUG)
-    val loaderModule: LoaderModule = LoaderModuleImpl(pydroidModule)
-    PYDroid.init(pydroidModule, loaderModule)
-
     notificationHandler.start()
+
+    PYDroid.init(this, this, BuildConfig.DEBUG)
+  }
+
+  override fun getPydroid(): PYDroid? = pyDroid
+
+  override fun setPydroid(instance: PYDroid) {
+    pyDroid = instance
   }
 
   companion object {
