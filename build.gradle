@@ -34,7 +34,7 @@ buildscript {
     minSdk = 16
     maxSdk = 27
 
-    pydroid = "16.7.2"
+    pydroid = "16.7.3"
     leakCanary = "1.5.4"
   }
 
