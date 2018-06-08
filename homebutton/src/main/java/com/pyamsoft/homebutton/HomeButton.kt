@@ -18,8 +18,8 @@ package com.pyamsoft.homebutton
 
 import android.app.Application
 import android.content.Context
-import android.support.annotation.CheckResult
-import android.support.v4.app.Fragment
+import androidx.annotation.CheckResult
+import androidx.fragment.app.Fragment
 import com.pyamsoft.pydroid.ui.PYDroid
 import com.squareup.leakcanary.LeakCanary
 import com.squareup.leakcanary.RefWatcher

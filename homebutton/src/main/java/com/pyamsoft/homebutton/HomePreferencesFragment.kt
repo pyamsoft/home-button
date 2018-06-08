@@ -51,6 +51,7 @@ class HomePreferencesFragment : SettingsPreferenceFragment() {
     savedInstanceState: Bundle?
   ) {
     super.onViewCreated(view, savedInstanceState)
+
     findPreference(getString(R.string.priority_key)).setOnPreferenceChangeListener { _, newValue ->
       if (newValue is Boolean) {
         HomeButton.notificationHandler(view.context)

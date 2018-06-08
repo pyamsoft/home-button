@@ -20,7 +20,7 @@
 
   <PreferenceCategory android:title="Notification Settings">
 
-    <SwitchPreferenceCompat
+    <SwitchPreference
         android:key="@string/priority_key"
         android:summaryOff="@string/priority_summary_off"
         android:summaryOn="@string/priority_summary_on"
