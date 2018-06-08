@@ -19,11 +19,11 @@
 buildscript {
   ext {
     kotlin_version = '1.2.41'
-    plugin_version = '3.1.2'
+    plugin_version = '3.2.0-alpha15'
   }
   repositories {
-    jcenter()
     google()
+    jcenter()
 
     maven {
       url 'https://jitpack.io'
@@ -32,9 +32,9 @@ buildscript {
 
   ext {
     minSdk = 16
-    maxSdk = 27
+    maxSdk = 28
 
-    pydroid = "16.7.3"
+    pydroid = "17.0.1"
     leakCanary = "1.5.4"
   }
 
@@ -58,8 +58,8 @@ subprojects {
 
 allprojects {
   repositories {
-    jcenter()
     google()
+    jcenter()
 
     maven {
       url 'https://jitpack.io'
