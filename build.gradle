@@ -22,13 +22,9 @@ buildscript {
     plugin_version = '3.2.0-beta01'
   }
   repositories {
-    mavenLocal()
     google()
     jcenter()
-
-    maven {
-      url 'https://jitpack.io'
-    }
+    mavenLocal()
   }
 
   ext {
@@ -59,13 +55,9 @@ subprojects {
 
 allprojects {
   repositories {
-    mavenLocal()
     google()
     jcenter()
-
-    maven {
-      url 'https://jitpack.io'
-    }
+    mavenLocal()
   }
 
   tasks.withType(JavaCompile) {
