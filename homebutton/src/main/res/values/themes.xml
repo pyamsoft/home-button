@@ -18,10 +18,13 @@
 
 <resources>
 
-  <style name="Base.Theme.HomeButton.Light" parent="@style/Theme.AppCompat.Light.NoActionBar">
+  <style name="Base.Theme.HomeButton.Light" parent="@style/Theme.MaterialComponents.Light.NoActionBar">
     <item name="colorPrimary">@color/primary</item>
     <item name="colorPrimaryDark">@color/primaryDark</item>
     <item name="colorAccent">@color/accent</item>
+    <item name="colorSecondary">?attr/colorPrimary</item>
+    <item name="scrimBackground">@color/scrim</item>
+    <item name="snackbarButtonStyle">?attr/borderlessButtonStyle</item>
   </style>
 
   <style name="Theme.HomeButton.Light" parent="@style/Base.Theme.HomeButton.Light">
