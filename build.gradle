@@ -32,7 +32,7 @@ buildscript {
     maxSdk = 28
 
     pydroid = "18.0.1-SNAPSHOT"
-    leakCanary = "1.5.4"
+    leakCanary = "1.6.1"
   }
 
   dependencies {
