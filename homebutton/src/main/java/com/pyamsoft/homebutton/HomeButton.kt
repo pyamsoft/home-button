@@ -19,7 +19,6 @@ package com.pyamsoft.homebutton
 import android.app.Application
 import android.content.Context
 import androidx.annotation.CheckResult
-import androidx.fragment.app.Fragment
 import com.pyamsoft.pydroid.ui.PYDroid
 import com.squareup.leakcanary.LeakCanary
 import com.squareup.leakcanary.RefWatcher
@@ -57,18 +56,6 @@ class HomeButton : Application(), PYDroid.Instance {
   }
 
   companion object {
-
-    @JvmStatic
-    @CheckResult
-    internal fun getRefWatcher(fragment: Fragment): RefWatcher {
-      val application = fragment.requireActivity()
-          .application
-      if (application is HomeButton) {
-        return application.watcher
-      } else {
-        throw IllegalStateException("Application is not Home Button")
-      }
-    }
 
     @JvmStatic
     @CheckResult

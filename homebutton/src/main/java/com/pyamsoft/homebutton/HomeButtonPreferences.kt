@@ -18,8 +18,8 @@ package com.pyamsoft.homebutton
 
 import android.content.Context
 import androidx.annotation.CheckResult
-import androidx.preference.PreferenceManager
 import androidx.core.content.edit
+import androidx.preference.PreferenceManager
 import java.util.UUID
 
 class HomeButtonPreferences(context: Context) {
@@ -43,8 +43,12 @@ class HomeButtonPreferences(context: Context) {
   val notificationChannelId: String
     get() {
       val channelId = preferences.getString(KEY_CHANNEL_ID, UUID.randomUUID().toString())
-      preferences.edit { putString(KEY_CHANNEL_ID, channelId) }
-      return channelId
+      if (channelId == null) {
+        throw IllegalStateException("Channel Id cannot be null")
+      } else {
+        preferences.edit { putString(KEY_CHANNEL_ID, channelId) }
+        return channelId
+      }
     }
 
   fun clearNotificationChannel() {

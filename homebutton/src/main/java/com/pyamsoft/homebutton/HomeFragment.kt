@@ -25,12 +25,6 @@ class HomeFragment : AppSettingsFragment() {
 
   override fun provideSettingsTag(): String = HomePreferencesFragment.TAG
 
-  override fun onDestroy() {
-    super.onDestroy()
-    HomeButton.getRefWatcher(this)
-        .watch(this)
-  }
-
   companion object {
     const val TAG = "HomeFragment"
   }

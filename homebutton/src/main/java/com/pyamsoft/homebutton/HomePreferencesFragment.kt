@@ -17,7 +17,9 @@
 package com.pyamsoft.homebutton
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import com.pyamsoft.pydroid.ui.app.fragment.SettingsPreferenceFragment
 import com.pyamsoft.pydroid.ui.util.setUpEnabled
 
@@ -32,12 +34,6 @@ class HomePreferencesFragment : SettingsPreferenceFragment() {
 
   override val preferenceXmlResId: Int = R.xml.preferences
 
-  override fun onDestroy() {
-    super.onDestroy()
-    HomeButton.getRefWatcher(this)
-        .watch(this)
-  }
-
   override fun onResume() {
     super.onResume()
     toolbarActivity.withToolbar {
@@ -46,21 +42,25 @@ class HomePreferencesFragment : SettingsPreferenceFragment() {
     }
   }
 
-  override fun onViewCreated(
-    view: View,
+  override fun onCreateView(
+    inflater: LayoutInflater,
+    container: ViewGroup?,
     savedInstanceState: Bundle?
-  ) {
-    super.onViewCreated(view, savedInstanceState)
+  ): View? {
+    val view = super.onCreateView(inflater, container, savedInstanceState)
 
-    findPreference(getString(R.string.priority_key)).setOnPreferenceChangeListener { _, newValue ->
-      if (newValue is Boolean) {
-        HomeButton.notificationHandler(view.context)
-            .start(newValue)
-        return@setOnPreferenceChangeListener true
-      } else {
-        return@setOnPreferenceChangeListener false
-      }
-    }
+    findPreference(getString(R.string.priority_key))
+        .setOnPreferenceChangeListener { pref, newValue ->
+          if (newValue is Boolean) {
+            HomeButton.notificationHandler(pref.context)
+                .start(newValue)
+            return@setOnPreferenceChangeListener true
+          } else {
+            return@setOnPreferenceChangeListener false
+          }
+        }
+
+    return view
   }
 
   companion object {
