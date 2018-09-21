@@ -18,11 +18,12 @@
 
 buildscript {
   ext {
-    kotlin_version = '1.2.60'
-    plugin_version = '3.2.0-beta05'
+    kotlin_version = '1.2.70'
+    plugin_version = '3.2.0-rc03'
   }
   repositories {
     google()
+    mavenCentral()
     jcenter()
     mavenLocal()
   }
@@ -31,7 +32,7 @@ buildscript {
     minSdk = 16
     maxSdk = 28
 
-    pydroid = "18.1.5-SNAPSHOT"
+    pydroid = "18.1.6-SNAPSHOT-1"
     leakCanary = "1.6.1"
   }
 
@@ -56,6 +57,7 @@ subprojects {
 allprojects {
   repositories {
     google()
+    mavenCentral()
     jcenter()
     mavenLocal()
   }

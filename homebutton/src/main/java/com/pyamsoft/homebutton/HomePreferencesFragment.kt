@@ -21,6 +21,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.pyamsoft.pydroid.ui.app.fragment.SettingsPreferenceFragment
+import com.pyamsoft.pydroid.ui.app.fragment.requireToolbarActivity
 import com.pyamsoft.pydroid.ui.util.setUpEnabled
 
 class HomePreferencesFragment : SettingsPreferenceFragment() {
@@ -36,7 +37,7 @@ class HomePreferencesFragment : SettingsPreferenceFragment() {
 
   override fun onResume() {
     super.onResume()
-    toolbarActivity.withToolbar {
+    requireToolbarActivity().withToolbar {
       it.setTitle(R.string.app_name)
       it.setUpEnabled(false)
     }
