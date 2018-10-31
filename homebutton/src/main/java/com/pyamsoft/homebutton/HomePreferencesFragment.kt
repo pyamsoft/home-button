@@ -35,6 +35,8 @@ class HomePreferencesFragment : SettingsPreferenceFragment() {
 
   override val preferenceXmlResId: Int = R.xml.preferences
 
+  override val isDarkTheme: Boolean = false
+
   override fun onResume() {
     super.onResume()
     requireToolbarActivity().withToolbar {
@@ -48,7 +50,7 @@ class HomePreferencesFragment : SettingsPreferenceFragment() {
     container: ViewGroup?,
     savedInstanceState: Bundle?
   ): View? {
-    val view = super.onCreateView(inflater, container, savedInstanceState)
+    val view = requireNotNull(super.onCreateView(inflater, container, savedInstanceState))
 
     findPreference(getString(R.string.priority_key))
         .setOnPreferenceChangeListener { pref, newValue ->

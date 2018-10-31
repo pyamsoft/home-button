@@ -21,6 +21,7 @@
   <PreferenceCategory android:title="Notification Settings">
 
     <SwitchPreference
+        android:icon="@drawable/ic_home_24dp"
         android:key="@string/priority_key"
         android:summaryOff="@string/priority_summary_off"
         android:summaryOn="@string/priority_summary_on"
