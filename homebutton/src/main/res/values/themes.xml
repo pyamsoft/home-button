@@ -22,15 +22,10 @@
     <item name="colorPrimary">@color/primary</item>
     <item name="colorPrimaryDark">@color/primaryDark</item>
     <item name="colorAccent">@color/accent</item>
-    <item name="colorSecondary">?attr/colorPrimary</item>
-    <item name="scrimBackground">@color/scrim</item>
-    <item name="snackbarButtonStyle">?attr/borderlessButtonStyle</item>
   </style>
 
   <style name="Theme.HomeButton.Light" parent="@style/Base.Theme.HomeButton.Light">
     <item name="preferenceTheme">@style/PreferenceThemeOverlay.v14.Material</item>
-    <item name="android:activatedBackgroundIndicator">?android:attr/selectableItemBackground</item>
-    <item name="android:textAppearanceListItem">@style/TextAppearance.AppCompat.Subhead</item>
   </style>
 
   <style name="Theme.HomeButton.Light.Splash" parent="@style/Theme.HomeButton.Light">

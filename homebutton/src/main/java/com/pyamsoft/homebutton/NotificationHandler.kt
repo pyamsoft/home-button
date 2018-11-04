@@ -73,6 +73,7 @@ class NotificationHandler(
           color = ContextCompat.getColor(context, R.color.primary)
         }
 
+    notificationManagerCompat.cancel(ID)
     notificationManagerCompat.notify(ID, builder.setPriority(priority).build())
   }
 

@@ -52,18 +52,23 @@ class HomePreferencesFragment : SettingsPreferenceFragment() {
   ): View? {
     val view = requireNotNull(super.onCreateView(inflater, container, savedInstanceState))
 
-    findPreference(getString(R.string.priority_key))
-        .setOnPreferenceChangeListener { pref, newValue ->
-          if (newValue is Boolean) {
-            HomeButton.notificationHandler(pref.context)
-                .start(newValue)
-            return@setOnPreferenceChangeListener true
-          } else {
-            return@setOnPreferenceChangeListener false
-          }
-        }
+    setupHomePreference(view)
 
     return view
+  }
+
+  private fun setupHomePreference(view: View) {
+    val homePref = findPreference(getString(R.string.priority_key))
+
+    homePref.setOnPreferenceChangeListener { _, newValue ->
+      if (newValue is Boolean) {
+        HomeButton.notificationHandler(view.context)
+            .start(newValue)
+        return@setOnPreferenceChangeListener true
+      } else {
+        return@setOnPreferenceChangeListener false
+      }
+    }
   }
 
   companion object {

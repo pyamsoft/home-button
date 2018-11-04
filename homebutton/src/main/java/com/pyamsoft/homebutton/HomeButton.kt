@@ -19,6 +19,7 @@ package com.pyamsoft.homebutton
 import android.app.Application
 import android.content.Context
 import androidx.annotation.CheckResult
+import com.pyamsoft.pydroid.loader.ImageLoader
 import com.pyamsoft.pydroid.ui.PYDroid
 import com.squareup.leakcanary.LeakCanary
 import com.squareup.leakcanary.RefWatcher
@@ -27,9 +28,11 @@ import kotlin.LazyThreadSafetyMode.NONE
 class HomeButton : Application(), PYDroid.Instance {
 
   private var pyDroid: PYDroid? = null
-  private lateinit var watcher: RefWatcher
   private val preferences by lazy(NONE) { HomeButtonPreferences(this) }
   private val notificationHandler by lazy(NONE) { NotificationHandler(this, preferences) }
+
+  private lateinit var watcher: RefWatcher
+  private lateinit var imageLoader: ImageLoader
 
   override fun onCreate() {
     super.onCreate()
@@ -52,7 +55,9 @@ class HomeButton : Application(), PYDroid.Instance {
   override fun getPydroid(): PYDroid? = pyDroid
 
   override fun setPydroid(instance: PYDroid) {
-    pyDroid = instance
+    pyDroid = instance.also {
+      imageLoader = it.modules().loaderModule().provideImageLoader()
+    }
   }
 
   companion object {
@@ -63,6 +68,13 @@ class HomeButton : Application(), PYDroid.Instance {
       return (context.applicationContext as? HomeButton)?.notificationHandler
           ?: throw IllegalStateException("Cannot access NotificationHandler from Application")
 
+    }
+
+    @JvmStatic
+    @CheckResult
+    fun imageLoader(context: Context) : ImageLoader {
+      return (context.applicationContext as? HomeButton)?.imageLoader
+          ?: throw IllegalStateException("Cannot access ImageLoader from Application")
     }
   }
 }

@@ -16,16 +16,18 @@
   -->
 
 
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
   <PreferenceCategory android:title="Notification Settings">
 
-    <SwitchPreference
-        android:icon="@drawable/ic_home_24dp"
+    <com.pyamsoft.pydroid.ui.preference.SwitchPreferenceCompat
         android:key="@string/priority_key"
         android:summaryOff="@string/priority_summary_off"
         android:summaryOn="@string/priority_summary_on"
-        android:title="@string/priority_title"/>
+        android:title="@string/priority_title"
+        app:iconCompat="@drawable/ic_home_24dp"/>
 
   </PreferenceCategory>
 
