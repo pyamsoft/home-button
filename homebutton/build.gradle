@@ -26,8 +26,8 @@ android {
     applicationId "com.pyamsoft.homebutton"
     minSdkVersion rootProject.ext.minSdk
     targetSdkVersion rootProject.ext.maxSdk
-    versionCode 90
-    versionName "3.7.0"
+    versionCode 91
+    versionName "3.7.1-SNAPSHOT"
 
     // For vector drawables
     vectorDrawables.useSupportLibrary = true
@@ -53,7 +53,7 @@ android {
       signingConfig signingConfigs.release
       shrinkResources true
       minifyEnabled true
-      proguardFiles getDefaultProguardFile("proguard-android.txt"),
+      proguardFiles getDefaultProguardFile("proguard-android-optimize.txt"),
           "proguard-rules.pro"
     }
 
