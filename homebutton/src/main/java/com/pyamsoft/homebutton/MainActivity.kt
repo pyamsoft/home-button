@@ -22,7 +22,6 @@ import androidx.core.view.ViewCompat
 import androidx.databinding.DataBindingUtil
 import com.pyamsoft.homebutton.databinding.ActivityMainBinding
 import com.pyamsoft.pydroid.ui.about.AboutLibrariesFragment
-import com.pyamsoft.pydroid.ui.bugreport.BugreportDialog
 import com.pyamsoft.pydroid.ui.rating.ChangeLogBuilder
 import com.pyamsoft.pydroid.ui.rating.RatingActivity
 import com.pyamsoft.pydroid.ui.rating.buildChangeLog
@@ -58,7 +57,6 @@ class MainActivity : RatingActivity() {
 
     setupToolbar()
     addPreferenceFragment()
-    BugreportDialog.attachToToolbar(this, applicationName, currentApplicationVersion)
   }
 
   private fun addPreferenceFragment() {

@@ -37,6 +37,8 @@ class HomePreferencesFragment : SettingsPreferenceFragment() {
 
   override val isDarkTheme: Boolean = false
 
+  override val bugreportUrl: String = "https://github.com/pyamsoft/home-button/issues"
+
   override fun onResume() {
     super.onResume()
     requireToolbarActivity().withToolbar {
