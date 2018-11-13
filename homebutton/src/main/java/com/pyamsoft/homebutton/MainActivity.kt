@@ -51,7 +51,11 @@ class MainActivity : RatingActivity() {
   }
 
   override fun onCreate(savedInstanceState: Bundle?) {
-    setTheme(R.style.Theme_HomeButton_Light)
+    if (HomeButton.theming(this).isDarkTheme()) {
+      setTheme(R.style.Theme_HomeButton_Dark)
+    } else {
+      setTheme(R.style.Theme_HomeButton_Light)
+    }
     super.onCreate(savedInstanceState)
     binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 

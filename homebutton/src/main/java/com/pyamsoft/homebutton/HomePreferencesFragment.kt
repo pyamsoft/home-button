@@ -17,9 +17,7 @@
 package com.pyamsoft.homebutton
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import com.pyamsoft.pydroid.ui.app.fragment.SettingsPreferenceFragment
 import com.pyamsoft.pydroid.ui.app.fragment.requireToolbarActivity
 import com.pyamsoft.pydroid.ui.util.setUpEnabled
@@ -35,8 +33,6 @@ class HomePreferencesFragment : SettingsPreferenceFragment() {
 
   override val preferenceXmlResId: Int = R.xml.preferences
 
-  override val isDarkTheme: Boolean = false
-
   override val bugreportUrl: String = "https://github.com/pyamsoft/home-button/issues"
 
   override fun onResume() {
@@ -47,16 +43,27 @@ class HomePreferencesFragment : SettingsPreferenceFragment() {
     }
   }
 
-  override fun onCreateView(
-    inflater: LayoutInflater,
-    container: ViewGroup?,
+  override fun onViewCreated(
+    view: View,
     savedInstanceState: Bundle?
-  ): View? {
-    val view = requireNotNull(super.onCreateView(inflater, container, savedInstanceState))
-
+  ) {
+    super.onViewCreated(view, savedInstanceState)
     setupHomePreference(view)
+    setupDarkTheme(view)
+  }
 
-    return view
+  private fun setupDarkTheme(view: View) {
+    val theme = findPreference(getString(R.string.dark_mode_key))
+    theme.setOnPreferenceChangeListener { _, newValue ->
+      if (newValue is Boolean) {
+        HomeButton.theming(view.context)
+            .setDarkTheme(newValue)
+
+        requireActivity().recreate()
+        return@setOnPreferenceChangeListener true
+      }
+      return@setOnPreferenceChangeListener false
+    }
   }
 
   private fun setupHomePreference(view: View) {

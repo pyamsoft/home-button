@@ -17,6 +17,7 @@
   -->
 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.pyamsoft.homebutton">
 
   <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
@@ -26,7 +27,8 @@
       android:icon="@mipmap/ic_launcher"
       android:label="@string/app_name"
       android:roundIcon="@mipmap/ic_launcher"
-      android:theme="@style/Theme.HomeButton.Light">
+      android:theme="@style/Theme.HomeButton.Light"
+      tools:ignore="GoogleAppIndexingWarning">
 
     <!-- Support super wide screen -->
     <meta-data

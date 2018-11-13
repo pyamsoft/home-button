@@ -19,8 +19,8 @@ package com.pyamsoft.homebutton
 import android.app.Application
 import android.content.Context
 import androidx.annotation.CheckResult
-import com.pyamsoft.pydroid.loader.ImageLoader
 import com.pyamsoft.pydroid.ui.PYDroid
+import com.pyamsoft.pydroid.ui.theme.Theming
 import com.squareup.leakcanary.LeakCanary
 import com.squareup.leakcanary.RefWatcher
 import kotlin.LazyThreadSafetyMode.NONE
@@ -32,7 +32,7 @@ class HomeButton : Application(), PYDroid.Instance {
   private val notificationHandler by lazy(NONE) { NotificationHandler(this, preferences) }
 
   private lateinit var watcher: RefWatcher
-  private lateinit var imageLoader: ImageLoader
+  private lateinit var theming: Theming
 
   override fun onCreate() {
     super.onCreate()
@@ -49,6 +49,7 @@ class HomeButton : Application(), PYDroid.Instance {
     }
     notificationHandler.start()
 
+    Theming.IS_DEFAULT_DARK_THEME = false
     PYDroid.init(this, this, BuildConfig.DEBUG)
   }
 
@@ -56,7 +57,8 @@ class HomeButton : Application(), PYDroid.Instance {
 
   override fun setPydroid(instance: PYDroid) {
     pyDroid = instance.also {
-      imageLoader = it.modules().loaderModule().provideImageLoader()
+      theming = it.modules()
+          .theming()
     }
   }
 
@@ -72,9 +74,10 @@ class HomeButton : Application(), PYDroid.Instance {
 
     @JvmStatic
     @CheckResult
-    fun imageLoader(context: Context) : ImageLoader {
-      return (context.applicationContext as? HomeButton)?.imageLoader
-          ?: throw IllegalStateException("Cannot access ImageLoader from Application")
+    fun theming(context: Context): Theming {
+      return (context.applicationContext as? HomeButton)?.theming
+          ?: throw IllegalStateException("Cannot access Theming from Application")
+
     }
   }
 }
