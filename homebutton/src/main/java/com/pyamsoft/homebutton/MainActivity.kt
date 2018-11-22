@@ -18,32 +18,25 @@ package com.pyamsoft.homebutton
 
 import android.os.Bundle
 import android.view.View
-import androidx.core.view.ViewCompat
-import androidx.databinding.DataBindingUtil
-import com.pyamsoft.homebutton.databinding.ActivityMainBinding
-import com.pyamsoft.pydroid.ui.about.AboutLibrariesFragment
+import com.pyamsoft.pydroid.ui.about.AboutFragment
 import com.pyamsoft.pydroid.ui.rating.ChangeLogBuilder
 import com.pyamsoft.pydroid.ui.rating.RatingActivity
 import com.pyamsoft.pydroid.ui.rating.buildChangeLog
-import com.pyamsoft.pydroid.ui.util.DebouncedOnClickListener
 import com.pyamsoft.pydroid.ui.util.commit
-import com.pyamsoft.pydroid.util.toDp
 
 class MainActivity : RatingActivity() {
 
-  private lateinit var binding: ActivityMainBinding
+  private lateinit var homeView: HomeView
 
   override val versionName: String = BuildConfig.VERSION_NAME
 
   override val applicationIcon: Int = R.mipmap.ic_launcher
 
-  override val currentApplicationVersion: Int = BuildConfig.VERSION_CODE
-
   override val applicationName: String
     get() = getString(R.string.app_name)
 
   override val rootView: View
-    get() = binding.root
+    get() = homeView.root()
 
   override val changeLogLines: ChangeLogBuilder = buildChangeLog {
     change("New icon style")
@@ -57,30 +50,17 @@ class MainActivity : RatingActivity() {
       setTheme(R.style.Theme_HomeButton_Light)
     }
     super.onCreate(savedInstanceState)
-    binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+    homeView = HomeViewImpl(this)
 
-    setupToolbar()
     addPreferenceFragment()
   }
 
   private fun addPreferenceFragment() {
     val fm = supportFragmentManager
-    if (fm.findFragmentByTag(HomeFragment.TAG) == null && !AboutLibrariesFragment.isPresent(this)) {
+    if (fm.findFragmentByTag(HomeFragment.TAG) == null && !AboutFragment.isPresent(this)) {
       fm.beginTransaction()
           .add(R.id.main_view_container, HomeFragment(), HomeFragment.TAG)
           .commit(this)
-    }
-  }
-
-  private fun setupToolbar() {
-    binding.toolbar.apply {
-      setToolbar(this)
-      setTitle(R.string.app_name)
-      ViewCompat.setElevation(this, 4f.toDp(context).toFloat())
-
-      setNavigationOnClickListener(DebouncedOnClickListener.create {
-        onBackPressed()
-      })
     }
   }
 }
