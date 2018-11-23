@@ -50,7 +50,14 @@ class HomeButton : Application(), PYDroid.Instance {
     notificationHandler.start()
 
     Theming.IS_DEFAULT_DARK_THEME = false
-    PYDroid.init(this, this, BuildConfig.VERSION_CODE, BuildConfig.DEBUG)
+    PYDroid.init(
+        instance = this,
+        application = this,
+        applicationName = getString(R.string.app_name),
+        bugreportUrl = "https://github.com/pyamsoft/home-button/issues",
+        currentVersion = BuildConfig.VERSION_CODE,
+        debug = BuildConfig.DEBUG
+    )
   }
 
   override fun getPydroid(): PYDroid? = pyDroid
