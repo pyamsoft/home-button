@@ -48,6 +48,8 @@ class HomePreferencesFragment : SettingsPreferenceFragment() {
     savedInstanceState: Bundle?
   ): View? {
     rootView = HomePreferencesViewImpl(preferenceScreen)
+
+    rootView.create()
     return super.onCreateView(inflater, container, savedInstanceState)
   }
 

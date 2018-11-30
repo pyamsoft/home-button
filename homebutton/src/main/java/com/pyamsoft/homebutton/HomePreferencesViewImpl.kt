@@ -8,6 +8,9 @@ internal class HomePreferencesViewImpl internal constructor(
 
   private val context = preferenceScreen.context
 
+  override fun create() {
+  }
+
   override fun onShowNotificationClicked(onClick: (show: Boolean) -> Unit) {
     val homePref = preferenceScreen.findPreference(context.getString(R.string.priority_key))
 

@@ -15,12 +15,10 @@ internal class HomeViewImpl internal constructor(
   private val activity: ActivityBase
 ) : HomeView, LifecycleObserver {
 
-  private val binding: ActivityMainBinding =
-    DataBindingUtil.setContentView(activity, R.layout.activity_main)
+  private lateinit var binding: ActivityMainBinding
 
   init {
     activity.lifecycle.addObserver(this)
-    setupToolbar()
   }
 
   @Suppress("unused")
@@ -28,6 +26,11 @@ internal class HomeViewImpl internal constructor(
   internal fun destroy() {
     activity.lifecycle.removeObserver(this)
     binding.unbind()
+  }
+
+  override fun create() {
+    binding = DataBindingUtil.setContentView(activity, R.layout.activity_main)
+    setupToolbar()
   }
 
   override fun root(): View {

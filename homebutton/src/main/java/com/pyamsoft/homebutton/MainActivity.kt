@@ -47,7 +47,9 @@ class MainActivity : RatingActivity() {
       setTheme(R.style.Theme_HomeButton_Light)
     }
     super.onCreate(savedInstanceState)
+
     homeView = HomeViewImpl(this)
+    homeView.create()
 
     addPreferenceFragment()
     setupToolbar()

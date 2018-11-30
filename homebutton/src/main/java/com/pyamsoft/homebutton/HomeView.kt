@@ -1,8 +1,8 @@
 package com.pyamsoft.homebutton
 
-import com.pyamsoft.pydroid.ui.app.BaseView
+import com.pyamsoft.pydroid.ui.app.BaseScreen
 
-interface HomeView : BaseView {
+interface HomeView : BaseScreen {
 
   fun onToolbarNavClicked(onClick: () -> Unit)
 }
