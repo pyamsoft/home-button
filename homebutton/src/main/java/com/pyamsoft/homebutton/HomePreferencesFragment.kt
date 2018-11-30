@@ -61,12 +61,6 @@ class HomePreferencesFragment : SettingsPreferenceFragment() {
       HomeButton.notificationHandler(view.context)
           .start(show)
     }
-
-    rootView.onDarkThemeClicked { dark: Boolean ->
-      HomeButton.theming(view.context)
-          .setDarkTheme(dark)
-      requireActivity().recreate()
-    }
   }
 
   companion object {

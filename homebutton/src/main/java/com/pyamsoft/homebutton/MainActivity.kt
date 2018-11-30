@@ -32,9 +32,6 @@ class MainActivity : RatingActivity() {
 
   override val applicationIcon: Int = R.mipmap.ic_launcher
 
-  override val applicationName: String
-    get() = getString(R.string.app_name)
-
   override val rootView: View
     get() = homeView.root()
 
@@ -53,6 +50,7 @@ class MainActivity : RatingActivity() {
     homeView = HomeViewImpl(this)
 
     addPreferenceFragment()
+    setupToolbar()
   }
 
   private fun addPreferenceFragment() {
@@ -62,5 +60,9 @@ class MainActivity : RatingActivity() {
           .add(R.id.main_view_container, HomeFragment(), HomeFragment.TAG)
           .commit(this)
     }
+  }
+
+  private fun setupToolbar() {
+    homeView.onToolbarNavClicked { onBackPressed() }
   }
 }

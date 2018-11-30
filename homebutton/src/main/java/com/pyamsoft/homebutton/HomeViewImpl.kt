@@ -39,11 +39,13 @@ internal class HomeViewImpl internal constructor(
       activity.setToolbar(this)
       setTitle(R.string.app_name)
       ViewCompat.setElevation(this, 4F.toDp(context).toFloat())
-
-      setNavigationOnClickListener(DebouncedOnClickListener.create {
-        activity.onBackPressed()
-      })
     }
+  }
+
+  override fun onToolbarNavClicked(onClick: () -> Unit) {
+    binding.toolbar.setNavigationOnClickListener(DebouncedOnClickListener.create {
+      onClick()
+    })
   }
 
 }
