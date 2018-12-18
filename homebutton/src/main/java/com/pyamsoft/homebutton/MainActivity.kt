@@ -18,7 +18,6 @@ package com.pyamsoft.homebutton
 
 import android.os.Bundle
 import android.view.View
-import com.pyamsoft.pydroid.ui.widget.resize.FluidContentResizer
 import com.pyamsoft.pydroid.ui.about.AboutFragment
 import com.pyamsoft.pydroid.ui.rating.ChangeLogBuilder
 import com.pyamsoft.pydroid.ui.rating.RatingActivity
@@ -51,8 +50,6 @@ class MainActivity : RatingActivity() {
 
     homeView = HomeViewImpl(this)
     homeView.create()
-
-    FluidContentResizer.listen(this)
 
     addPreferenceFragment()
     setupToolbar()
