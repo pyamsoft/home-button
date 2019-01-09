@@ -17,8 +17,8 @@
 
 package com.pyamsoft.homebutton
 
-import com.pyamsoft.pydroid.ui.app.fragment.AppSettingsFragment
-import com.pyamsoft.pydroid.ui.app.fragment.SettingsPreferenceFragment
+import com.pyamsoft.pydroid.ui.settings.AppSettingsFragment
+import com.pyamsoft.pydroid.ui.settings.SettingsPreferenceFragment
 
 class HomeFragment : AppSettingsFragment() {
 

@@ -21,8 +21,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.pyamsoft.pydroid.ui.app.fragment.SettingsPreferenceFragment
 import com.pyamsoft.pydroid.ui.app.fragment.requireToolbarActivity
+import com.pyamsoft.pydroid.ui.settings.SettingsPreferenceFragment
 import com.pyamsoft.pydroid.ui.util.setUpEnabled
 
 class HomePreferencesFragment : SettingsPreferenceFragment() {
