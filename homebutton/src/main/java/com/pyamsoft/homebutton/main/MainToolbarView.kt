@@ -19,9 +19,10 @@ package com.pyamsoft.homebutton.main
 
 import android.os.Bundle
 import android.view.ViewGroup
+import androidx.appcompat.widget.Toolbar
 import androidx.core.view.ViewCompat
+import com.pyamsoft.homebutton.R
 import com.pyamsoft.homebutton.R.string
-import com.pyamsoft.homebutton.databinding.MainToolbarBinding
 import com.pyamsoft.homebutton.main.MainViewEvent.ToolbarClicked
 import com.pyamsoft.pydroid.core.bus.Publisher
 import com.pyamsoft.pydroid.ui.app.activity.ActivityBase
@@ -35,27 +36,29 @@ internal class MainToolbarView internal constructor(
   uiBus: Publisher<MainViewEvent>
 ) : UiView<MainViewEvent>(uiBus) {
 
-  private lateinit var binding: MainToolbarBinding
+  private lateinit var toolbar: Toolbar
 
   override fun id(): Int {
-    return binding.mainToolbar.id
+    return toolbar.id
   }
 
   override fun inflate(savedInstanceState: Bundle?) {
-    binding = MainToolbarBinding.inflate(parent.inflater(), parent, true)
+    parent.inflateAndAdd(R.layout.main_toolbar) {
+      toolbar = findViewById(R.id.main_toolbar)
+    }
 
     setupToolbar()
   }
 
   override fun teardown() {
-    binding.unbind()
+    toolbar.setNavigationOnClickListener(null)
   }
 
   override fun saveState(outState: Bundle) {
   }
 
   private fun setupToolbar() {
-    binding.mainToolbar.apply {
+    toolbar.apply {
       activity.setToolbar(this)
       setTitle(string.app_name)
       ViewCompat.setElevation(this, 0.toDp(context).toFloat())

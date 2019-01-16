@@ -29,16 +29,16 @@ internal class MainFrameView internal constructor(
   private val parent: ViewGroup
 ) : UiView<EMPTY>(EmptyPublisher) {
 
-  private lateinit var frameLayout: FrameLayout
+  private lateinit var layoutRoot: FrameLayout
 
   override fun id(): Int {
-    return frameLayout.id
+    return layoutRoot.id
   }
 
   override fun inflate(savedInstanceState: Bundle?) {
-    parent.inflater()
-        .inflate(R.layout.layout_frame, parent, true)
-        .also { frameLayout = it.findViewById(R.id.layout_frame) }
+    parent.inflateAndAdd(R.layout.layout_frame) {
+      layoutRoot = findViewById(R.id.layout_frame)
+    }
   }
 
   override fun teardown() {

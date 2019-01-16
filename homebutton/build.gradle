@@ -59,10 +59,6 @@ android {
       versionNameSuffix "-dev"
     }
   }
-
-  dataBinding {
-    enabled true
-  }
 }
 
 // Kapt flags
