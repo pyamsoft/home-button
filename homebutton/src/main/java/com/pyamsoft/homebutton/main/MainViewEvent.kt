@@ -15,11 +15,11 @@
  *
  */
 
-package com.pyamsoft.homebutton
+package com.pyamsoft.homebutton.main
 
-import com.pyamsoft.pydroid.ui.app.BaseScreen
+import com.pyamsoft.pydroid.ui.arch.ViewEvent
 
-interface HomeView : BaseScreen {
+internal sealed class MainViewEvent : ViewEvent {
 
-  fun onToolbarNavClicked(onClick: () -> Unit)
+  object ToolbarClicked : MainViewEvent()
 }

@@ -17,28 +17,13 @@
 
 package com.pyamsoft.homebutton
 
+import androidx.annotation.CheckResult
+import androidx.annotation.StringRes
+import androidx.preference.Preference
 import androidx.preference.PreferenceScreen
 
-internal class HomePreferencesViewImpl internal constructor(
-  private val preferenceScreen: PreferenceScreen
-) : HomePreferencesView {
-
-  private val context = preferenceScreen.context
-
-  override fun create() {
-  }
-
-  override fun onShowNotificationClicked(onClick: (show: Boolean) -> Unit) {
-    val homePref = preferenceScreen.findPreference(context.getString(R.string.priority_key))
-
-    homePref.setOnPreferenceChangeListener { _, newValue ->
-      if (newValue is Boolean) {
-        onClick(newValue)
-        return@setOnPreferenceChangeListener true
-      } else {
-        return@setOnPreferenceChangeListener false
-      }
-    }
-  }
-
+@CheckResult
+fun PreferenceScreen.findPreference(@StringRes key: Int): Preference {
+  val context = this.context
+  return requireNotNull(findPreference(context.getString(key)))
 }

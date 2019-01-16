@@ -45,10 +45,6 @@ android {
     }
   }
 
-  dataBinding {
-    enabled true
-  }
-
   buildTypes {
     release {
       signingConfig signingConfigs.release
@@ -62,6 +58,10 @@ android {
       applicationIdSuffix ".dev"
       versionNameSuffix "-dev"
     }
+  }
+
+  dataBinding {
+    enabled true
   }
 }
 
@@ -87,6 +87,5 @@ dependencies {
 
   // PYDroid
   implementation "com.pyamsoft.pydroid:ui:$pydroid"
-
   implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 }

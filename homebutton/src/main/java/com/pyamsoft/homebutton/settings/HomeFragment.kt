@@ -15,12 +15,20 @@
  *
  */
 
-package com.pyamsoft.homebutton
+package com.pyamsoft.homebutton.settings
 
-import com.pyamsoft.pydroid.ui.app.BaseView
+import com.pyamsoft.pydroid.ui.settings.AppSettingsFragment
+import com.pyamsoft.pydroid.ui.settings.AppSettingsPreferenceFragment
 
-interface HomePreferencesView : BaseView {
+class HomeFragment : AppSettingsFragment() {
 
-  fun onShowNotificationClicked(onClick: (show: Boolean) -> Unit)
+  override fun provideSettingsFragment(): AppSettingsPreferenceFragment =
+    HomePreferencesFragment()
 
+  override fun provideSettingsTag(): String =
+    HomePreferencesFragment.TAG
+
+  companion object {
+    const val TAG = "HomeFragment"
+  }
 }
