@@ -92,9 +92,9 @@ class MainActivity : RatingActivity() {
 
       frameComponent.also {
         connect(it.id(), ConstraintSet.TOP, toolbarComponent.id(), ConstraintSet.BOTTOM)
+        connect(it.id(), ConstraintSet.BOTTOM, layoutRoot.id, ConstraintSet.BOTTOM)
         connect(it.id(), ConstraintSet.START, layoutRoot.id, ConstraintSet.START)
         connect(it.id(), ConstraintSet.END, layoutRoot.id, ConstraintSet.END)
-        connect(it.id(), ConstraintSet.BOTTOM, layoutRoot.id, ConstraintSet.BOTTOM)
         constrainHeight(it.id(), ConstraintSet.MATCH_CONSTRAINT)
         constrainWidth(it.id(), ConstraintSet.MATCH_CONSTRAINT)
       }
