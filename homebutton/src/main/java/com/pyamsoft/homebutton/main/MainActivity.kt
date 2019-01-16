@@ -54,7 +54,7 @@ class MainActivity : RatingActivity() {
   override val snackbarRoot: View
     get() = layoutRoot
 
-  val fragmentContainerId: Int
+  override val fragmentContainerId: Int
     get() = frameComponent.id()
 
   override val changeLogLines: ChangeLogBuilder = buildChangeLog {

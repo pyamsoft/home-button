@@ -36,13 +36,6 @@ class HomePreferencesFragment : AppSettingsPreferenceFragment() {
   private val bus = RxBus.create<SettingsViewEvent>()
   private lateinit var settingsComponent: SettingsUiComponent
 
-  override val fragmentContainerId: Int
-    get() {
-      val id = (requireActivity() as? MainActivity)?.fragmentContainerId ?: 0
-      require(id > 0) { "Could not find fragmentContainerId" }
-      return id
-    }
-
   override val hideClearAll: Boolean = true
 
   override val preferenceXmlResId: Int = R.xml.preferences
