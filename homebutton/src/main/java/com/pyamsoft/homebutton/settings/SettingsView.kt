@@ -18,6 +18,7 @@
 package com.pyamsoft.homebutton.settings
 
 import android.os.Bundle
+import androidx.preference.Preference
 import androidx.preference.PreferenceScreen
 import com.pyamsoft.homebutton.R.string
 import com.pyamsoft.homebutton.findPreference
@@ -31,20 +32,22 @@ internal class SettingsView internal constructor(
   uiBus: Publisher<SettingsViewEvent>
 ) : UiView<SettingsViewEvent>(uiBus) {
 
+  private lateinit var homePref: Preference
+
   override fun id(): Int {
     throw InvalidUiComponentIdException
   }
 
   override fun inflate(savedInstanceState: Bundle?) {
+    homePref = preferenceScreen.findPreference(string.priority_key)
     setupShowNotification()
   }
 
   override fun teardown() {
+    homePref.onPreferenceChangeListener = null
   }
 
   private fun setupShowNotification() {
-    val homePref = preferenceScreen.findPreference(string.priority_key)
-
     homePref.setOnPreferenceChangeListener { _, newValue ->
       if (newValue is Boolean) {
         publish(ShowNotification(newValue))
