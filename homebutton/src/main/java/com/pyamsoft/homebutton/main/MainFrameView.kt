@@ -17,34 +17,23 @@
 
 package com.pyamsoft.homebutton.main
 
-import android.os.Bundle
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import com.pyamsoft.homebutton.R
-import com.pyamsoft.pydroid.ui.arch.UiView
+import com.pyamsoft.pydroid.ui.arch.BaseUiView
 import com.pyamsoft.pydroid.ui.arch.ViewEvent.EMPTY
 import com.pyamsoft.pydroid.ui.arch.ViewEvent.EmptyPublisher
 
 internal class MainFrameView internal constructor(
-  private val parent: ViewGroup
-) : UiView<EMPTY>(EmptyPublisher) {
+  parent: ViewGroup
+) : BaseUiView<EMPTY>(parent, EmptyPublisher) {
 
-  private lateinit var layoutRoot: FrameLayout
+  private val layoutRoot by lazyView<FrameLayout>(R.id.layout_frame)
+
+  override val layout: Int = R.layout.layout_frame
 
   override fun id(): Int {
     return layoutRoot.id
-  }
-
-  override fun inflate(savedInstanceState: Bundle?) {
-    parent.inflateAndAdd(R.layout.layout_frame) {
-      layoutRoot = findViewById(R.id.layout_frame)
-    }
-  }
-
-  override fun teardown() {
-  }
-
-  override fun saveState(outState: Bundle) {
   }
 
 }

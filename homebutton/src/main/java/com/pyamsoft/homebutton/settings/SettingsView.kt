@@ -20,26 +20,20 @@ package com.pyamsoft.homebutton.settings
 import android.os.Bundle
 import androidx.preference.Preference
 import androidx.preference.PreferenceScreen
-import com.pyamsoft.homebutton.R.string
-import com.pyamsoft.homebutton.findPreference
+import com.pyamsoft.homebutton.R
 import com.pyamsoft.homebutton.settings.SettingsViewEvent.ShowNotification
 import com.pyamsoft.pydroid.core.bus.Publisher
 import com.pyamsoft.pydroid.ui.arch.InvalidUiComponentIdException
-import com.pyamsoft.pydroid.ui.arch.UiView
+import com.pyamsoft.pydroid.ui.arch.PrefUiView
 
 internal class SettingsView internal constructor(
-  private val preferenceScreen: PreferenceScreen,
+  preferenceScreen: PreferenceScreen,
   uiBus: Publisher<SettingsViewEvent>
-) : UiView<SettingsViewEvent>(uiBus) {
+) : PrefUiView<SettingsViewEvent>(preferenceScreen, uiBus) {
 
-  private lateinit var homePref: Preference
-
-  override fun id(): Int {
-    throw InvalidUiComponentIdException
-  }
+  private val homePref by lazyPref<Preference>(R.string.priority_key)
 
   override fun inflate(savedInstanceState: Bundle?) {
-    homePref = preferenceScreen.findPreference(string.priority_key)
     setupShowNotification()
   }
 
@@ -56,9 +50,6 @@ internal class SettingsView internal constructor(
         return@setOnPreferenceChangeListener false
       }
     }
-  }
-
-  override fun saveState(outState: Bundle) {
   }
 
 }

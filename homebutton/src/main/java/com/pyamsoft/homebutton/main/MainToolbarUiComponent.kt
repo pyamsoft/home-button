@@ -17,7 +17,6 @@
 
 package com.pyamsoft.homebutton.main
 
-import android.os.Bundle
 import androidx.lifecycle.LifecycleOwner
 import com.pyamsoft.pydroid.core.bus.Listener
 import com.pyamsoft.pydroid.ui.arch.UiComponent
@@ -26,28 +25,15 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
 internal class MainToolbarUiComponent internal constructor(
-  private val toolbarView: MainToolbarView,
-  private val uiBus: Listener<MainViewEvent>,
+  view: MainToolbarView,
+  uiBus: Listener<MainViewEvent>,
   owner: LifecycleOwner
-) : UiComponent<MainViewEvent>(owner) {
-
-  override fun id(): Int {
-    return toolbarView.id()
-  }
-
-  override fun create(savedInstanceState: Bundle?) {
-    toolbarView.inflate(savedInstanceState)
-    owner.runOnDestroy { toolbarView.teardown() }
-  }
+) : UiComponent<MainViewEvent, MainToolbarView>(view, uiBus, owner) {
 
   override fun onUiEvent(): Observable<MainViewEvent> {
-    return uiBus.listen()
+    return super.onUiEvent()
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
-  }
-
-  override fun saveState(outState: Bundle) {
-    toolbarView.saveState(outState)
   }
 
 }

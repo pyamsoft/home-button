@@ -17,7 +17,6 @@
 
 package com.pyamsoft.homebutton.settings
 
-import android.os.Bundle
 import androidx.lifecycle.LifecycleOwner
 import com.pyamsoft.pydroid.core.bus.Listener
 import com.pyamsoft.pydroid.ui.arch.UiComponent
@@ -26,28 +25,15 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
 internal class SettingsUiComponent internal constructor(
-  private val settingsView: SettingsView,
-  private val uiBus: Listener<SettingsViewEvent>,
+  view: SettingsView,
+  uiBus: Listener<SettingsViewEvent>,
   owner: LifecycleOwner
-) : UiComponent<SettingsViewEvent>(owner) {
-
-  override fun id(): Int {
-    return settingsView.id()
-  }
-
-  override fun create(savedInstanceState: Bundle?) {
-    settingsView.inflate(savedInstanceState)
-    owner.runOnDestroy { settingsView.teardown() }
-  }
+) : UiComponent<SettingsViewEvent, SettingsView>(view, uiBus, owner) {
 
   override fun onUiEvent(): Observable<SettingsViewEvent> {
-    return uiBus.listen()
+    return super.onUiEvent()
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
-  }
-
-  override fun saveState(outState: Bundle) {
-    settingsView.saveState(outState)
   }
 
 }

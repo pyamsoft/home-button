@@ -111,7 +111,7 @@ class MainActivity : RatingActivity() {
   }
 
   private fun inflateLayout() {
-    val toolbar = MainToolbarView(layoutRoot, this, bus)
+    val toolbar = MainToolbarView(this, layoutRoot, bus)
     val frame = MainFrameView(layoutRoot)
     val dropshadow = DropshadowView(layoutRoot)
 

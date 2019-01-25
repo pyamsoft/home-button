@@ -17,32 +17,12 @@
 
 package com.pyamsoft.homebutton.main
 
-import android.os.Bundle
 import androidx.lifecycle.LifecycleOwner
 import com.pyamsoft.pydroid.ui.arch.UiComponent
 import com.pyamsoft.pydroid.ui.arch.ViewEvent.EMPTY
-import io.reactivex.Observable
+import com.pyamsoft.pydroid.ui.arch.ViewEvent.EmptyListener
 
 internal class MainFrameUiComponent internal constructor(
-  private val frameView: MainFrameView,
+  view: MainFrameView,
   owner: LifecycleOwner
-) : UiComponent<EMPTY>(owner) {
-
-  override fun id(): Int {
-    return frameView.id()
-  }
-
-  override fun create(savedInstanceState: Bundle?) {
-    frameView.inflate(savedInstanceState)
-    owner.runOnDestroy { frameView.teardown() }
-  }
-
-  override fun onUiEvent(): Observable<EMPTY> {
-    return Observable.empty()
-  }
-
-  override fun saveState(outState: Bundle) {
-    frameView.saveState(outState)
-  }
-
-}
+) : UiComponent<EMPTY, MainFrameView>(view, EmptyListener, owner)
