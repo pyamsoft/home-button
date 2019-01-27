@@ -22,11 +22,11 @@ import android.widget.FrameLayout
 import com.pyamsoft.homebutton.R
 import com.pyamsoft.pydroid.ui.arch.BaseUiView
 import com.pyamsoft.pydroid.ui.arch.ViewEvent.EMPTY
-import com.pyamsoft.pydroid.ui.arch.ViewEvent.EmptyPublisher
+import com.pyamsoft.pydroid.ui.arch.ViewEvent.EmptyBus
 
 internal class MainFrameView internal constructor(
   parent: ViewGroup
-) : BaseUiView<EMPTY>(parent, EmptyPublisher) {
+) : BaseUiView<EMPTY>(parent, EmptyBus) {
 
   private val layoutRoot by lazyView<FrameLayout>(R.id.layout_frame)
 

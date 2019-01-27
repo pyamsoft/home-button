@@ -18,22 +18,22 @@
 package com.pyamsoft.homebutton.main
 
 import androidx.lifecycle.LifecycleOwner
-import com.pyamsoft.pydroid.core.bus.Listener
-import com.pyamsoft.pydroid.ui.arch.UiComponent
-import io.reactivex.Observable
+import com.pyamsoft.pydroid.ui.arch.BaseUiComponent
+import io.reactivex.ObservableTransformer
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
 internal class MainToolbarUiComponent internal constructor(
   view: MainToolbarView,
-  uiBus: Listener<MainViewEvent>,
   owner: LifecycleOwner
-) : UiComponent<MainViewEvent, MainToolbarView>(view, uiBus, owner) {
+) : BaseUiComponent<MainViewEvent, MainToolbarView>(view, owner) {
 
-  override fun onUiEvent(): Observable<MainViewEvent> {
-    return super.onUiEvent()
-        .subscribeOn(Schedulers.io())
-        .observeOn(AndroidSchedulers.mainThread())
+  override fun onUiEvent(): ObservableTransformer<in MainViewEvent, out MainViewEvent>? {
+    return ObservableTransformer {
+      return@ObservableTransformer it
+          .subscribeOn(Schedulers.io())
+          .observeOn(AndroidSchedulers.mainThread())
+    }
   }
 
 }

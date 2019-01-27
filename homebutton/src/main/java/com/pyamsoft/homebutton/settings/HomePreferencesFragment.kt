@@ -23,7 +23,6 @@ import android.view.View
 import android.view.ViewGroup
 import com.pyamsoft.homebutton.HomeButton
 import com.pyamsoft.homebutton.R
-import com.pyamsoft.homebutton.main.MainActivity
 import com.pyamsoft.homebutton.settings.SettingsViewEvent.ShowNotification
 import com.pyamsoft.pydroid.core.bus.RxBus
 import com.pyamsoft.pydroid.ui.app.fragment.requireToolbarActivity
@@ -54,7 +53,7 @@ class HomePreferencesFragment : AppSettingsPreferenceFragment() {
     savedInstanceState: Bundle?
   ): View? {
     val settingsView = SettingsView(preferenceScreen, bus)
-    settingsComponent = SettingsUiComponent(settingsView, bus, viewLifecycleOwner)
+    settingsComponent = SettingsUiComponent(settingsView, viewLifecycleOwner)
     return super.onCreateView(inflater, container, savedInstanceState)
   }
 
@@ -63,12 +62,11 @@ class HomePreferencesFragment : AppSettingsPreferenceFragment() {
     savedInstanceState: Bundle?
   ) {
     super.onViewCreated(view, savedInstanceState)
-    settingsComponent.onUiEvent()
-        .subscribe {
-          return@subscribe when (it) {
-            is ShowNotification -> showNotification(it.visible)
-          }
-        }
+    settingsComponent.onUiEvent {
+      return@onUiEvent when (it) {
+        is ShowNotification -> showNotification(it.visible)
+      }
+    }
         .destroy(viewLifecycleOwner)
 
     settingsComponent.create(savedInstanceState)

@@ -18,22 +18,22 @@
 package com.pyamsoft.homebutton.settings
 
 import androidx.lifecycle.LifecycleOwner
-import com.pyamsoft.pydroid.core.bus.Listener
-import com.pyamsoft.pydroid.ui.arch.UiComponent
-import io.reactivex.Observable
+import com.pyamsoft.pydroid.ui.arch.BaseUiComponent
+import io.reactivex.ObservableTransformer
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
 internal class SettingsUiComponent internal constructor(
   view: SettingsView,
-  uiBus: Listener<SettingsViewEvent>,
   owner: LifecycleOwner
-) : UiComponent<SettingsViewEvent, SettingsView>(view, uiBus, owner) {
+) : BaseUiComponent<SettingsViewEvent, SettingsView>(view, owner) {
 
-  override fun onUiEvent(): Observable<SettingsViewEvent> {
-    return super.onUiEvent()
-        .subscribeOn(Schedulers.io())
-        .observeOn(AndroidSchedulers.mainThread())
+  override fun onUiEvent(): ObservableTransformer<in SettingsViewEvent, out SettingsViewEvent>? {
+    return ObservableTransformer {
+      return@ObservableTransformer it
+          .subscribeOn(Schedulers.io())
+          .observeOn(AndroidSchedulers.mainThread())
+    }
   }
 
 }

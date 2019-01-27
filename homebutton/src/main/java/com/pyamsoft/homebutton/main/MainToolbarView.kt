@@ -25,7 +25,7 @@ import androidx.core.view.ViewCompat
 import com.pyamsoft.homebutton.R
 import com.pyamsoft.homebutton.R.string
 import com.pyamsoft.homebutton.main.MainViewEvent.ToolbarClicked
-import com.pyamsoft.pydroid.core.bus.Publisher
+import com.pyamsoft.pydroid.core.bus.EventBus
 import com.pyamsoft.pydroid.ui.app.activity.ActivityBase
 import com.pyamsoft.pydroid.ui.arch.BaseUiView
 import com.pyamsoft.pydroid.ui.util.DebouncedOnClickListener
@@ -34,7 +34,7 @@ import com.pyamsoft.pydroid.util.toDp
 internal class MainToolbarView internal constructor(
   private val activity: ActivityBase,
   parent: ViewGroup,
-  uiBus: Publisher<MainViewEvent>
+  uiBus: EventBus<MainViewEvent>
 ) : BaseUiView<MainViewEvent>(parent, uiBus) {
 
   private val toolbar by lazyView<Toolbar>(R.id.main_toolbar)

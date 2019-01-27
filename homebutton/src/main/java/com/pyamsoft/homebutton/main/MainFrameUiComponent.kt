@@ -18,11 +18,10 @@
 package com.pyamsoft.homebutton.main
 
 import androidx.lifecycle.LifecycleOwner
-import com.pyamsoft.pydroid.ui.arch.UiComponent
+import com.pyamsoft.pydroid.ui.arch.BaseUiComponent
 import com.pyamsoft.pydroid.ui.arch.ViewEvent.EMPTY
-import com.pyamsoft.pydroid.ui.arch.ViewEvent.EmptyListener
 
 internal class MainFrameUiComponent internal constructor(
   view: MainFrameView,
   owner: LifecycleOwner
-) : UiComponent<EMPTY, MainFrameView>(view, EmptyListener, owner)
+) : BaseUiComponent<EMPTY, MainFrameView>(view, owner)

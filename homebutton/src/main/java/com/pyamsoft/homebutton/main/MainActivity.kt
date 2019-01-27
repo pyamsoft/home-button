@@ -36,7 +36,6 @@ import com.pyamsoft.pydroid.ui.rating.RatingActivity
 import com.pyamsoft.pydroid.ui.rating.buildChangeLog
 import com.pyamsoft.pydroid.ui.util.commit
 import com.pyamsoft.pydroid.ui.widget.shadow.DropshadowUiComponent
-import com.pyamsoft.pydroid.ui.widget.shadow.DropshadowView
 
 class MainActivity : RatingActivity() {
 
@@ -113,20 +112,18 @@ class MainActivity : RatingActivity() {
   private fun inflateLayout() {
     val toolbar = MainToolbarView(this, layoutRoot, bus)
     val frame = MainFrameView(layoutRoot)
-    val dropshadow = DropshadowView(layoutRoot)
 
-    toolbarComponent = MainToolbarUiComponent(toolbar, bus, this)
+    toolbarComponent = MainToolbarUiComponent(toolbar, this)
     frameComponent = MainFrameUiComponent(frame, this)
-    dropshadowComponent = DropshadowUiComponent(dropshadow, this)
+    dropshadowComponent = DropshadowUiComponent.create(layoutRoot, this)
   }
 
   private fun listenForViewEvents() {
-    toolbarComponent.onUiEvent()
-        .subscribe {
-          return@subscribe when (it) {
-            ToolbarClicked -> onBackPressed()
-          }
-        }
+    toolbarComponent.onUiEvent {
+      return@onUiEvent when (it) {
+        ToolbarClicked -> onBackPressed()
+      }
+    }
         .destroy(this)
   }
 

@@ -22,13 +22,12 @@ import androidx.preference.Preference
 import androidx.preference.PreferenceScreen
 import com.pyamsoft.homebutton.R
 import com.pyamsoft.homebutton.settings.SettingsViewEvent.ShowNotification
-import com.pyamsoft.pydroid.core.bus.Publisher
-import com.pyamsoft.pydroid.ui.arch.InvalidUiComponentIdException
+import com.pyamsoft.pydroid.core.bus.EventBus
 import com.pyamsoft.pydroid.ui.arch.PrefUiView
 
 internal class SettingsView internal constructor(
   preferenceScreen: PreferenceScreen,
-  uiBus: Publisher<SettingsViewEvent>
+  uiBus: EventBus<SettingsViewEvent>
 ) : PrefUiView<SettingsViewEvent>(preferenceScreen, uiBus) {
 
   private val homePref by lazyPref<Preference>(R.string.priority_key)
