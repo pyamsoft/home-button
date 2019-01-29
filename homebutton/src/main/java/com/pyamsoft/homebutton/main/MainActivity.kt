@@ -36,6 +36,7 @@ import com.pyamsoft.pydroid.ui.rating.RatingActivity
 import com.pyamsoft.pydroid.ui.rating.buildChangeLog
 import com.pyamsoft.pydroid.ui.util.commit
 import com.pyamsoft.pydroid.ui.widget.shadow.DropshadowUiComponent
+import kotlin.LazyThreadSafetyMode.NONE
 
 class MainActivity : RatingActivity() {
 
@@ -44,7 +45,10 @@ class MainActivity : RatingActivity() {
   private lateinit var toolbarComponent: MainToolbarUiComponent
   private lateinit var frameComponent: MainFrameUiComponent
 
-  private lateinit var layoutRoot: ConstraintLayout
+
+  private val layoutRoot by lazy(NONE) {
+    findViewById<ConstraintLayout>(R.id.layout_constraint)
+  }
 
   override val versionName: String = BuildConfig.VERSION_NAME
 
@@ -69,7 +73,6 @@ class MainActivity : RatingActivity() {
     }
     super.onCreate(savedInstanceState)
     setContentView(R.layout.layout_constraint)
-    layoutRoot = findViewById(R.id.layout_constraint)
 
     inflateLayout()
     listenForViewEvents()
@@ -121,7 +124,7 @@ class MainActivity : RatingActivity() {
   private fun listenForViewEvents() {
     toolbarComponent.onUiEvent {
       return@onUiEvent when (it) {
-        ToolbarClicked -> onBackPressed()
+        is ToolbarClicked -> onBackPressed()
       }
     }
         .destroy(this)
