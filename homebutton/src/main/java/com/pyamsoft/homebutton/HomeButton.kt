@@ -18,19 +18,15 @@
 package com.pyamsoft.homebutton
 
 import android.app.Application
-import android.content.Context
-import androidx.annotation.CheckResult
 import com.pyamsoft.pydroid.ui.PYDroid
+import com.pyamsoft.pydroid.ui.theme.ThemeInjector
 import com.pyamsoft.pydroid.ui.theme.Theming
 import com.squareup.leakcanary.LeakCanary
 import com.squareup.leakcanary.RefWatcher
-import kotlin.LazyThreadSafetyMode.NONE
 
 class HomeButton : Application(), PYDroid.Instance {
 
   private var pyDroid: PYDroid? = null
-  private val preferences by lazy(NONE) { HomeButtonPreferences(this) }
-  private val notificationHandler by lazy(NONE) { NotificationHandler(this, preferences) }
 
   private lateinit var watcher: RefWatcher
   private lateinit var theming: Theming
@@ -48,7 +44,6 @@ class HomeButton : Application(), PYDroid.Instance {
       // Assign
       watcher = RefWatcher.DISABLED
     }
-    notificationHandler.start()
 
     Theming.IS_DEFAULT_DARK_THEME = false
     PYDroid.init(
@@ -70,22 +65,11 @@ class HomeButton : Application(), PYDroid.Instance {
     }
   }
 
-  companion object {
-
-    @JvmStatic
-    @CheckResult
-    fun notificationHandler(context: Context): NotificationHandler {
-      return (context.applicationContext as? HomeButton)?.notificationHandler
-          ?: throw IllegalStateException("Cannot access NotificationHandler from Application")
-
-    }
-
-    @JvmStatic
-    @CheckResult
-    fun theming(context: Context): Theming {
-      return (context.applicationContext as? HomeButton)?.theming
-          ?: throw IllegalStateException("Cannot access Theming from Application")
-
+  override fun getSystemService(name: String): Any {
+    if (ThemeInjector.name == name) {
+      return theming
+    } else {
+      return super.getSystemService(name)
     }
   }
 }

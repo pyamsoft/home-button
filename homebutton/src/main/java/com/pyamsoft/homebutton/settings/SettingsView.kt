@@ -21,14 +21,12 @@ import android.os.Bundle
 import androidx.preference.Preference
 import androidx.preference.PreferenceScreen
 import com.pyamsoft.homebutton.R
-import com.pyamsoft.homebutton.settings.SettingsViewEvent.ShowNotification
-import com.pyamsoft.pydroid.core.bus.EventBus
 import com.pyamsoft.pydroid.ui.arch.PrefUiView
 
 internal class SettingsView internal constructor(
   preferenceScreen: PreferenceScreen,
-  uiBus: EventBus<SettingsViewEvent>
-) : PrefUiView<SettingsViewEvent>(preferenceScreen, uiBus) {
+  callback: SettingsView.Callback
+) : PrefUiView<SettingsView.Callback>(preferenceScreen, callback) {
 
   private val homePref by lazyPref<Preference>(R.string.priority_key)
 
@@ -43,12 +41,17 @@ internal class SettingsView internal constructor(
   private fun setupShowNotification() {
     homePref.setOnPreferenceChangeListener { _, newValue ->
       if (newValue is Boolean) {
-        publish(ShowNotification(newValue))
+        callback.onShowNotificationChangeClicked(newValue)
         return@setOnPreferenceChangeListener true
       } else {
         return@setOnPreferenceChangeListener false
       }
     }
+  }
+
+  interface Callback {
+
+    fun onShowNotificationChangeClicked(show: Boolean)
   }
 
 }

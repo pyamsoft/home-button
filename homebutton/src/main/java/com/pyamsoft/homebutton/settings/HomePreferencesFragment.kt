@@ -18,26 +18,37 @@
 package com.pyamsoft.homebutton.settings
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import com.pyamsoft.homebutton.HomeButton
+import com.pyamsoft.homebutton.NotificationHandler
 import com.pyamsoft.homebutton.R
-import com.pyamsoft.homebutton.settings.SettingsViewEvent.ShowNotification
-import com.pyamsoft.pydroid.core.bus.RxBus
-import com.pyamsoft.pydroid.ui.app.fragment.requireToolbarActivity
-import com.pyamsoft.pydroid.ui.arch.destroy
+import com.pyamsoft.pydroid.ui.app.requireToolbarActivity
 import com.pyamsoft.pydroid.ui.settings.AppSettingsPreferenceFragment
 import com.pyamsoft.pydroid.ui.util.setUpEnabled
 
-class HomePreferencesFragment : AppSettingsPreferenceFragment() {
+class HomePreferencesFragment : AppSettingsPreferenceFragment(), SettingsView.Callback {
 
-  private val bus = RxBus.create<SettingsViewEvent>()
-  private lateinit var settingsComponent: SettingsUiComponent
+  private lateinit var settingsView: SettingsView
 
   override val hideClearAll: Boolean = true
 
   override val preferenceXmlResId: Int = R.xml.preferences
+
+  private lateinit var notificationHandler: NotificationHandler
+
+  override fun onViewCreated(
+    view: View,
+    savedInstanceState: Bundle?
+  ) {
+    super.onViewCreated(view, savedInstanceState)
+    notificationHandler = NotificationHandler.create(requireActivity())
+
+    settingsView = SettingsView(preferenceScreen, this)
+    settingsView.inflate(savedInstanceState)
+  }
+
+  override fun onShowNotificationChangeClicked(show: Boolean) {
+    notificationHandler.start(show)
+  }
 
   override fun onResume() {
     super.onResume()
@@ -47,36 +58,14 @@ class HomePreferencesFragment : AppSettingsPreferenceFragment() {
     }
   }
 
-  override fun onCreateView(
-    inflater: LayoutInflater,
-    container: ViewGroup?,
-    savedInstanceState: Bundle?
-  ): View? {
-    val settingsView = SettingsView(preferenceScreen, bus)
-    settingsComponent = SettingsUiComponent(settingsView, viewLifecycleOwner)
-    return super.onCreateView(inflater, container, savedInstanceState)
+  override fun onDestroyView() {
+    super.onDestroyView()
+    settingsView.teardown()
   }
 
-  override fun onViewCreated(
-    view: View,
-    savedInstanceState: Bundle?
-  ) {
-    super.onViewCreated(view, savedInstanceState)
-    settingsComponent.onUiEvent {
-      return@onUiEvent when (it) {
-        is ShowNotification -> showNotification(it.visible)
-      }
-    }
-        .destroy(viewLifecycleOwner)
-
-    settingsComponent.create(savedInstanceState)
-  }
-
-  private fun showNotification(visible: Boolean) {
-    HomeButton.notificationHandler(
-        requireContext().applicationContext
-    )
-        .start(visible)
+  override fun onSaveInstanceState(outState: Bundle) {
+    super.onSaveInstanceState(outState)
+    settingsView.saveState(outState)
   }
 
   companion object {

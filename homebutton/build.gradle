@@ -36,6 +36,11 @@ android {
     resConfigs "en"
   }
 
+  compileOptions {
+    sourceCompatibility JavaVersion.VERSION_1_8
+    targetCompatibility JavaVersion.VERSION_1_8
+  }
+
   signingConfigs {
     release {
       storeFile new File(RELEASE_STORE_FILE)
