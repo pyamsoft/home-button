@@ -25,7 +25,7 @@ import androidx.core.view.ViewCompat
 import com.pyamsoft.homebutton.R
 import com.pyamsoft.homebutton.R.string
 import com.pyamsoft.pydroid.ui.app.ToolbarActivityProvider
-import com.pyamsoft.pydroid.ui.arch.BaseUiView
+import com.pyamsoft.pydroid.arch.BaseUiView
 import com.pyamsoft.pydroid.ui.util.DebouncedOnClickListener
 import com.pyamsoft.pydroid.util.toDp
 

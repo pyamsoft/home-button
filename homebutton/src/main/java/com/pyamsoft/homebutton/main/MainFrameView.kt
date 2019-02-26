@@ -20,7 +20,7 @@ package com.pyamsoft.homebutton.main
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import com.pyamsoft.homebutton.R
-import com.pyamsoft.pydroid.ui.arch.BaseUiView
+import com.pyamsoft.pydroid.arch.BaseUiView
 
 internal class MainFrameView internal constructor(
   parent: ViewGroup
