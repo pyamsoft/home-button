@@ -30,8 +30,6 @@ internal class ToolbarView internal constructor(
   private val callback: Callback
 ) : UiView {
 
-  private var oldTitle: CharSequence? = null
-
   override fun id(): Int {
     throw InvalidIdException
   }
@@ -53,18 +51,12 @@ internal class ToolbarView internal constructor(
   }
 
   override fun saveState(outState: Bundle) {
-    outState.putCharSequence(KEY_OLD_TITLE, oldTitle)
   }
 
   interface Callback {
 
     fun onToolbarNavClicked()
 
-  }
-
-  companion object {
-
-    private const val KEY_OLD_TITLE = "key_old_title"
   }
 
 }
