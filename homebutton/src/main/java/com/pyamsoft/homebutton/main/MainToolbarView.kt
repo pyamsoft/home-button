@@ -48,10 +48,6 @@ internal class MainToolbarView internal constructor(
     setupToolbar()
   }
 
-  override fun teardown() {
-    toolbar.setNavigationOnClickListener(null)
-  }
-
   private fun setupToolbar() {
     toolbar.apply {
       toolbarProvider.setToolbar(this)
