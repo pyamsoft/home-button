@@ -25,7 +25,6 @@ import com.pyamsoft.homebutton.BuildConfig
 import com.pyamsoft.homebutton.R
 import com.pyamsoft.homebutton.R.mipmap
 import com.pyamsoft.homebutton.R.style
-import com.pyamsoft.homebutton.main.MainToolbarView.Callback
 import com.pyamsoft.homebutton.settings.HomeFragment
 import com.pyamsoft.pydroid.ui.about.AboutFragment
 import com.pyamsoft.pydroid.ui.rating.ChangeLogBuilder
@@ -36,7 +35,7 @@ import com.pyamsoft.pydroid.ui.util.commit
 import com.pyamsoft.pydroid.ui.widget.shadow.DropshadowView
 import kotlin.LazyThreadSafetyMode.NONE
 
-class MainActivity : RatingActivity(), Callback {
+class MainActivity : RatingActivity() {
 
   private lateinit var dropshadow: DropshadowView
   private lateinit var toolbar: MainToolbarView
@@ -70,7 +69,7 @@ class MainActivity : RatingActivity(), Callback {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.layout_constraint)
 
-    inflateLayout()
+    inflateLayout(savedInstanceState)
     layoutConstraints()
     addPreferenceFragment()
   }
@@ -106,10 +105,14 @@ class MainActivity : RatingActivity(), Callback {
     }
   }
 
-  private fun inflateLayout() {
+  private fun inflateLayout(savedInstanceState: Bundle?) {
     dropshadow = DropshadowView(layoutRoot)
-    toolbar = MainToolbarView(layoutRoot, this, this)
+    toolbar = MainToolbarView(layoutRoot, this)
     frameView = MainFrameView(layoutRoot)
+
+    toolbar.inflate(savedInstanceState)
+    frameView.inflate(savedInstanceState)
+    dropshadow.inflate(savedInstanceState)
   }
 
   override fun onSaveInstanceState(outState: Bundle) {
@@ -133,9 +136,5 @@ class MainActivity : RatingActivity(), Callback {
           .add(fragmentContainerId, HomeFragment(), HomeFragment.TAG)
           .commit(this)
     }
-  }
-
-  override fun onToolbarClicked() {
-    onBackPressed()
   }
 }

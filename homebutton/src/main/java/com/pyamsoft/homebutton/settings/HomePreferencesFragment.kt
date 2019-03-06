@@ -23,11 +23,13 @@ import com.pyamsoft.homebutton.NotificationHandler
 import com.pyamsoft.homebutton.R
 import com.pyamsoft.pydroid.ui.app.requireToolbarActivity
 import com.pyamsoft.pydroid.ui.settings.AppSettingsPreferenceFragment
-import com.pyamsoft.pydroid.ui.util.setUpEnabled
 
-class HomePreferencesFragment : AppSettingsPreferenceFragment(), SettingsView.Callback {
+class HomePreferencesFragment : AppSettingsPreferenceFragment(),
+    SettingsView.Callback,
+    ToolbarView.Callback {
 
   private lateinit var settingsView: SettingsView
+  private lateinit var toolbarView: ToolbarView
 
   override val hideClearAll: Boolean = true
 
@@ -43,6 +45,7 @@ class HomePreferencesFragment : AppSettingsPreferenceFragment(), SettingsView.Ca
     notificationHandler = NotificationHandler.create(requireActivity())
 
     settingsView = SettingsView(preferenceScreen, this)
+    toolbarView = ToolbarView(requireToolbarActivity(), this)
     settingsView.inflate(savedInstanceState)
   }
 
@@ -50,22 +53,20 @@ class HomePreferencesFragment : AppSettingsPreferenceFragment(), SettingsView.Ca
     notificationHandler.start(show)
   }
 
-  override fun onResume() {
-    super.onResume()
-    requireToolbarActivity().withToolbar {
-      it.setTitle(R.string.app_name)
-      it.setUpEnabled(false)
-    }
-  }
-
   override fun onDestroyView() {
     super.onDestroyView()
     settingsView.teardown()
+    toolbarView.teardown()
   }
 
   override fun onSaveInstanceState(outState: Bundle) {
     super.onSaveInstanceState(outState)
+    toolbarView.saveState(outState)
     settingsView.saveState(outState)
+  }
+
+  override fun onToolbarNavClicked() {
+    requireActivity().onBackPressed()
   }
 
   companion object {

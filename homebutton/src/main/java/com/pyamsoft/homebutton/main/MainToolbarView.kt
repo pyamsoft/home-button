@@ -24,16 +24,14 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.view.ViewCompat
 import com.pyamsoft.homebutton.R
 import com.pyamsoft.homebutton.R.string
-import com.pyamsoft.pydroid.ui.app.ToolbarActivityProvider
 import com.pyamsoft.pydroid.arch.BaseUiView
-import com.pyamsoft.pydroid.ui.util.DebouncedOnClickListener
+import com.pyamsoft.pydroid.ui.app.ToolbarActivityProvider
 import com.pyamsoft.pydroid.util.toDp
 
 internal class MainToolbarView internal constructor(
   parent: ViewGroup,
-  private val toolbarProvider: ToolbarActivityProvider,
-  callback: MainToolbarView.Callback
-) : BaseUiView<MainToolbarView.Callback>(parent, callback) {
+  private val toolbarProvider: ToolbarActivityProvider
+) : BaseUiView<Unit>(parent, Unit) {
 
   private val toolbar by lazyView<Toolbar>(R.id.main_toolbar)
 
@@ -59,16 +57,7 @@ internal class MainToolbarView internal constructor(
       toolbarProvider.setToolbar(this)
       setTitle(string.app_name)
       ViewCompat.setElevation(this, 0.toDp(context).toFloat())
-
-      setNavigationOnClickListener(DebouncedOnClickListener.create {
-        callback.onToolbarClicked()
-      })
     }
-  }
-
-  interface Callback {
-
-    fun onToolbarClicked()
   }
 
 }
