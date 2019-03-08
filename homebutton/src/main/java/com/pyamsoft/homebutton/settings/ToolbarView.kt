@@ -22,12 +22,10 @@ import com.pyamsoft.homebutton.R
 import com.pyamsoft.pydroid.arch.UiView
 import com.pyamsoft.pydroid.ui.app.ToolbarActivity
 import com.pyamsoft.pydroid.ui.arch.InvalidIdException
-import com.pyamsoft.pydroid.ui.util.DebouncedOnClickListener
 import com.pyamsoft.pydroid.ui.util.setUpEnabled
 
 internal class ToolbarView internal constructor(
-  private val toolbarActivity: ToolbarActivity,
-  private val callback: Callback
+  private val toolbarActivity: ToolbarActivity
 ) : UiView {
 
   override fun id(): Int {
@@ -38,25 +36,13 @@ internal class ToolbarView internal constructor(
     toolbarActivity.withToolbar { toolbar ->
       toolbar.setTitle(R.string.app_name)
       toolbar.setUpEnabled(false)
-      toolbar.setNavigationOnClickListener(DebouncedOnClickListener.create {
-        callback.onToolbarNavClicked()
-      })
     }
   }
 
   override fun teardown() {
-    toolbarActivity.withToolbar { toolbar ->
-      toolbar.setNavigationOnClickListener(null)
-    }
   }
 
   override fun saveState(outState: Bundle) {
-  }
-
-  interface Callback {
-
-    fun onToolbarNavClicked()
-
   }
 
 }

@@ -56,5 +56,9 @@ internal class MainToolbarView internal constructor(
     }
   }
 
+  override fun teardown() {
+    toolbarProvider.setToolbar(null)
+  }
+
 }
 

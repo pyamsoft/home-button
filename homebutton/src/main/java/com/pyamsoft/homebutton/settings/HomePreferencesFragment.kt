@@ -24,9 +24,7 @@ import com.pyamsoft.homebutton.R
 import com.pyamsoft.pydroid.ui.app.requireToolbarActivity
 import com.pyamsoft.pydroid.ui.settings.AppSettingsPreferenceFragment
 
-class HomePreferencesFragment : AppSettingsPreferenceFragment(),
-    SettingsView.Callback,
-    ToolbarView.Callback {
+class HomePreferencesFragment : AppSettingsPreferenceFragment(), SettingsView.Callback {
 
   private lateinit var settingsView: SettingsView
   private lateinit var toolbarView: ToolbarView
@@ -45,7 +43,7 @@ class HomePreferencesFragment : AppSettingsPreferenceFragment(),
     notificationHandler = NotificationHandler.create(requireActivity())
 
     settingsView = SettingsView(preferenceScreen, this)
-    toolbarView = ToolbarView(requireToolbarActivity(), this)
+    toolbarView = ToolbarView(requireToolbarActivity())
     settingsView.inflate(savedInstanceState)
   }
 
@@ -63,10 +61,6 @@ class HomePreferencesFragment : AppSettingsPreferenceFragment(),
     super.onSaveInstanceState(outState)
     toolbarView.saveState(outState)
     settingsView.saveState(outState)
-  }
-
-  override fun onToolbarNavClicked() {
-    requireActivity().onBackPressed()
   }
 
   companion object {
