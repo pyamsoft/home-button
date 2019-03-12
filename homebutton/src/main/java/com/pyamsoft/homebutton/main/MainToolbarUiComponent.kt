@@ -17,18 +17,16 @@
 
 package com.pyamsoft.homebutton.main
 
-import android.view.ViewGroup
-import android.widget.FrameLayout
-import com.pyamsoft.homebutton.R
-import com.pyamsoft.pydroid.arch.BaseUiView
+import androidx.annotation.CheckResult
+import androidx.annotation.IdRes
+import androidx.constraintlayout.widget.ConstraintLayout
+import com.pyamsoft.pydroid.arch.UiComponent
 
-internal class MainFrameView internal constructor(
-  parent: ViewGroup
-) : BaseUiView<Unit>(parent, Unit) {
+internal interface MainToolbarUiComponent : UiComponent<Unit> {
 
-  override val layout: Int = R.layout.layout_frame
+  @CheckResult
+  @IdRes
+  fun id(): Int
 
-  override val layoutRoot by lazyView<FrameLayout>(R.id.layout_frame)
-
+  fun layout(constraintLayout: ConstraintLayout)
 }
-

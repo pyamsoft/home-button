@@ -20,7 +20,6 @@ package com.pyamsoft.homebutton.main
 import android.os.Bundle
 import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.constraintlayout.widget.ConstraintSet
 import com.pyamsoft.homebutton.BuildConfig
 import com.pyamsoft.homebutton.R
 import com.pyamsoft.homebutton.R.mipmap
@@ -37,9 +36,8 @@ import kotlin.LazyThreadSafetyMode.NONE
 
 class MainActivity : RatingActivity() {
 
-  private lateinit var dropshadow: DropshadowView
-  private lateinit var toolbar: MainToolbarView
-  private lateinit var frameView: MainFrameView
+  private lateinit var component: MainUiComponent
+  private lateinit var toolbarComponent: MainToolbarUiComponent
 
   private val layoutRoot by lazy(NONE) {
     findViewById<ConstraintLayout>(R.id.layout_constraint)
@@ -53,7 +51,7 @@ class MainActivity : RatingActivity() {
     get() = layoutRoot
 
   override val fragmentContainerId: Int
-    get() = frameView.id()
+    get() = component.id()
 
   override val changeLogLines: ChangeLogBuilder = buildChangeLog {
     change("New icon style")
@@ -69,64 +67,26 @@ class MainActivity : RatingActivity() {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.layout_constraint)
 
-    inflateLayout(savedInstanceState)
-    layoutConstraints()
+    val dropshadow = DropshadowView(layoutRoot)
+    val toolbar = MainToolbarView(layoutRoot, this)
+    toolbarComponent = MainToolbarUiComponentImpl(dropshadow, toolbar)
+
+    val frameView = MainFrameView(layoutRoot)
+    component = MainUiComponentImpl(frameView)
+
+    toolbarComponent.bind(this, savedInstanceState, Unit)
+    component.bind(this, savedInstanceState, Unit)
+
+    toolbarComponent.layout(layoutRoot)
+    component.layout(layoutRoot, toolbarComponent.id())
+
     addPreferenceFragment()
-  }
-
-  private fun layoutConstraints() {
-    ConstraintSet().apply {
-      clone(layoutRoot)
-
-      toolbar.also {
-        connect(it.id(), ConstraintSet.TOP, layoutRoot.id, ConstraintSet.TOP)
-        connect(it.id(), ConstraintSet.START, layoutRoot.id, ConstraintSet.START)
-        connect(it.id(), ConstraintSet.END, layoutRoot.id, ConstraintSet.END)
-        constrainWidth(it.id(), ConstraintSet.MATCH_CONSTRAINT)
-      }
-
-      frameView.also {
-        connect(it.id(), ConstraintSet.TOP, toolbar.id(), ConstraintSet.BOTTOM)
-        connect(it.id(), ConstraintSet.BOTTOM, layoutRoot.id, ConstraintSet.BOTTOM)
-        connect(it.id(), ConstraintSet.START, layoutRoot.id, ConstraintSet.START)
-        connect(it.id(), ConstraintSet.END, layoutRoot.id, ConstraintSet.END)
-        constrainHeight(it.id(), ConstraintSet.MATCH_CONSTRAINT)
-        constrainWidth(it.id(), ConstraintSet.MATCH_CONSTRAINT)
-      }
-
-      dropshadow.also {
-        connect(it.id(), ConstraintSet.TOP, toolbar.id(), ConstraintSet.BOTTOM)
-        connect(it.id(), ConstraintSet.START, layoutRoot.id, ConstraintSet.START)
-        connect(it.id(), ConstraintSet.END, layoutRoot.id, ConstraintSet.END)
-        constrainWidth(it.id(), ConstraintSet.MATCH_CONSTRAINT)
-      }
-
-      applyTo(layoutRoot)
-    }
-  }
-
-  private fun inflateLayout(savedInstanceState: Bundle?) {
-    dropshadow = DropshadowView(layoutRoot)
-    toolbar = MainToolbarView(layoutRoot, this)
-    frameView = MainFrameView(layoutRoot)
-
-    toolbar.inflate(savedInstanceState)
-    frameView.inflate(savedInstanceState)
-    dropshadow.inflate(savedInstanceState)
   }
 
   override fun onSaveInstanceState(outState: Bundle) {
     super.onSaveInstanceState(outState)
-    toolbar.saveState(outState)
-    dropshadow.saveState(outState)
-    frameView.saveState(outState)
-  }
-
-  override fun onDestroy() {
-    super.onDestroy()
-    toolbar.teardown()
-    dropshadow.teardown()
-    frameView.teardown()
+    toolbarComponent.saveState(outState)
+    component.saveState(outState)
   }
 
   private fun addPreferenceFragment() {

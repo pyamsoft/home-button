@@ -30,12 +30,17 @@ internal class SettingsView internal constructor(
 
   private val homePref by lazyPref<Preference>(R.string.priority_key)
 
-  override fun inflate(savedInstanceState: Bundle?) {
+  override fun onInflated(
+    preferenceScreen: PreferenceScreen,
+    savedInstanceState: Bundle?
+  ) {
     setupShowNotification()
   }
 
-  override fun teardown() {
+  override fun onTeardown() {
+    super.onTeardown()
     homePref.onPreferenceChangeListener = null
+    removePreference(homePref)
   }
 
   private fun setupShowNotification() {
