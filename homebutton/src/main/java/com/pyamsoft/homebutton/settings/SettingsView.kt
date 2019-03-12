@@ -40,7 +40,6 @@ internal class SettingsView internal constructor(
   override fun onTeardown() {
     super.onTeardown()
     homePref.onPreferenceChangeListener = null
-    removePreference(homePref)
   }
 
   private fun setupShowNotification() {
