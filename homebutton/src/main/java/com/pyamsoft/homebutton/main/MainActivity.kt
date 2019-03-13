@@ -74,8 +74,8 @@ class MainActivity : RatingActivity() {
     val frameView = MainFrameView(layoutRoot)
     component = MainUiComponentImpl(frameView)
 
-    toolbarComponent.bind(this, savedInstanceState, Unit)
     component.bind(this, savedInstanceState, Unit)
+    toolbarComponent.bind(this, savedInstanceState, Unit)
 
     toolbarComponent.layout(layoutRoot)
     component.layout(layoutRoot, toolbarComponent.id())
