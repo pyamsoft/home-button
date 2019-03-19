@@ -18,8 +18,6 @@
 package com.pyamsoft.homebutton.main
 
 import android.os.Bundle
-import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.constraintlayout.widget.ConstraintSet
 import androidx.lifecycle.LifecycleOwner
 import com.pyamsoft.pydroid.arch.BaseUiComponent
 import com.pyamsoft.pydroid.arch.doOnDestroy
@@ -45,27 +43,7 @@ internal class MainUiComponentImpl internal constructor(
     frameView.inflate(savedInstanceState)
   }
 
-  override fun layout(
-    constraintLayout: ConstraintLayout,
-    aboveId: Int
-  ) {
-    ConstraintSet().apply {
-      clone(constraintLayout)
-
-      frameView.also {
-        connect(it.id(), ConstraintSet.TOP, aboveId, ConstraintSet.BOTTOM)
-        connect(it.id(), ConstraintSet.BOTTOM, constraintLayout.id, ConstraintSet.BOTTOM)
-        connect(it.id(), ConstraintSet.START, constraintLayout.id, ConstraintSet.START)
-        connect(it.id(), ConstraintSet.END, constraintLayout.id, ConstraintSet.END)
-        constrainHeight(it.id(), ConstraintSet.MATCH_CONSTRAINT)
-        constrainWidth(it.id(), ConstraintSet.MATCH_CONSTRAINT)
-      }
-
-      applyTo(constraintLayout)
-    }
-  }
-
-  override fun saveState(outState: Bundle) {
+  override fun onSaveState(outState: Bundle) {
     frameView.saveState(outState)
   }
 }

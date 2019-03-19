@@ -20,11 +20,14 @@ package com.pyamsoft.homebutton.main
 import android.os.Bundle
 import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.constraintlayout.widget.ConstraintSet
+import androidx.coordinatorlayout.widget.CoordinatorLayout
 import com.pyamsoft.homebutton.BuildConfig
 import com.pyamsoft.homebutton.R
 import com.pyamsoft.homebutton.R.mipmap
 import com.pyamsoft.homebutton.R.style
 import com.pyamsoft.homebutton.settings.HomeFragment
+import com.pyamsoft.pydroid.arch.layout
 import com.pyamsoft.pydroid.ui.about.AboutFragment
 import com.pyamsoft.pydroid.ui.rating.ChangeLogBuilder
 import com.pyamsoft.pydroid.ui.rating.RatingActivity
@@ -39,16 +42,13 @@ class MainActivity : RatingActivity() {
   private lateinit var component: MainUiComponent
   private lateinit var toolbarComponent: MainToolbarUiComponent
 
-  private val layoutRoot by lazy(NONE) {
-    findViewById<ConstraintLayout>(R.id.layout_constraint)
-  }
-
   override val versionName: String = BuildConfig.VERSION_NAME
 
   override val applicationIcon: Int = mipmap.ic_launcher
 
-  override val snackbarRoot: View
-    get() = layoutRoot
+  override val snackbarRoot: View by lazy(NONE) {
+    findViewById<CoordinatorLayout>(R.id.snackbar_root)
+  }
 
   override val fragmentContainerId: Int
     get() = component.id()
@@ -65,20 +65,36 @@ class MainActivity : RatingActivity() {
       setTheme(style.Theme_HomeButton_Light)
     }
     super.onCreate(savedInstanceState)
-    setContentView(R.layout.layout_constraint)
+    setContentView(R.layout.snackbar_screen)
+
+    val layoutRoot = findViewById<ConstraintLayout>(R.id.content_root)
 
     val dropshadow = DropshadowView(layoutRoot)
     val toolbar = MainToolbarView(layoutRoot, this)
-    toolbarComponent = MainToolbarUiComponentImpl(dropshadow, toolbar)
-
     val frameView = MainFrameView(layoutRoot)
+    toolbarComponent = MainToolbarUiComponentImpl(dropshadow, toolbar)
     component = MainUiComponentImpl(frameView)
 
-    component.bind(this, savedInstanceState, Unit)
-    toolbarComponent.bind(this, savedInstanceState, Unit)
+    component.bind(layoutRoot, this, savedInstanceState, Unit)
+    toolbarComponent.bind(layoutRoot, this, savedInstanceState, Unit)
 
-    toolbarComponent.layout(layoutRoot)
-    component.layout(layoutRoot, toolbarComponent.id())
+    layoutRoot.layout {
+      toolbarComponent.also {
+        connect(it.id(), ConstraintSet.TOP, ConstraintSet.PARENT_ID, ConstraintSet.TOP)
+        connect(it.id(), ConstraintSet.START, ConstraintSet.PARENT_ID, ConstraintSet.START)
+        connect(it.id(), ConstraintSet.END, ConstraintSet.PARENT_ID, ConstraintSet.END)
+        constrainWidth(it.id(), ConstraintSet.MATCH_CONSTRAINT)
+      }
+
+      component.also {
+        connect(it.id(), ConstraintSet.TOP, toolbarComponent.id(), ConstraintSet.BOTTOM)
+        connect(it.id(), ConstraintSet.START, ConstraintSet.PARENT_ID, ConstraintSet.START)
+        connect(it.id(), ConstraintSet.END, ConstraintSet.PARENT_ID, ConstraintSet.END)
+        connect(it.id(), ConstraintSet.BOTTOM, ConstraintSet.PARENT_ID, ConstraintSet.BOTTOM)
+        constrainWidth(it.id(), ConstraintSet.MATCH_CONSTRAINT)
+        constrainHeight(it.id(), ConstraintSet.MATCH_CONSTRAINT)
+      }
+    }
 
     addPreferenceFragment()
   }

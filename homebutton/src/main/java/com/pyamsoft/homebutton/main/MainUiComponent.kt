@@ -17,19 +17,6 @@
 
 package com.pyamsoft.homebutton.main
 
-import androidx.annotation.CheckResult
-import androidx.annotation.IdRes
-import androidx.constraintlayout.widget.ConstraintLayout
 import com.pyamsoft.pydroid.arch.UiComponent
 
-internal interface MainUiComponent : UiComponent<Unit> {
-
-  @CheckResult
-  @IdRes
-  fun id(): Int
-
-  fun layout(
-    constraintLayout: ConstraintLayout,
-    aboveId: Int
-  )
-}
+internal interface MainUiComponent : UiComponent<Unit>
