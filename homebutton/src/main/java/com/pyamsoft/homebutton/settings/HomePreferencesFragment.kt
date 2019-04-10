@@ -45,6 +45,8 @@ class HomePreferencesFragment : AppSettingsPreferenceFragment(), SettingsView.Ca
     settingsView = SettingsView(preferenceScreen, this)
     toolbarView = ToolbarView(requireToolbarActivity())
     settingsView.inflate(savedInstanceState)
+
+    notificationHandler.start()
   }
 
   override fun onShowNotificationChangeClicked(show: Boolean) {

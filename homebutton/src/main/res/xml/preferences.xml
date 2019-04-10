@@ -27,6 +27,7 @@
         android:key="@string/priority_key"
         android:summaryOff="@string/priority_summary_off"
         android:summaryOn="@string/priority_summary_on"
+        android:defaultValue="true"
         android:title="@string/priority_title"
         app:iconCompat="@drawable/ic_home_24dp"/>
 

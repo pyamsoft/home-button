@@ -29,15 +29,6 @@ class HomeButtonPreferences(context: Context) {
     PreferenceManager.getDefaultSharedPreferences(context.applicationContext)
   private val keyNotificationPriority: String = context.getString(R.string.priority_key)
 
-  init {
-    preferences.also {
-      // Init to default state
-      if (!it.contains(keyNotificationPriority)) {
-        it.edit { putBoolean(keyNotificationPriority, true) }
-      }
-    }
-  }
-
   val notificationPriority: Boolean
     @get:CheckResult get() = preferences.getBoolean(keyNotificationPriority, true)
 
