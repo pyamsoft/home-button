@@ -23,13 +23,14 @@ import com.pyamsoft.pydroid.ui.theme.ThemeInjector
 import com.pyamsoft.pydroid.ui.theme.Theming
 import com.squareup.leakcanary.LeakCanary
 import com.squareup.leakcanary.RefWatcher
+import javax.inject.Provider
 
 class HomeButton : Application(), PYDroid.Instance {
 
   private var pyDroid: PYDroid? = null
 
   private lateinit var watcher: RefWatcher
-  private lateinit var theming: Theming
+  private lateinit var theming: Provider<Theming>
 
   override fun onCreate() {
     super.onCreate()
@@ -50,7 +51,7 @@ class HomeButton : Application(), PYDroid.Instance {
         instance = this,
         application = this,
         applicationName = getString(R.string.app_name),
-        bugreportUrl = "https://github.com/pyamsoft/home-button/issues",
+        bugReportUrl = "https://github.com/pyamsoft/home-button/issues",
         currentVersion = BuildConfig.VERSION_CODE,
         debug = BuildConfig.DEBUG
     )
@@ -60,14 +61,13 @@ class HomeButton : Application(), PYDroid.Instance {
 
   override fun setPydroid(instance: PYDroid) {
     pyDroid = instance.also {
-      theming = it.modules()
-          .theming()
+      theming = it.modules().theming()
     }
   }
 
   override fun getSystemService(name: String): Any {
     if (ThemeInjector.name == name) {
-      return theming
+      return theming.get()
     } else {
       return super.getSystemService(name)
     }
