@@ -17,14 +17,16 @@
 
 package com.pyamsoft.homebutton.settings
 
+import com.pyamsoft.homebutton.settings.SettingsHandler.SettingsEvent
 import com.pyamsoft.homebutton.settings.SettingsViewModel.SettingsState
 import com.pyamsoft.homebutton.settings.SettingsViewModel.SettingsState.Showing
+import com.pyamsoft.pydroid.arch.UiEventHandler
 import com.pyamsoft.pydroid.arch.UiState
 import com.pyamsoft.pydroid.arch.UiViewModel
 import javax.inject.Inject
 
 internal class SettingsViewModel @Inject internal constructor(
-  private val handler: SettingsHandler
+  private val handler: UiEventHandler<SettingsEvent, SettingsView.Callback>
 ) : UiViewModel<SettingsState>(initialState = SettingsState(isShowing = null)),
     SettingsView.Callback {
 
