@@ -22,10 +22,11 @@ import androidx.preference.Preference
 import androidx.preference.PreferenceScreen
 import com.pyamsoft.homebutton.R
 import com.pyamsoft.pydroid.ui.arch.PrefUiView
+import javax.inject.Inject
 
-internal class SettingsView internal constructor(
+internal class SettingsView @Inject internal constructor(
   preferenceScreen: PreferenceScreen,
-  callback: SettingsView.Callback
+  callback: Callback
 ) : PrefUiView<SettingsView.Callback>(preferenceScreen, callback) {
 
   private val homePref by lazyPref<Preference>(R.string.priority_key)

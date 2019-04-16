@@ -23,24 +23,26 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import com.pyamsoft.homebutton.BuildConfig
+import com.pyamsoft.homebutton.HomeButtonComponent
 import com.pyamsoft.homebutton.R
 import com.pyamsoft.homebutton.R.mipmap
 import com.pyamsoft.homebutton.R.style
 import com.pyamsoft.homebutton.settings.HomeFragment
 import com.pyamsoft.pydroid.arch.layout
+import com.pyamsoft.pydroid.ui.Injector
 import com.pyamsoft.pydroid.ui.about.AboutFragment
 import com.pyamsoft.pydroid.ui.rating.ChangeLogBuilder
 import com.pyamsoft.pydroid.ui.rating.RatingActivity
 import com.pyamsoft.pydroid.ui.rating.buildChangeLog
-import com.pyamsoft.pydroid.ui.theme.ThemeInjector
+import com.pyamsoft.pydroid.ui.theme.Theming
 import com.pyamsoft.pydroid.ui.util.commit
-import com.pyamsoft.pydroid.ui.widget.shadow.DropshadowView
+import javax.inject.Inject
 import kotlin.LazyThreadSafetyMode.NONE
 
 class MainActivity : RatingActivity() {
 
-  private lateinit var component: MainUiComponent
-  private lateinit var toolbarComponent: MainToolbarUiComponent
+  @field:Inject internal lateinit var component: MainUiComponent
+  @field:Inject internal lateinit var toolbarComponent: MainToolbarUiComponent
 
   override val versionName: String = BuildConfig.VERSION_NAME
 
@@ -59,21 +61,19 @@ class MainActivity : RatingActivity() {
   }
 
   override fun onCreate(savedInstanceState: Bundle?) {
-    if (ThemeInjector.obtain(applicationContext).isDarkTheme()) {
+    if (Injector.obtain<Theming>(applicationContext).isDarkTheme()) {
       setTheme(style.Theme_HomeButton_Dark)
     } else {
       setTheme(style.Theme_HomeButton_Light)
     }
     super.onCreate(savedInstanceState)
     setContentView(R.layout.snackbar_screen)
-
     val layoutRoot = findViewById<ConstraintLayout>(R.id.content_root)
 
-    val dropshadow = DropshadowView(layoutRoot)
-    val toolbar = MainToolbarView(layoutRoot, this)
-    val frameView = MainFrameView(layoutRoot)
-    toolbarComponent = MainToolbarUiComponentImpl(dropshadow, toolbar)
-    component = MainUiComponentImpl(frameView)
+    Injector.obtain<HomeButtonComponent>(applicationContext)
+        .plusMain()
+        .create(layoutRoot, this)
+        .inject(this)
 
     component.bind(layoutRoot, this, savedInstanceState, Unit)
     toolbarComponent.bind(layoutRoot, this, savedInstanceState, Unit)

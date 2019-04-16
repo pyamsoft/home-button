@@ -19,50 +19,44 @@ package com.pyamsoft.homebutton.settings
 
 import android.os.Bundle
 import android.view.View
+import com.pyamsoft.homebutton.HomeButtonComponent
 import com.pyamsoft.homebutton.NotificationHandler
 import com.pyamsoft.homebutton.R
+import com.pyamsoft.pydroid.ui.Injector
 import com.pyamsoft.pydroid.ui.app.requireToolbarActivity
 import com.pyamsoft.pydroid.ui.settings.AppSettingsPreferenceFragment
+import javax.inject.Inject
 
-class HomePreferencesFragment : AppSettingsPreferenceFragment(), SettingsView.Callback {
-
-  private lateinit var settingsView: SettingsView
-  private lateinit var toolbarView: ToolbarView
+class HomePreferencesFragment : AppSettingsPreferenceFragment(), SettingsUiComponent.Callback {
 
   override val hideClearAll: Boolean = true
 
   override val preferenceXmlResId: Int = R.xml.preferences
 
-  private lateinit var notificationHandler: NotificationHandler
+  @field:Inject internal lateinit var component: SettingsUiComponent
+  @field:Inject internal lateinit var notificationHandler: NotificationHandler
 
   override fun onViewCreated(
     view: View,
     savedInstanceState: Bundle?
   ) {
     super.onViewCreated(view, savedInstanceState)
-    notificationHandler = NotificationHandler.create(requireActivity())
+    Injector.obtain<HomeButtonComponent>(view.context.applicationContext)
+        .plusSettings()
+        .create(requireToolbarActivity(), preferenceScreen)
+        .inject(this)
 
-    settingsView = SettingsView(preferenceScreen, this)
-    toolbarView = ToolbarView(requireToolbarActivity())
-    settingsView.inflate(savedInstanceState)
-
+    component.bind(viewLifecycleOwner, savedInstanceState, this)
     notificationHandler.start()
   }
 
-  override fun onShowNotificationChangeClicked(show: Boolean) {
+  override fun onShowNotificationChanged(show: Boolean) {
     notificationHandler.start(show)
-  }
-
-  override fun onDestroyView() {
-    super.onDestroyView()
-    settingsView.teardown()
-    toolbarView.teardown()
   }
 
   override fun onSaveInstanceState(outState: Bundle) {
     super.onSaveInstanceState(outState)
-    toolbarView.saveState(outState)
-    settingsView.saveState(outState)
+    component.saveState(outState)
   }
 
   companion object {

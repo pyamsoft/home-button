@@ -24,32 +24,27 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.os.Build
-import androidx.annotation.CheckResult
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.getSystemService
 import timber.log.Timber
+import javax.inject.Inject
 
-class NotificationHandler private constructor(context: Context) {
+class NotificationHandler @Inject internal constructor(private val context: Context) {
 
-  private val appContext = context.applicationContext
-  private val text = appContext.getString(R.string.press_to_home)
-  private val preferences by lazy { HomeButtonPreferences(appContext) }
-  private val notificationManagerCompat by lazy { NotificationManagerCompat.from(appContext) }
+  private val text = context.getString(R.string.press_to_home)
+  private val preferences by lazy { HomeButtonPreferences(context) }
+  private val notificationManagerCompat by lazy { NotificationManagerCompat.from(context) }
   private val pendingIntent by lazy {
-    PendingIntent.getActivity(appContext, RC, HOME, PendingIntent.FLAG_UPDATE_CURRENT)
+    PendingIntent.getActivity(context, RC, HOME, PendingIntent.FLAG_UPDATE_CURRENT)
   }
   private val notificationManager by lazy {
-    requireNotNull(appContext.getSystemService<NotificationManager>())
+    requireNotNull(context.getSystemService<NotificationManager>())
   }
 
-  fun start() {
-    val showNotification: Boolean = preferences.notificationPriority
-    start(showNotification)
-  }
-
-  fun start(showNotification: Boolean) {
+  @JvmOverloads
+  fun start(showNotification: Boolean = preferences.notificationPriority) {
     val notificationChannelId = setupNotificationChannel(showNotification)
 
     val priority: Int
@@ -59,7 +54,7 @@ class NotificationHandler private constructor(context: Context) {
       priority = NotificationCompat.PRIORITY_MIN
     }
 
-    val builder = NotificationCompat.Builder(appContext, notificationChannelId)
+    val builder = NotificationCompat.Builder(context, notificationChannelId)
         .apply {
           setContentIntent(pendingIntent)
           setSmallIcon(R.drawable.ic_home_notification)
@@ -68,7 +63,7 @@ class NotificationHandler private constructor(context: Context) {
           setNumber(0)
           setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
           setContentText(text)
-          color = ContextCompat.getColor(appContext, R.color.primary)
+          color = ContextCompat.getColor(context, R.color.primary)
         }
 
     notificationManagerCompat.cancel(ID)
@@ -127,12 +122,6 @@ class NotificationHandler private constructor(context: Context) {
     private val HOME = Intent(Intent.ACTION_MAIN).addCategory(Intent.CATEGORY_HOME)
 
     private const val OLD_CHANNEL_ID = "home_button_foreground"
-
-    @JvmStatic
-    @CheckResult
-    fun create(context: Context): NotificationHandler {
-      return NotificationHandler(context.applicationContext)
-    }
   }
 
 }

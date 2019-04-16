@@ -23,8 +23,9 @@ import androidx.lifecycle.LifecycleOwner
 import com.pyamsoft.pydroid.arch.BaseUiComponent
 import com.pyamsoft.pydroid.arch.doOnDestroy
 import com.pyamsoft.pydroid.ui.widget.shadow.DropshadowView
+import javax.inject.Inject
 
-internal class MainToolbarUiComponentImpl internal constructor(
+internal class MainToolbarUiComponentImpl @Inject internal constructor(
   private val dropshadow: DropshadowView,
   private val toolbar: MainToolbarView
 ) : BaseUiComponent<Unit>(),

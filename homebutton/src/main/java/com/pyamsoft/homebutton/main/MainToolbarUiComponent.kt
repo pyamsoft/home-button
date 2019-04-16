@@ -19,5 +19,4 @@ package com.pyamsoft.homebutton.main
 
 import com.pyamsoft.pydroid.arch.UiComponent
 
-internal interface MainToolbarUiComponent : UiComponent<Unit> {
-}
+internal interface MainToolbarUiComponent : UiComponent<Unit>

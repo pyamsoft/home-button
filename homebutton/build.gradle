@@ -88,5 +88,10 @@ dependencies {
 
   // PYDroid
   implementation "com.pyamsoft.pydroid:ui:$pydroid"
+
+  // Dagger
+  implementation "com.google.dagger:dagger:$dagger"
+  kapt "com.google.dagger:dagger-compiler:$dagger"
+
   implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 }

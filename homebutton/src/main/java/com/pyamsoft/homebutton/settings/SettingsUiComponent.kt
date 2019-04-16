@@ -15,21 +15,15 @@
  *
  */
 
-package com.pyamsoft.homebutton.main
+package com.pyamsoft.homebutton.settings
 
-import android.view.ViewGroup
-import android.widget.FrameLayout
-import com.pyamsoft.homebutton.R
-import com.pyamsoft.pydroid.arch.BaseUiView
-import javax.inject.Inject
+import com.pyamsoft.pydroid.arch.UiComponent
 
-internal class MainFrameView @Inject internal constructor(
-  parent: ViewGroup
-) : BaseUiView<Unit>(parent, Unit) {
+internal interface SettingsUiComponent : UiComponent<SettingsUiComponent.Callback> {
 
-  override val layout: Int = R.layout.layout_frame
+  interface Callback {
 
-  override val layoutRoot by lazyView<FrameLayout>(R.id.layout_frame)
+    fun onShowNotificationChanged(show: Boolean)
 
+  }
 }
-

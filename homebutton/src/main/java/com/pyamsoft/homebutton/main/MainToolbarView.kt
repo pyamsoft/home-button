@@ -27,8 +27,9 @@ import com.pyamsoft.homebutton.R.string
 import com.pyamsoft.pydroid.arch.BaseUiView
 import com.pyamsoft.pydroid.ui.app.ToolbarActivityProvider
 import com.pyamsoft.pydroid.util.toDp
+import javax.inject.Inject
 
-internal class MainToolbarView internal constructor(
+internal class MainToolbarView @Inject internal constructor(
   parent: ViewGroup,
   private val toolbarProvider: ToolbarActivityProvider
 ) : BaseUiView<Unit>(parent, Unit) {

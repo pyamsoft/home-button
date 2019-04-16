@@ -19,18 +19,14 @@ package com.pyamsoft.homebutton
 
 import android.app.Application
 import com.pyamsoft.pydroid.ui.PYDroid
-import com.pyamsoft.pydroid.ui.theme.ThemeInjector
 import com.pyamsoft.pydroid.ui.theme.Theming
 import com.squareup.leakcanary.LeakCanary
 import com.squareup.leakcanary.RefWatcher
-import javax.inject.Provider
 
-class HomeButton : Application(), PYDroid.Instance {
-
-  private var pyDroid: PYDroid? = null
+class HomeButton : Application() {
 
   private lateinit var watcher: RefWatcher
-  private lateinit var theming: Provider<Theming>
+  private lateinit var component: HomeButtonComponent
 
   override fun onCreate() {
     super.onCreate()
@@ -48,28 +44,27 @@ class HomeButton : Application(), PYDroid.Instance {
 
     Theming.IS_DEFAULT_DARK_THEME = false
     PYDroid.init(
-        instance = this,
         application = this,
         applicationName = getString(R.string.app_name),
         bugReportUrl = "https://github.com/pyamsoft/home-button/issues",
         currentVersion = BuildConfig.VERSION_CODE,
         debug = BuildConfig.DEBUG
-    )
-  }
-
-  override fun getPydroid(): PYDroid? = pyDroid
-
-  override fun setPydroid(instance: PYDroid) {
-    pyDroid = instance.also {
-      theming = it.modules().theming()
+    ) {
+      component = DaggerHomeButtonComponent.factory()
+          .create(this)
     }
   }
 
-  override fun getSystemService(name: String): Any {
-    if (ThemeInjector.name == name) {
-      return theming.get()
-    } else {
-      return super.getSystemService(name)
+  override fun getSystemService(name: String): Any? {
+    val service = PYDroid.getSystemService(name)
+    if (service != null) {
+      return service
     }
+
+    if (name == HomeButtonComponent::class.java.name) {
+      return component
+    }
+
+    return super.getSystemService(name)
   }
 }
