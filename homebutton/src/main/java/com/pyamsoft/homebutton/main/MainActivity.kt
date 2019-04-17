@@ -56,7 +56,7 @@ class MainActivity : RatingActivity() {
     get() = component.id()
 
   override val changeLogLines: ChangeLogBuilder = buildChangeLog {
-    change("New icon style")
+    bugfix("Fixed notification not launching on device restart")
     change("Better open source license viewing experience")
   }
 
