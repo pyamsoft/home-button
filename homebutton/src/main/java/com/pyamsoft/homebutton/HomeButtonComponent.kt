@@ -35,6 +35,8 @@ import javax.inject.Singleton
 @Component(modules = [HomeModule::class])
 internal interface HomeButtonComponent {
 
+  fun inject(receiver: BootCompletedReceiver)
+
   @CheckResult
   fun plusMain(): MainComponent.Factory
 

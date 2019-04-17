@@ -20,9 +20,13 @@ package com.pyamsoft.homebutton
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import com.pyamsoft.pydroid.ui.Injector
 import timber.log.Timber
+import javax.inject.Inject
 
 class BootCompletedReceiver : BroadcastReceiver() {
+
+  @field:Inject internal lateinit var notificationHandler: NotificationHandler
 
   override fun onReceive(
     context: Context,
@@ -30,6 +34,10 @@ class BootCompletedReceiver : BroadcastReceiver() {
   ) {
     if (Intent.ACTION_BOOT_COMPLETED == intent?.action) {
       Timber.d("Home Button has started via boot receiver")
+      Injector.obtain<HomeButtonComponent>(context.applicationContext)
+          .inject(this)
+
+      notificationHandler.start()
     }
   }
 }
