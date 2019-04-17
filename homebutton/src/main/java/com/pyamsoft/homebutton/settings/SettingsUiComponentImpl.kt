@@ -23,6 +23,7 @@ import com.pyamsoft.homebutton.settings.SettingsUiComponent.Callback
 import com.pyamsoft.homebutton.settings.SettingsViewModel.SettingsState
 import com.pyamsoft.pydroid.arch.BaseUiComponent
 import com.pyamsoft.pydroid.arch.doOnDestroy
+import com.pyamsoft.pydroid.arch.renderOnChange
 import javax.inject.Inject
 
 internal class SettingsUiComponentImpl @Inject internal constructor(
