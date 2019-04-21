@@ -33,8 +33,13 @@ class HomePreferencesFragment : AppSettingsPreferenceFragment(), SettingsUiCompo
 
   override val preferenceXmlResId: Int = R.xml.preferences
 
-  @field:Inject internal lateinit var component: SettingsUiComponent
-  @field:Inject internal lateinit var notificationHandler: NotificationHandler
+  @JvmField @Inject internal var _component: SettingsUiComponent? = null
+  private val component: SettingsUiComponent
+    get() = requireNotNull(_component)
+
+  @JvmField @Inject internal var _notificationHandler: NotificationHandler? = null
+  private val notificationHandler: NotificationHandler
+    get() = requireNotNull(_notificationHandler)
 
   override fun onViewCreated(
     view: View,
@@ -48,6 +53,12 @@ class HomePreferencesFragment : AppSettingsPreferenceFragment(), SettingsUiCompo
 
     component.bind(viewLifecycleOwner, savedInstanceState, this)
     notificationHandler.start()
+  }
+
+  override fun onDestroyView() {
+    super.onDestroyView()
+    _component = null
+    _notificationHandler = null
   }
 
   override fun onShowNotificationChanged(show: Boolean) {

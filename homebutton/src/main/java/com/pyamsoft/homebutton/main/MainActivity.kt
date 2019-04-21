@@ -41,8 +41,13 @@ import kotlin.LazyThreadSafetyMode.NONE
 
 class MainActivity : RatingActivity() {
 
-  @field:Inject internal lateinit var component: MainUiComponent
-  @field:Inject internal lateinit var toolbarComponent: MainToolbarUiComponent
+  @JvmField @Inject internal var _component: MainUiComponent? = null
+  private val component: MainUiComponent
+    get() = requireNotNull(_component)
+
+  @JvmField @Inject internal var _toolbarComponent: MainToolbarUiComponent? = null
+  private val toolbarComponent: MainToolbarUiComponent
+    get() = requireNotNull(_toolbarComponent)
 
   override val versionName: String = BuildConfig.VERSION_NAME
 
@@ -97,6 +102,12 @@ class MainActivity : RatingActivity() {
     }
 
     addPreferenceFragment()
+  }
+
+  override fun onDestroy() {
+    super.onDestroy()
+    _component = null
+    _toolbarComponent = null
   }
 
   override fun onSaveInstanceState(outState: Bundle) {
