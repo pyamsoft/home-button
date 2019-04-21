@@ -33,13 +33,8 @@ class HomePreferencesFragment : AppSettingsPreferenceFragment(), SettingsUiCompo
 
   override val preferenceXmlResId: Int = R.xml.preferences
 
-  @JvmField @Inject internal var _component: SettingsUiComponent? = null
-  private val component: SettingsUiComponent
-    get() = requireNotNull(_component)
-
-  @JvmField @Inject internal var _notificationHandler: NotificationHandler? = null
-  private val notificationHandler: NotificationHandler
-    get() = requireNotNull(_notificationHandler)
+  @JvmField @Inject internal var component: SettingsUiComponent? = null
+  @JvmField @Inject internal var notificationHandler: NotificationHandler? = null
 
   override fun onViewCreated(
     view: View,
@@ -51,23 +46,23 @@ class HomePreferencesFragment : AppSettingsPreferenceFragment(), SettingsUiCompo
         .create(requireToolbarActivity(), preferenceScreen)
         .inject(this)
 
-    component.bind(viewLifecycleOwner, savedInstanceState, this)
-    notificationHandler.start()
+    requireNotNull(component).bind(viewLifecycleOwner, savedInstanceState, this)
+    requireNotNull(notificationHandler).start()
   }
 
   override fun onDestroyView() {
     super.onDestroyView()
-    _component = null
-    _notificationHandler = null
+    component = null
+    notificationHandler = null
   }
 
   override fun onShowNotificationChanged(show: Boolean) {
-    notificationHandler.start(show)
+    requireNotNull(notificationHandler).start(show)
   }
 
   override fun onSaveInstanceState(outState: Bundle) {
     super.onSaveInstanceState(outState)
-    component.saveState(outState)
+    component?.saveState(outState)
   }
 
   companion object {

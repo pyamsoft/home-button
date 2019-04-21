@@ -41,13 +41,8 @@ import kotlin.LazyThreadSafetyMode.NONE
 
 class MainActivity : RatingActivity() {
 
-  @JvmField @Inject internal var _component: MainUiComponent? = null
-  private val component: MainUiComponent
-    get() = requireNotNull(_component)
-
-  @JvmField @Inject internal var _toolbarComponent: MainToolbarUiComponent? = null
-  private val toolbarComponent: MainToolbarUiComponent
-    get() = requireNotNull(_toolbarComponent)
+  @JvmField @Inject internal var component: MainUiComponent? = null
+  @JvmField @Inject internal var toolbarComponent: MainToolbarUiComponent? = null
 
   override val versionName: String = BuildConfig.VERSION_NAME
 
@@ -58,7 +53,7 @@ class MainActivity : RatingActivity() {
   }
 
   override val fragmentContainerId: Int
-    get() = component.id()
+    get() = requireNotNull(component).id()
 
   override val changeLogLines: ChangeLogBuilder = buildChangeLog {
     bugfix("Fixed notification not launching on device restart")
@@ -80,6 +75,8 @@ class MainActivity : RatingActivity() {
         .create(layoutRoot, this)
         .inject(this)
 
+    val component = requireNotNull(component)
+    val toolbarComponent = requireNotNull(toolbarComponent)
     component.bind(layoutRoot, this, savedInstanceState, Unit)
     toolbarComponent.bind(layoutRoot, this, savedInstanceState, Unit)
 
@@ -106,14 +103,14 @@ class MainActivity : RatingActivity() {
 
   override fun onDestroy() {
     super.onDestroy()
-    _component = null
-    _toolbarComponent = null
+    component = null
+    toolbarComponent = null
   }
 
   override fun onSaveInstanceState(outState: Bundle) {
     super.onSaveInstanceState(outState)
-    toolbarComponent.saveState(outState)
-    component.saveState(outState)
+    toolbarComponent?.saveState(outState)
+    component?.saveState(outState)
   }
 
   private fun addPreferenceFragment() {
