@@ -36,7 +36,7 @@ internal class MainToolbarView @Inject internal constructor(
 
   override val layout: Int = R.layout.main_toolbar
 
-  override val layoutRoot by lazyView<Toolbar>(R.id.main_toolbar)
+  override val layoutRoot by boundView<Toolbar>(R.id.main_toolbar)
 
   override fun onInflated(
     view: View,
