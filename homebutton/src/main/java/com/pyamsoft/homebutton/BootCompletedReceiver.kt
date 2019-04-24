@@ -26,7 +26,7 @@ import javax.inject.Inject
 
 class BootCompletedReceiver : BroadcastReceiver() {
 
-  @field:Inject internal lateinit var notificationHandler: NotificationHandler
+  @JvmField @Inject internal var notificationHandler: NotificationHandler? = null
 
   override fun onReceive(
     context: Context,
@@ -37,7 +37,8 @@ class BootCompletedReceiver : BroadcastReceiver() {
       Injector.obtain<HomeButtonComponent>(context.applicationContext)
           .inject(this)
 
-      notificationHandler.start()
+      requireNotNull(notificationHandler).start()
+      notificationHandler = null
     }
   }
 }

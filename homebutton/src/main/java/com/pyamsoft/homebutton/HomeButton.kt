@@ -25,8 +25,8 @@ import com.squareup.leakcanary.RefWatcher
 
 class HomeButton : Application() {
 
-  private lateinit var watcher: RefWatcher
-  private lateinit var component: HomeButtonComponent
+  private var watcher: RefWatcher? = null
+  private var component: HomeButtonComponent? = null
 
   override fun onCreate() {
     super.onCreate()
@@ -62,7 +62,7 @@ class HomeButton : Application() {
     }
 
     if (name == HomeButtonComponent::class.java.name) {
-      return component
+      return requireNotNull(component)
     }
 
     return super.getSystemService(name)
