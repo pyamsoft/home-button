@@ -18,7 +18,7 @@
 package com.pyamsoft.homebutton.main
 
 import android.os.Bundle
-import android.view.View
+import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -27,8 +27,7 @@ import com.pyamsoft.homebutton.HomeButtonComponent
 import com.pyamsoft.homebutton.R
 import com.pyamsoft.homebutton.R.mipmap
 import com.pyamsoft.homebutton.R.style
-import com.pyamsoft.homebutton.settings.HomeFragment
-import com.pyamsoft.pydroid.arch.layout
+import com.pyamsoft.homebutton.settings.SettingsFragment
 import com.pyamsoft.pydroid.ui.Injector
 import com.pyamsoft.pydroid.ui.about.AboutFragment
 import com.pyamsoft.pydroid.ui.rating.ChangeLogBuilder
@@ -36,24 +35,27 @@ import com.pyamsoft.pydroid.ui.rating.RatingActivity
 import com.pyamsoft.pydroid.ui.rating.buildChangeLog
 import com.pyamsoft.pydroid.ui.theme.Theming
 import com.pyamsoft.pydroid.ui.util.commit
+import com.pyamsoft.pydroid.ui.util.layout
+import com.pyamsoft.pydroid.ui.widget.shadow.DropshadowView
 import javax.inject.Inject
 import kotlin.LazyThreadSafetyMode.NONE
 
 class MainActivity : RatingActivity() {
 
-  @JvmField @Inject internal var component: MainUiComponent? = null
-  @JvmField @Inject internal var toolbarComponent: MainToolbarUiComponent? = null
+  @JvmField @Inject internal var mainFrameView: MainFrameView? = null
+  @JvmField @Inject internal var toolbar: MainToolbarView? = null
+  @JvmField @Inject internal var dropshadow: DropshadowView? = null
 
   override val versionName: String = BuildConfig.VERSION_NAME
 
   override val applicationIcon: Int = mipmap.ic_launcher
 
-  override val snackbarRoot: View by lazy(NONE) {
+  override val snackbarRoot: ViewGroup by lazy(NONE) {
     findViewById<CoordinatorLayout>(R.id.snackbar_root)
   }
 
   override val fragmentContainerId: Int
-    get() = requireNotNull(component).id()
+    get() = requireNotNull(mainFrameView).id()
 
   override val changeLogLines: ChangeLogBuilder = buildChangeLog {
     bugfix("Fixed notification not launching on device restart")
@@ -75,21 +77,31 @@ class MainActivity : RatingActivity() {
         .create(layoutRoot, this)
         .inject(this)
 
-    val component = requireNotNull(component)
-    val toolbarComponent = requireNotNull(toolbarComponent)
-    component.bind(layoutRoot, this, savedInstanceState, Unit)
-    toolbarComponent.bind(layoutRoot, this, savedInstanceState, Unit)
+    val frameView = requireNotNull(mainFrameView)
+    val toolbar = requireNotNull(toolbar)
+    val dropshadow = requireNotNull(dropshadow)
+
+    frameView.inflate(savedInstanceState)
+    toolbar.inflate(savedInstanceState)
+    dropshadow.inflate(savedInstanceState)
 
     layoutRoot.layout {
-      toolbarComponent.also {
+      toolbar.also {
         connect(it.id(), ConstraintSet.TOP, ConstraintSet.PARENT_ID, ConstraintSet.TOP)
         connect(it.id(), ConstraintSet.START, ConstraintSet.PARENT_ID, ConstraintSet.START)
         connect(it.id(), ConstraintSet.END, ConstraintSet.PARENT_ID, ConstraintSet.END)
         constrainWidth(it.id(), ConstraintSet.MATCH_CONSTRAINT)
       }
 
-      component.also {
-        connect(it.id(), ConstraintSet.TOP, toolbarComponent.id(), ConstraintSet.BOTTOM)
+      dropshadow.also {
+        connect(it.id(), ConstraintSet.TOP, toolbar.id(), ConstraintSet.BOTTOM)
+        connect(it.id(), ConstraintSet.START, ConstraintSet.PARENT_ID, ConstraintSet.START)
+        connect(it.id(), ConstraintSet.END, ConstraintSet.PARENT_ID, ConstraintSet.END)
+        constrainWidth(it.id(), ConstraintSet.MATCH_CONSTRAINT)
+      }
+
+      frameView.also {
+        connect(it.id(), ConstraintSet.TOP, toolbar.id(), ConstraintSet.BOTTOM)
         connect(it.id(), ConstraintSet.START, ConstraintSet.PARENT_ID, ConstraintSet.START)
         connect(it.id(), ConstraintSet.END, ConstraintSet.PARENT_ID, ConstraintSet.END)
         connect(it.id(), ConstraintSet.BOTTOM, ConstraintSet.PARENT_ID, ConstraintSet.BOTTOM)
@@ -103,21 +115,25 @@ class MainActivity : RatingActivity() {
 
   override fun onDestroy() {
     super.onDestroy()
-    component = null
-    toolbarComponent = null
+    mainFrameView?.teardown()
+    toolbar?.teardown()
+    dropshadow?.teardown()
+
+    mainFrameView = null
+    toolbar = null
   }
 
   override fun onSaveInstanceState(outState: Bundle) {
     super.onSaveInstanceState(outState)
-    toolbarComponent?.saveState(outState)
-    component?.saveState(outState)
+    mainFrameView?.saveState(outState)
+    toolbar?.saveState(outState)
   }
 
   private fun addPreferenceFragment() {
     val fm = supportFragmentManager
-    if (fm.findFragmentByTag(HomeFragment.TAG) == null && !AboutFragment.isPresent(this)) {
+    if (fm.findFragmentByTag(SettingsFragment.TAG) == null && !AboutFragment.isPresent(this)) {
       fm.beginTransaction()
-          .add(fragmentContainerId, HomeFragment(), HomeFragment.TAG)
+          .add(fragmentContainerId, SettingsFragment(), SettingsFragment.TAG)
           .commit(this)
     }
   }

@@ -17,18 +17,17 @@
 
 package com.pyamsoft.homebutton.settings
 
-import com.pyamsoft.pydroid.ui.settings.AppSettingsFragment
-import com.pyamsoft.pydroid.ui.settings.AppSettingsPreferenceFragment
+import com.pyamsoft.pydroid.arch.UiControllerEvent
+import com.pyamsoft.pydroid.arch.UiViewEvent
 
-class HomeFragment : AppSettingsFragment() {
+sealed class SettingsViewEvent : UiViewEvent {
 
-  override fun provideSettingsFragment(): AppSettingsPreferenceFragment =
-    HomePreferencesFragment()
+  data class NotificationVisibility(val isVisible: Boolean) : SettingsViewEvent()
 
-  override fun provideSettingsTag(): String =
-    HomePreferencesFragment.TAG
+}
 
-  companion object {
-    const val TAG = "HomeFragment"
-  }
+sealed class SettingsControllerEvent : UiControllerEvent {
+
+  data class NotificationChanged(val isVisible: Boolean) : SettingsControllerEvent()
+
 }

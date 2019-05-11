@@ -19,20 +19,14 @@ package com.pyamsoft.homebutton
 
 import android.content.Context
 import androidx.annotation.CheckResult
-import com.pyamsoft.homebutton.HomeButtonComponent.HomeModule
 import com.pyamsoft.homebutton.main.MainComponent
 import com.pyamsoft.homebutton.settings.SettingsComponent
-import com.pyamsoft.homebutton.settings.SettingsHandler.SettingsEvent
-import com.pyamsoft.pydroid.core.bus.EventBus
-import com.pyamsoft.pydroid.core.bus.RxBus
 import dagger.BindsInstance
 import dagger.Component
-import dagger.Module
-import dagger.Provides
 import javax.inject.Singleton
 
 @Singleton
-@Component(modules = [HomeModule::class])
+@Component
 internal interface HomeButtonComponent {
 
   fun inject(receiver: BootCompletedReceiver)
@@ -49,22 +43,6 @@ internal interface HomeButtonComponent {
     fun create(
       @BindsInstance context: Context
     ): HomeButtonComponent
-  }
-
-  @Module
-  abstract class HomeModule {
-
-    @Module
-    companion object {
-
-      @Provides
-      @JvmStatic
-      @Singleton
-      @CheckResult
-      internal fun provideSettingsBus(): EventBus<SettingsEvent> {
-        return RxBus.create()
-      }
-    }
   }
 
 }

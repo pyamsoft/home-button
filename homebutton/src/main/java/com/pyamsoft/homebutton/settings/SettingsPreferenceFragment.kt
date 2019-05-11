@@ -22,19 +22,24 @@ import android.view.View
 import com.pyamsoft.homebutton.HomeButtonComponent
 import com.pyamsoft.homebutton.NotificationHandler
 import com.pyamsoft.homebutton.R
+import com.pyamsoft.homebutton.settings.SettingsControllerEvent.NotificationChanged
+import com.pyamsoft.pydroid.arch.createComponent
 import com.pyamsoft.pydroid.ui.Injector
 import com.pyamsoft.pydroid.ui.app.requireToolbarActivity
 import com.pyamsoft.pydroid.ui.settings.AppSettingsPreferenceFragment
 import javax.inject.Inject
 
-class HomePreferencesFragment : AppSettingsPreferenceFragment(), SettingsUiComponent.Callback {
+class SettingsPreferenceFragment : AppSettingsPreferenceFragment() {
 
   override val hideClearAll: Boolean = true
 
   override val preferenceXmlResId: Int = R.xml.preferences
 
-  @JvmField @Inject internal var component: SettingsUiComponent? = null
   @JvmField @Inject internal var notificationHandler: NotificationHandler? = null
+
+  @JvmField @Inject internal var viewModel: SettingsViewModel? = null
+  @JvmField @Inject internal var settingsView: SettingsView? = null
+  @JvmField @Inject internal var toolbarView: SettingsToolbarView? = null
 
   override fun onViewCreated(
     view: View,
@@ -46,27 +51,41 @@ class HomePreferencesFragment : AppSettingsPreferenceFragment(), SettingsUiCompo
         .create(requireToolbarActivity(), preferenceScreen)
         .inject(this)
 
-    requireNotNull(component).bind(viewLifecycleOwner, savedInstanceState, this)
+    createComponent(
+        savedInstanceState, viewLifecycleOwner,
+        requireNotNull(viewModel),
+        requireNotNull(settingsView),
+        requireNotNull(toolbarView)
+    ) {
+      return@createComponent when (it) {
+        is NotificationChanged -> handleNotificationVisibilityChange(it.isVisible)
+      }
+    }
+
     requireNotNull(notificationHandler).start()
+  }
+
+  private fun handleNotificationVisibilityChange(visible: Boolean) {
+    requireNotNull(notificationHandler).start(visible)
   }
 
   override fun onDestroyView() {
     super.onDestroyView()
-    component = null
-    notificationHandler = null
-  }
 
-  override fun onShowNotificationChanged(show: Boolean) {
-    requireNotNull(notificationHandler).start(show)
+    toolbarView = null
+    settingsView = null
+    viewModel = null
+    notificationHandler = null
   }
 
   override fun onSaveInstanceState(outState: Bundle) {
     super.onSaveInstanceState(outState)
-    component?.saveState(outState)
+    settingsView?.saveState(outState)
+    toolbarView?.saveState(outState)
   }
 
   companion object {
 
-    const val TAG = "HomePreferencesFragment"
+    const val TAG = "SettingsPreferenceFragment"
   }
 }

@@ -17,34 +17,20 @@
 
 package com.pyamsoft.homebutton.settings
 
-import com.pyamsoft.homebutton.settings.SettingsHandler.SettingsEvent
-import com.pyamsoft.homebutton.settings.SettingsViewModel.SettingsState
-import com.pyamsoft.homebutton.settings.SettingsViewModel.SettingsState.Showing
-import com.pyamsoft.pydroid.arch.UiEventHandler
-import com.pyamsoft.pydroid.arch.UiState
+import com.pyamsoft.homebutton.settings.SettingsControllerEvent.NotificationChanged
+import com.pyamsoft.homebutton.settings.SettingsViewEvent.NotificationVisibility
 import com.pyamsoft.pydroid.arch.UiViewModel
+import com.pyamsoft.pydroid.arch.UnitViewState
 import javax.inject.Inject
 
 internal class SettingsViewModel @Inject internal constructor(
-  private val handler: UiEventHandler<SettingsEvent, SettingsView.Callback>
-) : UiViewModel<SettingsState>(initialState = SettingsState(isShowing = null)),
-    SettingsView.Callback {
+) : UiViewModel<UnitViewState, SettingsViewEvent, SettingsControllerEvent>(
+    initialState = UnitViewState
+) {
 
-  override fun onShowNotificationChangeClicked(show: Boolean) {
-    setState {
-      copy(isShowing = Showing(show))
+  override fun handleViewEvent(event: SettingsViewEvent) {
+    return when (event) {
+      is NotificationVisibility -> publish(NotificationChanged(event.isVisible))
     }
-  }
-
-  override fun onBind() {
-    handler.handle(this)
-        .disposeOnDestroy()
-  }
-
-  override fun onUnbind() {
-  }
-
-  data class SettingsState(val isShowing: Showing?) : UiState {
-    data class Showing(val isShowing: Boolean)
   }
 }

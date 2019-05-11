@@ -19,19 +19,14 @@ package com.pyamsoft.homebutton.settings
 
 import androidx.annotation.CheckResult
 import androidx.preference.PreferenceScreen
-import com.pyamsoft.homebutton.settings.SettingsComponent.SettingsModule
-import com.pyamsoft.homebutton.settings.SettingsHandler.SettingsEvent
-import com.pyamsoft.pydroid.arch.UiEventHandler
 import com.pyamsoft.pydroid.ui.app.ToolbarActivity
-import dagger.Binds
 import dagger.BindsInstance
-import dagger.Module
 import dagger.Subcomponent
 
-@Subcomponent(modules = [SettingsModule::class])
+@Subcomponent
 internal interface SettingsComponent {
 
-  fun inject(fragment: HomePreferencesFragment)
+  fun inject(fragment: SettingsPreferenceFragment)
 
   @Subcomponent.Factory
   interface Factory {
@@ -42,22 +37,6 @@ internal interface SettingsComponent {
       @BindsInstance preferenceScreen: PreferenceScreen
     ): SettingsComponent
 
-  }
-
-  @Module
-  abstract class SettingsModule {
-
-    @Binds
-    @CheckResult
-    internal abstract fun bindUiComponent(impl: SettingsUiComponentImpl): SettingsUiComponent
-
-    @Binds
-    @CheckResult
-    internal abstract fun bindUiCallback(impl: SettingsHandler): SettingsView.Callback
-
-    @Binds
-    @CheckResult
-    internal abstract fun bindUiHandler(impl: SettingsHandler): UiEventHandler<SettingsEvent, SettingsView.Callback>
   }
 
 }

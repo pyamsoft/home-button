@@ -19,15 +19,16 @@ package com.pyamsoft.homebutton.settings
 
 import android.os.Bundle
 import com.pyamsoft.homebutton.R
-import com.pyamsoft.pydroid.arch.UiView
+import com.pyamsoft.pydroid.arch.BaseUiView
+import com.pyamsoft.pydroid.arch.UnitViewState
 import com.pyamsoft.pydroid.ui.app.ToolbarActivity
 import com.pyamsoft.pydroid.ui.arch.InvalidIdException
 import com.pyamsoft.pydroid.ui.util.setUpEnabled
 import javax.inject.Inject
 
-internal class ToolbarView @Inject internal constructor(
+internal class SettingsToolbarView @Inject internal constructor(
   private val toolbarActivity: ToolbarActivity
-) : UiView {
+) : BaseUiView<UnitViewState, SettingsViewEvent>() {
 
   override fun id(): Int {
     throw InvalidIdException
@@ -38,6 +39,12 @@ internal class ToolbarView @Inject internal constructor(
       toolbar.setTitle(R.string.app_name)
       toolbar.setUpEnabled(false)
     }
+  }
+
+  override fun render(
+    state: UnitViewState,
+    oldState: UnitViewState?
+  ) {
   }
 
   override fun teardown() {

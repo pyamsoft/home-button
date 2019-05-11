@@ -21,21 +21,28 @@ import android.os.Bundle
 import androidx.preference.Preference
 import androidx.preference.PreferenceScreen
 import com.pyamsoft.homebutton.R
+import com.pyamsoft.homebutton.settings.SettingsViewEvent.NotificationVisibility
+import com.pyamsoft.pydroid.arch.UnitViewState
 import com.pyamsoft.pydroid.ui.arch.PrefUiView
 import javax.inject.Inject
 
 internal class SettingsView @Inject internal constructor(
-  preferenceScreen: PreferenceScreen,
-  callback: Callback
-) : PrefUiView<SettingsView.Callback>(preferenceScreen, callback) {
+  preferenceScreen: PreferenceScreen
+) : PrefUiView<UnitViewState, SettingsViewEvent>(preferenceScreen) {
 
-  private val homePref by lazyPref<Preference>(R.string.priority_key)
+  private val homePref by boundPref<Preference>(R.string.priority_key)
 
   override fun onInflated(
     preferenceScreen: PreferenceScreen,
     savedInstanceState: Bundle?
   ) {
     setupShowNotification()
+  }
+
+  override fun onRender(
+    state: UnitViewState,
+    oldState: UnitViewState?
+  ) {
   }
 
   override fun onTeardown() {
@@ -46,17 +53,12 @@ internal class SettingsView @Inject internal constructor(
   private fun setupShowNotification() {
     homePref.setOnPreferenceChangeListener { _, newValue ->
       if (newValue is Boolean) {
-        callback.onShowNotificationChangeClicked(newValue)
+        publish(NotificationVisibility(newValue))
         return@setOnPreferenceChangeListener true
       } else {
         return@setOnPreferenceChangeListener false
       }
     }
-  }
-
-  interface Callback {
-
-    fun onShowNotificationChangeClicked(show: Boolean)
   }
 
 }

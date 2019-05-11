@@ -24,15 +24,17 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.view.ViewCompat
 import com.pyamsoft.homebutton.R
 import com.pyamsoft.homebutton.R.string
-import com.pyamsoft.pydroid.arch.BaseUiView
+import com.pyamsoft.pydroid.arch.UiViewImpl
+import com.pyamsoft.pydroid.arch.UnitViewEvent
+import com.pyamsoft.pydroid.arch.UnitViewState
 import com.pyamsoft.pydroid.ui.app.ToolbarActivityProvider
 import com.pyamsoft.pydroid.util.toDp
 import javax.inject.Inject
 
 internal class MainToolbarView @Inject internal constructor(
-  parent: ViewGroup,
-  private val toolbarProvider: ToolbarActivityProvider
-) : BaseUiView<Unit>(parent, Unit) {
+  private val toolbarProvider: ToolbarActivityProvider,
+  parent: ViewGroup
+) : UiViewImpl<UnitViewState, UnitViewEvent>(parent) {
 
   override val layout: Int = R.layout.main_toolbar
 
@@ -47,6 +49,12 @@ internal class MainToolbarView @Inject internal constructor(
       setTitle(string.app_name)
       ViewCompat.setElevation(this, 0.toDp(context).toFloat())
     }
+  }
+
+  override fun onRender(
+    state: UnitViewState,
+    oldState: UnitViewState?
+  ) {
   }
 
   override fun onTeardown() {

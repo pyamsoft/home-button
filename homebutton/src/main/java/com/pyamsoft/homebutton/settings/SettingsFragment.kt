@@ -17,13 +17,18 @@
 
 package com.pyamsoft.homebutton.settings
 
-import com.pyamsoft.pydroid.arch.UiComponent
+import com.pyamsoft.pydroid.ui.settings.AppSettingsFragment
+import com.pyamsoft.pydroid.ui.settings.AppSettingsPreferenceFragment
 
-internal interface SettingsUiComponent : UiComponent<SettingsUiComponent.Callback> {
+class SettingsFragment : AppSettingsFragment() {
 
-  interface Callback {
+  override fun provideSettingsFragment(): AppSettingsPreferenceFragment =
+    SettingsPreferenceFragment()
 
-    fun onShowNotificationChanged(show: Boolean)
+  override fun provideSettingsTag(): String =
+    SettingsPreferenceFragment.TAG
 
+  companion object {
+    const val TAG = "SettingsFragment"
   }
 }

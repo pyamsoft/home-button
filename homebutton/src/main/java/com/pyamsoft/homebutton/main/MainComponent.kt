@@ -22,7 +22,6 @@ import androidx.annotation.CheckResult
 import com.pyamsoft.homebutton.main.MainComponent.MainModule
 import com.pyamsoft.pydroid.ui.app.ToolbarActivityProvider
 import com.pyamsoft.pydroid.ui.widget.shadow.DropshadowView
-import dagger.Binds
 import dagger.BindsInstance
 import dagger.Module
 import dagger.Provides
@@ -45,25 +44,13 @@ internal interface MainComponent {
   }
 
   @Module
-  abstract class MainModule {
+  object MainModule {
 
-    @Binds
+    @Provides
+    @JvmStatic
     @CheckResult
-    internal abstract fun bindUiComponent(impl: MainUiComponentImpl): MainUiComponent
-
-    @Binds
-    @CheckResult
-    internal abstract fun bindToolbarComponent(impl: MainToolbarUiComponentImpl): MainToolbarUiComponent
-
-    @Module
-    companion object {
-
-      @Provides
-      @JvmStatic
-      @CheckResult
-      internal fun provideDropshadowView(parent: ViewGroup): DropshadowView {
-        return DropshadowView(parent)
-      }
+    internal fun provideDropshadowView(parent: ViewGroup): DropshadowView {
+      return DropshadowView(parent)
     }
   }
 
