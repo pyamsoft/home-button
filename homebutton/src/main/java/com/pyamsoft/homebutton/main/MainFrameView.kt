@@ -20,14 +20,14 @@ package com.pyamsoft.homebutton.main
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import com.pyamsoft.homebutton.R
-import com.pyamsoft.pydroid.arch.UiViewImpl
-import com.pyamsoft.pydroid.arch.UnitViewEvent
-import com.pyamsoft.pydroid.arch.UnitViewState
+import com.pyamsoft.pydroid.arch.impl.BaseUiView
+import com.pyamsoft.pydroid.arch.impl.UnitViewEvent
+import com.pyamsoft.pydroid.arch.impl.UnitViewState
 import javax.inject.Inject
 
 internal class MainFrameView @Inject internal constructor(
   parent: ViewGroup
-) : UiViewImpl<UnitViewState, UnitViewEvent>(parent) {
+) : BaseUiView<UnitViewState, UnitViewEvent>(parent) {
 
   override val layout: Int = R.layout.layout_frame
 

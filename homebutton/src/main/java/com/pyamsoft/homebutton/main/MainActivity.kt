@@ -28,6 +28,7 @@ import com.pyamsoft.homebutton.R
 import com.pyamsoft.homebutton.R.mipmap
 import com.pyamsoft.homebutton.R.style
 import com.pyamsoft.homebutton.settings.SettingsFragment
+import com.pyamsoft.pydroid.arch.impl.doOnDestroy
 import com.pyamsoft.pydroid.ui.Injector
 import com.pyamsoft.pydroid.ui.about.AboutFragment
 import com.pyamsoft.pydroid.ui.rating.ChangeLogBuilder
@@ -85,6 +86,12 @@ class MainActivity : RatingActivity() {
     toolbar.inflate(savedInstanceState)
     dropshadow.inflate(savedInstanceState)
 
+    this.doOnDestroy {
+      frameView.teardown()
+      toolbar.teardown()
+      dropshadow.teardown()
+    }
+
     layoutRoot.layout {
       toolbar.also {
         connect(it.id(), ConstraintSet.TOP, ConstraintSet.PARENT_ID, ConstraintSet.TOP)
@@ -115,10 +122,6 @@ class MainActivity : RatingActivity() {
 
   override fun onDestroy() {
     super.onDestroy()
-    mainFrameView?.teardown()
-    toolbar?.teardown()
-    dropshadow?.teardown()
-
     mainFrameView = null
     toolbar = null
   }
