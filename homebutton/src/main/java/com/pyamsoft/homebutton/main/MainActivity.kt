@@ -28,7 +28,7 @@ import com.pyamsoft.homebutton.R
 import com.pyamsoft.homebutton.R.mipmap
 import com.pyamsoft.homebutton.R.style
 import com.pyamsoft.homebutton.settings.SettingsFragment
-import com.pyamsoft.pydroid.arch.impl.doOnDestroy
+import com.pyamsoft.pydroid.arch.doOnDestroy
 import com.pyamsoft.pydroid.ui.Injector
 import com.pyamsoft.pydroid.ui.about.AboutFragment
 import com.pyamsoft.pydroid.ui.rating.ChangeLogBuilder

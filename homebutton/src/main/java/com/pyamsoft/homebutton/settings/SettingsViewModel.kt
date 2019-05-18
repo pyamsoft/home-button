@@ -19,12 +19,12 @@ package com.pyamsoft.homebutton.settings
 
 import com.pyamsoft.homebutton.settings.SettingsControllerEvent.NotificationChanged
 import com.pyamsoft.homebutton.settings.SettingsViewEvent.NotificationVisibility
-import com.pyamsoft.pydroid.arch.impl.BaseUiViewModel
-import com.pyamsoft.pydroid.arch.impl.UnitViewState
+import com.pyamsoft.pydroid.arch.UiViewModel
+import com.pyamsoft.pydroid.arch.UnitViewState
 import javax.inject.Inject
 
 internal class SettingsViewModel @Inject internal constructor(
-) : BaseUiViewModel<UnitViewState, SettingsViewEvent, SettingsControllerEvent>(
+) : UiViewModel<UnitViewState, SettingsViewEvent, SettingsControllerEvent>(
     initialState = UnitViewState
 ) {
 

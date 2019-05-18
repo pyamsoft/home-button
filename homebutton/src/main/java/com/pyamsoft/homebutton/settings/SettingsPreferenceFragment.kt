@@ -23,7 +23,7 @@ import com.pyamsoft.homebutton.HomeButtonComponent
 import com.pyamsoft.homebutton.NotificationHandler
 import com.pyamsoft.homebutton.R
 import com.pyamsoft.homebutton.settings.SettingsControllerEvent.NotificationChanged
-import com.pyamsoft.pydroid.arch.impl.createComponent
+import com.pyamsoft.pydroid.arch.createComponent
 import com.pyamsoft.pydroid.ui.Injector
 import com.pyamsoft.pydroid.ui.app.requireToolbarActivity
 import com.pyamsoft.pydroid.ui.settings.AppSettingsPreferenceFragment
