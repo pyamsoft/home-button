@@ -18,12 +18,20 @@
 package com.pyamsoft.homebutton.settings
 
 import androidx.annotation.CheckResult
+import androidx.lifecycle.ViewModelProvider
 import androidx.preference.PreferenceScreen
+import com.pyamsoft.homebutton.HomeButtonViewModelFactory
+import com.pyamsoft.homebutton.ViewModelKey
+import com.pyamsoft.homebutton.settings.SettingsComponent.ViewModelModule
+import com.pyamsoft.pydroid.arch.UiViewModel
 import com.pyamsoft.pydroid.ui.app.ToolbarActivity
+import dagger.Binds
 import dagger.BindsInstance
+import dagger.Module
 import dagger.Subcomponent
+import dagger.multibindings.IntoMap
 
-@Subcomponent
+@Subcomponent(modules = [ViewModelModule::class])
 internal interface SettingsComponent {
 
   fun inject(fragment: SettingsPreferenceFragment)
@@ -37,6 +45,18 @@ internal interface SettingsComponent {
       @BindsInstance preferenceScreen: PreferenceScreen
     ): SettingsComponent
 
+  }
+
+  @Module
+  abstract class ViewModelModule {
+
+    @Binds
+    internal abstract fun bindViewModelFactory(factory: HomeButtonViewModelFactory): ViewModelProvider.Factory
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(SettingsViewModel::class)
+    internal abstract fun settingsViewModel(viewModel: SettingsViewModel): UiViewModel<*, *, *>
   }
 
 }

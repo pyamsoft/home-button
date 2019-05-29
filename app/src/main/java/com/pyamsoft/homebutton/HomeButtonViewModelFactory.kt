@@ -17,20 +17,13 @@
 
 package com.pyamsoft.homebutton
 
-import androidx.lifecycle.ViewModelProvider
-import com.pyamsoft.homebutton.settings.SettingsViewModel
 import com.pyamsoft.pydroid.arch.UiViewModel
 import com.pyamsoft.pydroid.arch.UiViewModelFactory
-import dagger.Binds
 import dagger.MapKey
-import dagger.Module
-import dagger.multibindings.IntoMap
 import javax.inject.Inject
 import javax.inject.Provider
-import javax.inject.Singleton
 import kotlin.reflect.KClass
 
-@Singleton
 internal class HomeButtonViewModelFactory @Inject internal constructor(
   private val viewModels: MutableMap<Class<out UiViewModel<*, *, *>>, Provider<UiViewModel<*, *, *>>>
 ) : UiViewModelFactory() {
@@ -49,16 +42,5 @@ internal class HomeButtonViewModelFactory @Inject internal constructor(
 )
 @Retention(AnnotationRetention.RUNTIME)
 @MapKey
-private annotation class ViewModelKey(val value: KClass<out UiViewModel<*, *, *>>)
+internal annotation class ViewModelKey(val value: KClass<out UiViewModel<*, *, *>>)
 
-@Module
-abstract class ViewModelModule {
-
-  @Binds
-  internal abstract fun bindViewModelFactory(factory: HomeButtonViewModelFactory): ViewModelProvider.Factory
-
-  @Binds
-  @IntoMap
-  @ViewModelKey(SettingsViewModel::class)
-  internal abstract fun settingsViewModel(viewModel: SettingsViewModel): UiViewModel<*, *, *>
-}

@@ -26,7 +26,7 @@ import dagger.Component
 import javax.inject.Singleton
 
 @Singleton
-@Component(modules = [ViewModelModule::class])
+@Component
 internal interface HomeButtonComponent {
 
   fun inject(receiver: BootCompletedReceiver)
