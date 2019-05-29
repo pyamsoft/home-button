@@ -19,6 +19,8 @@ package com.pyamsoft.homebutton.settings
 
 import android.os.Bundle
 import android.view.View
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 import com.pyamsoft.homebutton.HomeButtonComponent
 import com.pyamsoft.homebutton.NotificationHandler
 import com.pyamsoft.homebutton.R
@@ -37,9 +39,10 @@ class SettingsPreferenceFragment : AppSettingsPreferenceFragment() {
 
   @JvmField @Inject internal var notificationHandler: NotificationHandler? = null
 
-  @JvmField @Inject internal var viewModel: SettingsViewModel? = null
+  @JvmField @Inject internal var factory: ViewModelProvider.Factory? = null
   @JvmField @Inject internal var settingsView: SettingsView? = null
   @JvmField @Inject internal var toolbarView: SettingsToolbarView? = null
+  private var viewModel: SettingsViewModel? = null
 
   override fun onViewCreated(
     view: View,
@@ -50,6 +53,10 @@ class SettingsPreferenceFragment : AppSettingsPreferenceFragment() {
         .plusSettings()
         .create(requireToolbarActivity(), preferenceScreen)
         .inject(this)
+
+    ViewModelProviders.of(this, factory).let { factory ->
+      viewModel = factory.get(SettingsViewModel::class.java)
+    }
 
     createComponent(
         savedInstanceState, viewLifecycleOwner,
@@ -76,6 +83,7 @@ class SettingsPreferenceFragment : AppSettingsPreferenceFragment() {
     settingsView = null
     viewModel = null
     notificationHandler = null
+    factory = null
   }
 
   override fun onSaveInstanceState(outState: Bundle) {

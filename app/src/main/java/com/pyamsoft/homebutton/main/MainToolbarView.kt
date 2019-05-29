@@ -25,6 +25,7 @@ import androidx.core.view.ViewCompat
 import com.pyamsoft.homebutton.R
 import com.pyamsoft.homebutton.R.string
 import com.pyamsoft.pydroid.arch.BaseUiView
+import com.pyamsoft.pydroid.arch.UiSavedState
 import com.pyamsoft.pydroid.arch.UnitViewEvent
 import com.pyamsoft.pydroid.arch.UnitViewState
 import com.pyamsoft.pydroid.ui.app.ToolbarActivityProvider
@@ -53,7 +54,7 @@ internal class MainToolbarView @Inject internal constructor(
 
   override fun onRender(
     state: UnitViewState,
-    oldState: UnitViewState?
+    savedState: UiSavedState
   ) {
   }
 

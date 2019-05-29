@@ -21,6 +21,7 @@ import android.view.ViewGroup
 import android.widget.FrameLayout
 import com.pyamsoft.homebutton.R
 import com.pyamsoft.pydroid.arch.BaseUiView
+import com.pyamsoft.pydroid.arch.UiSavedState
 import com.pyamsoft.pydroid.arch.UnitViewEvent
 import com.pyamsoft.pydroid.arch.UnitViewState
 import javax.inject.Inject
@@ -35,9 +36,8 @@ internal class MainFrameView @Inject internal constructor(
 
   override fun onRender(
     state: UnitViewState,
-    oldState: UnitViewState?
+    savedState: UiSavedState
   ) {
   }
-
 }
 

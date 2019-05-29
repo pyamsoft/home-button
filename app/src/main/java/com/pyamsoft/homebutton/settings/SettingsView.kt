@@ -22,6 +22,7 @@ import androidx.preference.Preference
 import androidx.preference.PreferenceScreen
 import com.pyamsoft.homebutton.R
 import com.pyamsoft.homebutton.settings.SettingsViewEvent.NotificationVisibility
+import com.pyamsoft.pydroid.arch.UiSavedState
 import com.pyamsoft.pydroid.arch.UnitViewState
 import com.pyamsoft.pydroid.ui.arch.PrefUiView
 import javax.inject.Inject
@@ -41,7 +42,7 @@ internal class SettingsView @Inject internal constructor(
 
   override fun onRender(
     state: UnitViewState,
-    oldState: UnitViewState?
+    savedState: UiSavedState
   ) {
   }
 
