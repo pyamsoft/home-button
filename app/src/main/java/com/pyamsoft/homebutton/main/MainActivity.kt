@@ -135,9 +135,9 @@ class MainActivity : RatingActivity() {
   private fun addPreferenceFragment() {
     val fm = supportFragmentManager
     if (fm.findFragmentByTag(SettingsFragment.TAG) == null && !AboutFragment.isPresent(this)) {
-      fm.beginTransaction()
-          .add(fragmentContainerId, SettingsFragment(), SettingsFragment.TAG)
-          .commit(this)
+      fm.commit(this) {
+        add(fragmentContainerId, SettingsFragment(), SettingsFragment.TAG)
+      }
     }
   }
 }
