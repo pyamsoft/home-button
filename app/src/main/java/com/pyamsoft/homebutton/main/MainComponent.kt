@@ -19,15 +19,11 @@ package com.pyamsoft.homebutton.main
 
 import android.view.ViewGroup
 import androidx.annotation.CheckResult
-import com.pyamsoft.homebutton.main.MainComponent.MainModule
 import com.pyamsoft.pydroid.ui.app.ToolbarActivityProvider
-import com.pyamsoft.pydroid.ui.widget.shadow.DropshadowView
 import dagger.BindsInstance
-import dagger.Module
-import dagger.Provides
 import dagger.Subcomponent
 
-@Subcomponent(modules = [MainModule::class])
+@Subcomponent
 internal interface MainComponent {
 
   fun inject(activity: MainActivity)
@@ -41,17 +37,6 @@ internal interface MainComponent {
       @BindsInstance toolbarActivityProvider: ToolbarActivityProvider
     ): MainComponent
 
-  }
-
-  @Module
-  object MainModule {
-
-    @Provides
-    @JvmStatic
-    @CheckResult
-    internal fun provideDropshadowView(parent: ViewGroup): DropshadowView {
-      return DropshadowView(parent)
-    }
   }
 
 }

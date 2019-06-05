@@ -45,7 +45,6 @@ class MainActivity : RatingActivity() {
 
   @JvmField @Inject internal var mainFrameView: MainFrameView? = null
   @JvmField @Inject internal var toolbar: MainToolbarView? = null
-  @JvmField @Inject internal var dropshadow: DropshadowView? = null
 
   override val versionName: String = BuildConfig.VERSION_NAME
 
@@ -80,7 +79,7 @@ class MainActivity : RatingActivity() {
 
     val frameView = requireNotNull(mainFrameView)
     val toolbar = requireNotNull(toolbar)
-    val dropshadow = requireNotNull(dropshadow)
+    val dropshadow = DropshadowView.create(layoutRoot)
 
     frameView.inflate(savedInstanceState)
     toolbar.inflate(savedInstanceState)
