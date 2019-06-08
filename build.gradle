@@ -36,7 +36,7 @@ buildscript {
 
     leakCanary = "1.6.3"
 
-    dagger = "2.22.1"
+    dagger = "2.23.1"
   }
 
   dependencies {
