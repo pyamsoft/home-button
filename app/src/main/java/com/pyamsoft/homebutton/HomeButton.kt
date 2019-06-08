@@ -42,7 +42,6 @@ class HomeButton : Application() {
       watcher = RefWatcher.DISABLED
     }
 
-    Theming.IS_DEFAULT_DARK_THEME = false
     PYDroid.init(
         application = this,
         applicationName = getString(R.string.app_name),
