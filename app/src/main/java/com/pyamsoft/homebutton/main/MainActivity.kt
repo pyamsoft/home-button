@@ -28,7 +28,8 @@ import com.pyamsoft.homebutton.R
 import com.pyamsoft.homebutton.R.mipmap
 import com.pyamsoft.homebutton.R.style
 import com.pyamsoft.homebutton.settings.SettingsFragment
-import com.pyamsoft.pydroid.arch.doOnDestroy
+import com.pyamsoft.pydroid.arch.UnitViewModel
+import com.pyamsoft.pydroid.arch.createComponent
 import com.pyamsoft.pydroid.ui.Injector
 import com.pyamsoft.pydroid.ui.about.AboutFragment
 import com.pyamsoft.pydroid.ui.rating.ChangeLogBuilder
@@ -76,14 +77,13 @@ class MainActivity : RatingActivity() {
     val toolbar = requireNotNull(toolbar)
     val dropshadow = DropshadowView.create(layoutRoot)
 
-    frameView.inflate(savedInstanceState)
-    toolbar.inflate(savedInstanceState)
-    dropshadow.inflate(savedInstanceState)
-
-    this.doOnDestroy {
-      frameView.teardown()
-      toolbar.teardown()
-      dropshadow.teardown()
+    createComponent(
+        savedInstanceState, this,
+        UnitViewModel.create(),
+        frameView,
+        toolbar,
+        dropshadow
+    ) {
     }
 
     layoutRoot.layout {
