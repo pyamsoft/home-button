@@ -35,7 +35,7 @@ internal class SettingsToolbarView @Inject internal constructor(
     throw InvalidIdException
   }
 
-  override fun inflate(savedInstanceState: Bundle?) {
+  override fun doInflate(savedInstanceState: Bundle?) {
     toolbarActivity.withToolbar { toolbar ->
       toolbar.setTitle(R.string.app_name)
       toolbar.setUpEnabled(false)

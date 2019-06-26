@@ -19,7 +19,6 @@ package com.pyamsoft.homebutton
 
 import android.app.Application
 import com.pyamsoft.pydroid.ui.PYDroid
-import com.pyamsoft.pydroid.ui.theme.Theming
 import com.squareup.leakcanary.LeakCanary
 import com.squareup.leakcanary.RefWatcher
 

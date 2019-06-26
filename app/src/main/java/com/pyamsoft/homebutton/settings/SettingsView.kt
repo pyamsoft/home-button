@@ -52,12 +52,12 @@ internal class SettingsView @Inject internal constructor(
   }
 
   private fun setupShowNotification() {
-    homePref.setOnPreferenceChangeListener { _, newValue ->
+    homePref.onPreferenceChangeListener = Preference.OnPreferenceChangeListener { _, newValue ->
       if (newValue is Boolean) {
         publish(NotificationVisibility(newValue))
-        return@setOnPreferenceChangeListener true
+        return@OnPreferenceChangeListener true
       } else {
-        return@setOnPreferenceChangeListener false
+        return@OnPreferenceChangeListener false
       }
     }
   }

@@ -54,9 +54,10 @@ class SettingsPreferenceFragment : AppSettingsPreferenceFragment() {
         .create(requireToolbarActivity(), preferenceScreen)
         .inject(this)
 
-    ViewModelProviders.of(this, factory).let { factory ->
-      viewModel = factory.get(SettingsViewModel::class.java)
-    }
+    ViewModelProviders.of(this, factory)
+        .let { factory ->
+          viewModel = factory.get(SettingsViewModel::class.java)
+        }
 
     createComponent(
         savedInstanceState, viewLifecycleOwner,
