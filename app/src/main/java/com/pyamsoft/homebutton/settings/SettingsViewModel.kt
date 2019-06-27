@@ -28,6 +28,9 @@ internal class SettingsViewModel @Inject internal constructor(
     initialState = UnitViewState
 ) {
 
+  override fun onInit() {
+  }
+
   override fun handleViewEvent(event: SettingsViewEvent) {
     return when (event) {
       is NotificationVisibility -> publish(NotificationChanged(event.isVisible))
