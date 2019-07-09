@@ -20,7 +20,6 @@ package com.pyamsoft.homebutton.settings
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
 import com.pyamsoft.homebutton.HomeButtonComponent
 import com.pyamsoft.homebutton.NotificationHandler
 import com.pyamsoft.homebutton.R
@@ -28,6 +27,7 @@ import com.pyamsoft.homebutton.settings.SettingsControllerEvent.NotificationChan
 import com.pyamsoft.pydroid.arch.createComponent
 import com.pyamsoft.pydroid.ui.Injector
 import com.pyamsoft.pydroid.ui.app.requireToolbarActivity
+import com.pyamsoft.pydroid.ui.arch.factory
 import com.pyamsoft.pydroid.ui.settings.AppSettingsPreferenceFragment
 import javax.inject.Inject
 
@@ -42,7 +42,7 @@ class SettingsPreferenceFragment : AppSettingsPreferenceFragment() {
   @JvmField @Inject internal var factory: ViewModelProvider.Factory? = null
   @JvmField @Inject internal var settingsView: SettingsView? = null
   @JvmField @Inject internal var toolbarView: SettingsToolbarView? = null
-  private var viewModel: SettingsViewModel? = null
+  private val viewModel by factory<SettingsViewModel> { factory }
 
   override fun onViewCreated(
     view: View,
@@ -54,14 +54,9 @@ class SettingsPreferenceFragment : AppSettingsPreferenceFragment() {
         .create(requireToolbarActivity(), preferenceScreen)
         .inject(this)
 
-    ViewModelProviders.of(this, factory)
-        .let { factory ->
-          viewModel = factory.get(SettingsViewModel::class.java)
-        }
-
     createComponent(
         savedInstanceState, viewLifecycleOwner,
-        requireNotNull(viewModel),
+        viewModel,
         requireNotNull(settingsView),
         requireNotNull(toolbarView)
     ) {
@@ -82,7 +77,6 @@ class SettingsPreferenceFragment : AppSettingsPreferenceFragment() {
 
     toolbarView = null
     settingsView = null
-    viewModel = null
     notificationHandler = null
     factory = null
   }
