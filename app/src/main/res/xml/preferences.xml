@@ -17,21 +17,21 @@
   -->
 
 
-<PreferenceScreen
+<androidx.preference.PreferenceScreen
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-  <PreferenceCategory android:title="Notification Settings">
+  <androidx.preference.PreferenceCategory android:title="Notification Settings">
 
     <com.pyamsoft.pydroid.ui.preference.SwitchPreferenceCompat
+        android:defaultValue="true"
         android:key="@string/priority_key"
         android:summaryOff="@string/priority_summary_off"
         android:summaryOn="@string/priority_summary_on"
-        android:defaultValue="true"
         android:title="@string/priority_title"
         app:iconCompat="@drawable/ic_home_24dp"/>
 
-  </PreferenceCategory>
+  </androidx.preference.PreferenceCategory>
 
-</PreferenceScreen>
+</androidx.preference.PreferenceScreen>
 

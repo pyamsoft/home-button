@@ -42,11 +42,12 @@ class HomeButton : Application() {
     }
 
     PYDroid.init(
-        application = this,
-        applicationName = getString(R.string.app_name),
-        bugReportUrl = "https://github.com/pyamsoft/home-button/issues",
-        currentVersion = BuildConfig.VERSION_CODE,
-        debug = BuildConfig.DEBUG
+        this,
+        getString(R.string.app_name),
+        "https://github.com/pyamsoft/home-button",
+        "https://github.com/pyamsoft/home-button/issues",
+        BuildConfig.VERSION_CODE,
+        BuildConfig.DEBUG
     ) {
       component = DaggerHomeButtonComponent.factory()
           .create(this)
