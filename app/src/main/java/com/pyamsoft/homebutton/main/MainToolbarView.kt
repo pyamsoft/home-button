@@ -56,9 +56,9 @@ internal class MainToolbarView @Inject internal constructor(
   ) {
     val theme: Int
     if (theming.isDarkTheme(requireNotNull(activity))) {
-      theme = R.style.ThemeOverlay_AppCompat
+      theme = R.style.ThemeOverlay_MaterialComponents
     } else {
-      theme = R.style.ThemeOverlay_AppCompat_Light
+      theme = R.style.ThemeOverlay_MaterialComponents_Light
     }
 
     layoutRoot.apply {
