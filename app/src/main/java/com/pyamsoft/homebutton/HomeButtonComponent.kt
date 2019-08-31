@@ -21,6 +21,7 @@ import android.content.Context
 import androidx.annotation.CheckResult
 import com.pyamsoft.homebutton.main.MainComponent
 import com.pyamsoft.homebutton.settings.SettingsComponent
+import com.pyamsoft.pydroid.ui.theme.Theming
 import dagger.BindsInstance
 import dagger.Component
 import javax.inject.Singleton
@@ -41,7 +42,8 @@ internal interface HomeButtonComponent {
   interface Factory {
 
     fun create(
-      @BindsInstance context: Context
+      @BindsInstance context: Context,
+      @BindsInstance theming: Theming
     ): HomeButtonComponent
   }
 

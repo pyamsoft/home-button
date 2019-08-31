@@ -70,7 +70,7 @@ class MainActivity : RatingActivity() {
     val layoutRoot = findViewById<ConstraintLayout>(R.id.content_root)
     Injector.obtain<HomeButtonComponent>(applicationContext)
         .plusMain()
-        .create(layoutRoot, this)
+        .create(this, layoutRoot, this)
         .inject(this)
 
     val frameView = requireNotNull(mainFrameView)

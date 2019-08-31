@@ -17,11 +17,13 @@
 
 package com.pyamsoft.homebutton.main
 
+import android.app.Activity
 import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.ViewCompat
+import com.pyamsoft.homebutton.HomeButton
 import com.pyamsoft.homebutton.R
 import com.pyamsoft.homebutton.R.string
 import com.pyamsoft.pydroid.arch.BaseUiView
@@ -29,13 +31,20 @@ import com.pyamsoft.pydroid.arch.UiSavedState
 import com.pyamsoft.pydroid.arch.UnitViewEvent
 import com.pyamsoft.pydroid.arch.UnitViewState
 import com.pyamsoft.pydroid.ui.app.ToolbarActivityProvider
+import com.pyamsoft.pydroid.ui.privacy.addPrivacy
+import com.pyamsoft.pydroid.ui.privacy.removePrivacy
+import com.pyamsoft.pydroid.ui.theme.Theming
 import com.pyamsoft.pydroid.util.toDp
 import javax.inject.Inject
 
 internal class MainToolbarView @Inject internal constructor(
+  activity: Activity,
+  private val theming: Theming,
   private val toolbarProvider: ToolbarActivityProvider,
   parent: ViewGroup
 ) : BaseUiView<UnitViewState, UnitViewEvent>(parent) {
+
+  private var activity: Activity? = activity
 
   override val layout: Int = R.layout.main_toolbar
 
@@ -45,10 +54,19 @@ internal class MainToolbarView @Inject internal constructor(
     view: View,
     savedInstanceState: Bundle?
   ) {
+    val theme: Int
+    if (theming.isDarkTheme(requireNotNull(activity))) {
+      theme = R.style.ThemeOverlay_AppCompat
+    } else {
+      theme = R.style.ThemeOverlay_AppCompat_Light
+    }
+
     layoutRoot.apply {
+      popupTheme = theme
       toolbarProvider.setToolbar(this)
       setTitle(string.app_name)
       ViewCompat.setElevation(this, 0.toDp(context).toFloat())
+      addPrivacy(HomeButton.PRIVACY_POLICY_URL, HomeButton.TERMS_CONDITIONS_URL)
     }
   }
 
@@ -60,6 +78,8 @@ internal class MainToolbarView @Inject internal constructor(
 
   override fun onTeardown() {
     toolbarProvider.setToolbar(null)
+    layoutRoot.removePrivacy()
+    activity = null
   }
 
 }

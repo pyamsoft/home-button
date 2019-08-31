@@ -46,11 +46,13 @@ class HomeButton : Application() {
         getString(R.string.app_name),
         "https://github.com/pyamsoft/home-button",
         "https://github.com/pyamsoft/home-button/issues",
+        PRIVACY_POLICY_URL,
+        TERMS_CONDITIONS_URL,
         BuildConfig.VERSION_CODE,
         BuildConfig.DEBUG
-    ) {
+    ) { provider ->
       component = DaggerHomeButtonComponent.factory()
-          .create(this)
+          .create(this, provider.theming())
     }
   }
 
@@ -65,5 +67,11 @@ class HomeButton : Application() {
     }
 
     return super.getSystemService(name)
+  }
+
+  companion object {
+    const val PRIVACY_POLICY_URL = "https://pyamsoft.blogspot.com/p/home-button-privacy-policy.html"
+    const val TERMS_CONDITIONS_URL =
+      "https://pyamsoft.blogspot.com/p/home-button-terms-and-conditions.html"
   }
 }
