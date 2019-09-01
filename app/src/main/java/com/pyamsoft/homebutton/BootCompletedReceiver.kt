@@ -26,19 +26,21 @@ import javax.inject.Inject
 
 class BootCompletedReceiver : BroadcastReceiver() {
 
-  @JvmField @Inject internal var notificationHandler: NotificationHandler? = null
+    @JvmField
+    @Inject
+    internal var notificationHandler: NotificationHandler? = null
 
-  override fun onReceive(
-    context: Context,
-    intent: Intent?
-  ) {
-    if (Intent.ACTION_BOOT_COMPLETED == intent?.action) {
-      Timber.d("Home Button has started via boot receiver")
-      Injector.obtain<HomeButtonComponent>(context.applicationContext)
-          .inject(this)
+    override fun onReceive(
+        context: Context,
+        intent: Intent?
+    ) {
+        if (Intent.ACTION_BOOT_COMPLETED == intent?.action) {
+            Timber.d("Home Button has started via boot receiver")
+            Injector.obtain<HomeButtonComponent>(context.applicationContext)
+                .inject(this)
 
-      requireNotNull(notificationHandler).start()
-      notificationHandler = null
+            requireNotNull(notificationHandler).start()
+            notificationHandler = null
+        }
     }
-  }
 }

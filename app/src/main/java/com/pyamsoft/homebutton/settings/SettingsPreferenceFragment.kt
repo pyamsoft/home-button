@@ -33,62 +33,70 @@ import javax.inject.Inject
 
 class SettingsPreferenceFragment : AppSettingsPreferenceFragment() {
 
-  override val hideClearAll: Boolean = true
+    override val hideClearAll: Boolean = true
 
-  override val preferenceXmlResId: Int = R.xml.preferences
+    override val preferenceXmlResId: Int = R.xml.preferences
 
-  @JvmField @Inject internal var notificationHandler: NotificationHandler? = null
+    @JvmField
+    @Inject
+    internal var notificationHandler: NotificationHandler? = null
 
-  @JvmField @Inject internal var factory: ViewModelProvider.Factory? = null
-  @JvmField @Inject internal var settingsView: SettingsView? = null
-  @JvmField @Inject internal var toolbarView: SettingsToolbarView? = null
-  private val viewModel by factory<SettingsViewModel> { factory }
+    @JvmField
+    @Inject
+    internal var factory: ViewModelProvider.Factory? = null
+    @JvmField
+    @Inject
+    internal var settingsView: SettingsView? = null
+    @JvmField
+    @Inject
+    internal var toolbarView: SettingsToolbarView? = null
+    private val viewModel by factory<SettingsViewModel> { factory }
 
-  override fun onViewCreated(
-    view: View,
-    savedInstanceState: Bundle?
-  ) {
-    super.onViewCreated(view, savedInstanceState)
-    Injector.obtain<HomeButtonComponent>(view.context.applicationContext)
-        .plusSettings()
-        .create(requireToolbarActivity(), preferenceScreen)
-        .inject(this)
-
-    createComponent(
-        savedInstanceState, viewLifecycleOwner,
-        viewModel,
-        requireNotNull(settingsView),
-        requireNotNull(toolbarView)
+    override fun onViewCreated(
+        view: View,
+        savedInstanceState: Bundle?
     ) {
-      return@createComponent when (it) {
-        is NotificationChanged -> handleNotificationVisibilityChange(it.isVisible)
-      }
+        super.onViewCreated(view, savedInstanceState)
+        Injector.obtain<HomeButtonComponent>(view.context.applicationContext)
+            .plusSettings()
+            .create(requireToolbarActivity(), preferenceScreen)
+            .inject(this)
+
+        createComponent(
+            savedInstanceState, viewLifecycleOwner,
+            viewModel,
+            requireNotNull(settingsView),
+            requireNotNull(toolbarView)
+        ) {
+            return@createComponent when (it) {
+                is NotificationChanged -> handleNotificationVisibilityChange(it.isVisible)
+            }
+        }
+
+        requireNotNull(notificationHandler).start()
     }
 
-    requireNotNull(notificationHandler).start()
-  }
+    private fun handleNotificationVisibilityChange(visible: Boolean) {
+        requireNotNull(notificationHandler).start(visible)
+    }
 
-  private fun handleNotificationVisibilityChange(visible: Boolean) {
-    requireNotNull(notificationHandler).start(visible)
-  }
+    override fun onDestroyView() {
+        super.onDestroyView()
 
-  override fun onDestroyView() {
-    super.onDestroyView()
+        toolbarView = null
+        settingsView = null
+        notificationHandler = null
+        factory = null
+    }
 
-    toolbarView = null
-    settingsView = null
-    notificationHandler = null
-    factory = null
-  }
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        settingsView?.saveState(outState)
+        toolbarView?.saveState(outState)
+    }
 
-  override fun onSaveInstanceState(outState: Bundle) {
-    super.onSaveInstanceState(outState)
-    settingsView?.saveState(outState)
-    toolbarView?.saveState(outState)
-  }
+    companion object {
 
-  companion object {
-
-    const val TAG = "SettingsPreferenceFragment"
-  }
+        const val TAG = "SettingsPreferenceFragment"
+    }
 }

@@ -22,12 +22,10 @@ import com.pyamsoft.pydroid.arch.UiViewEvent
 
 sealed class SettingsViewEvent : UiViewEvent {
 
-  data class NotificationVisibility(val isVisible: Boolean) : SettingsViewEvent()
-
+    data class NotificationVisibility(val isVisible: Boolean) : SettingsViewEvent()
 }
 
 sealed class SettingsControllerEvent : UiControllerEvent {
 
-  data class NotificationChanged(val isVisible: Boolean) : SettingsControllerEvent()
-
+    data class NotificationChanged(val isVisible: Boolean) : SettingsControllerEvent()
 }

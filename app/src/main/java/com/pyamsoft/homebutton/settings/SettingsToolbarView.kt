@@ -28,24 +28,23 @@ import com.pyamsoft.pydroid.ui.util.setUpEnabled
 import javax.inject.Inject
 
 internal class SettingsToolbarView @Inject internal constructor(
-  private val toolbarActivity: ToolbarActivity
+    private val toolbarActivity: ToolbarActivity
 ) : UiView<UnitViewState, SettingsViewEvent>() {
 
-  override fun id(): Int {
-    throw InvalidIdException
-  }
-
-  override fun doInflate(savedInstanceState: Bundle?) {
-    toolbarActivity.withToolbar { toolbar ->
-      toolbar.setTitle(R.string.app_name)
-      toolbar.setUpEnabled(false)
+    override fun id(): Int {
+        throw InvalidIdException
     }
-  }
 
-  override fun render(
-    state: UnitViewState,
-    savedState: UiSavedState
-  ) {
-  }
+    override fun doInflate(savedInstanceState: Bundle?) {
+        toolbarActivity.withToolbar { toolbar ->
+            toolbar.setTitle(R.string.app_name)
+            toolbar.setUpEnabled(false)
+        }
+    }
 
+    override fun render(
+        state: UnitViewState,
+        savedState: UiSavedState
+    ) {
+    }
 }

@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Copyright 2019 Peter Kenji Yamanaka
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
@@ -17,21 +16,20 @@
   -->
 
 
-<androidx.preference.PreferenceScreen
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-  <androidx.preference.PreferenceCategory android:title="Notification Settings">
+    <androidx.preference.PreferenceCategory android:title="Notification Settings">
 
-    <com.pyamsoft.pydroid.ui.preference.SwitchPreferenceCompat
-        android:defaultValue="true"
-        android:key="@string/priority_key"
-        android:summaryOff="@string/priority_summary_off"
-        android:summaryOn="@string/priority_summary_on"
-        android:title="@string/priority_title"
-        app:iconCompat="@drawable/ic_home_24dp"/>
+        <com.pyamsoft.pydroid.ui.preference.SwitchPreferenceCompat
+            android:defaultValue="true"
+            android:key="@string/priority_key"
+            android:summaryOff="@string/priority_summary_off"
+            android:summaryOn="@string/priority_summary_on"
+            android:title="@string/priority_title"
+            app:iconCompat="@drawable/ic_home_24dp" />
 
-  </androidx.preference.PreferenceCategory>
+    </androidx.preference.PreferenceCategory>
 
 </androidx.preference.PreferenceScreen>
 

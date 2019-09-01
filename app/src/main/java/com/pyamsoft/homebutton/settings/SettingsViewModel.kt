@@ -23,17 +23,16 @@ import com.pyamsoft.pydroid.arch.UiViewModel
 import com.pyamsoft.pydroid.arch.UnitViewState
 import javax.inject.Inject
 
-internal class SettingsViewModel @Inject internal constructor(
-) : UiViewModel<UnitViewState, SettingsViewEvent, SettingsControllerEvent>(
+internal class SettingsViewModel @Inject internal constructor() : UiViewModel<UnitViewState, SettingsViewEvent, SettingsControllerEvent>(
     initialState = UnitViewState
 ) {
 
-  override fun onInit() {
-  }
-
-  override fun handleViewEvent(event: SettingsViewEvent) {
-    return when (event) {
-      is NotificationVisibility -> publish(NotificationChanged(event.isVisible))
+    override fun onInit() {
     }
-  }
+
+    override fun handleViewEvent(event: SettingsViewEvent) {
+        return when (event) {
+            is NotificationVisibility -> publish(NotificationChanged(event.isVisible))
+        }
+    }
 }

@@ -25,29 +25,29 @@ import java.util.UUID
 
 class HomeButtonPreferences(context: Context) {
 
-  private val preferences =
-    PreferenceManager.getDefaultSharedPreferences(context.applicationContext)
-  private val keyNotificationPriority: String = context.getString(R.string.priority_key)
+    private val preferences =
+        PreferenceManager.getDefaultSharedPreferences(context.applicationContext)
+    private val keyNotificationPriority: String = context.getString(R.string.priority_key)
 
-  val notificationPriority: Boolean
-    @get:CheckResult get() = preferences.getBoolean(keyNotificationPriority, true)
+    val notificationPriority: Boolean
+        @get:CheckResult get() = preferences.getBoolean(keyNotificationPriority, true)
 
-  val notificationChannelId: String
-    get() {
-      val channelId = preferences.getString(KEY_CHANNEL_ID, UUID.randomUUID().toString())
-      if (channelId == null) {
-        throw IllegalStateException("Channel Id cannot be null")
-      } else {
-        preferences.edit { putString(KEY_CHANNEL_ID, channelId) }
-        return channelId
-      }
+    val notificationChannelId: String
+        get() {
+            val channelId = preferences.getString(KEY_CHANNEL_ID, UUID.randomUUID().toString())
+            if (channelId == null) {
+                throw IllegalStateException("Channel Id cannot be null")
+            } else {
+                preferences.edit { putString(KEY_CHANNEL_ID, channelId) }
+                return channelId
+            }
+        }
+
+    fun clearNotificationChannel() {
+        preferences.edit { remove(KEY_CHANNEL_ID) }
     }
 
-  fun clearNotificationChannel() {
-    preferences.edit { remove(KEY_CHANNEL_ID) }
-  }
-
-  companion object {
-    private const val KEY_CHANNEL_ID = "key_notification_channel_id"
-  }
+    companion object {
+        private const val KEY_CHANNEL_ID = "key_notification_channel_id"
+    }
 }

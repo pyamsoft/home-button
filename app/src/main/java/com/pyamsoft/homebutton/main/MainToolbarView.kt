@@ -38,49 +38,47 @@ import com.pyamsoft.pydroid.util.toDp
 import javax.inject.Inject
 
 internal class MainToolbarView @Inject internal constructor(
-  activity: Activity,
-  private val theming: Theming,
-  private val toolbarProvider: ToolbarActivityProvider,
-  parent: ViewGroup
+    activity: Activity,
+    private val theming: Theming,
+    private val toolbarProvider: ToolbarActivityProvider,
+    parent: ViewGroup
 ) : BaseUiView<UnitViewState, UnitViewEvent>(parent) {
 
-  private var activity: Activity? = activity
+    private var activity: Activity? = activity
 
-  override val layout: Int = R.layout.main_toolbar
+    override val layout: Int = R.layout.main_toolbar
 
-  override val layoutRoot by boundView<Toolbar>(R.id.main_toolbar)
+    override val layoutRoot by boundView<Toolbar>(R.id.main_toolbar)
 
-  override fun onInflated(
-    view: View,
-    savedInstanceState: Bundle?
-  ) {
-    val theme: Int
-    if (theming.isDarkTheme(requireNotNull(activity))) {
-      theme = R.style.ThemeOverlay_MaterialComponents
-    } else {
-      theme = R.style.ThemeOverlay_MaterialComponents_Light
+    override fun onInflated(
+        view: View,
+        savedInstanceState: Bundle?
+    ) {
+        val theme: Int
+        if (theming.isDarkTheme(requireNotNull(activity))) {
+            theme = R.style.ThemeOverlay_MaterialComponents
+        } else {
+            theme = R.style.ThemeOverlay_MaterialComponents_Light
+        }
+
+        layoutRoot.apply {
+            popupTheme = theme
+            toolbarProvider.setToolbar(this)
+            setTitle(string.app_name)
+            ViewCompat.setElevation(this, 0.toDp(context).toFloat())
+            addPrivacy(HomeButton.PRIVACY_POLICY_URL, HomeButton.TERMS_CONDITIONS_URL)
+        }
     }
 
-    layoutRoot.apply {
-      popupTheme = theme
-      toolbarProvider.setToolbar(this)
-      setTitle(string.app_name)
-      ViewCompat.setElevation(this, 0.toDp(context).toFloat())
-      addPrivacy(HomeButton.PRIVACY_POLICY_URL, HomeButton.TERMS_CONDITIONS_URL)
+    override fun onRender(
+        state: UnitViewState,
+        savedState: UiSavedState
+    ) {
     }
-  }
 
-  override fun onRender(
-    state: UnitViewState,
-    savedState: UiSavedState
-  ) {
-  }
-
-  override fun onTeardown() {
-    toolbarProvider.setToolbar(null)
-    layoutRoot.removePrivacy()
-    activity = null
-  }
-
+    override fun onTeardown() {
+        toolbarProvider.setToolbar(null)
+        layoutRoot.removePrivacy()
+        activity = null
+    }
 }
-

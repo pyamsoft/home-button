@@ -30,21 +30,20 @@ import javax.inject.Singleton
 @Component
 internal interface HomeButtonComponent {
 
-  fun inject(receiver: BootCompletedReceiver)
+    fun inject(receiver: BootCompletedReceiver)
 
-  @CheckResult
-  fun plusMain(): MainComponent.Factory
+    @CheckResult
+    fun plusMain(): MainComponent.Factory
 
-  @CheckResult
-  fun plusSettings(): SettingsComponent.Factory
+    @CheckResult
+    fun plusSettings(): SettingsComponent.Factory
 
-  @Component.Factory
-  interface Factory {
+    @Component.Factory
+    interface Factory {
 
-    fun create(
-      @BindsInstance context: Context,
-      @BindsInstance theming: Theming
-    ): HomeButtonComponent
-  }
-
+        fun create(
+            @BindsInstance context: Context,
+            @BindsInstance theming: Theming
+        ): HomeButtonComponent
+    }
 }

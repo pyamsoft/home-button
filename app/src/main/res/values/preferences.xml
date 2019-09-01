@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Copyright 2019 Peter Kenji Yamanaka
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
@@ -18,9 +17,9 @@
 
 <resources>
 
-  <string name="priority_key">notification_priority</string>
-  <string name="priority_summary_on">Show Home Button notification in the Status Bar</string>
-  <string name="priority_summary_off">Hide the Home Button notification from the Status Bar</string>
-  <string name="priority_title">Show Notification:</string>
+    <string name="priority_key">notification_priority</string>
+    <string name="priority_summary_on">Show Home Button notification in the Status Bar</string>
+    <string name="priority_summary_off">Hide the Home Button notification from the Status Bar</string>
+    <string name="priority_title">Show Notification:</string>
 
 </resources>

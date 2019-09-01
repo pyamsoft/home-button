@@ -24,54 +24,54 @@ import com.squareup.leakcanary.RefWatcher
 
 class HomeButton : Application() {
 
-  private var watcher: RefWatcher? = null
-  private var component: HomeButtonComponent? = null
+    private var watcher: RefWatcher? = null
+    private var component: HomeButtonComponent? = null
 
-  override fun onCreate() {
-    super.onCreate()
-    if (LeakCanary.isInAnalyzerProcess(this)) {
-      return
+    override fun onCreate() {
+        super.onCreate()
+        if (LeakCanary.isInAnalyzerProcess(this)) {
+            return
+        }
+
+        if (BuildConfig.DEBUG) {
+            // Assign
+            watcher = LeakCanary.install(this)
+        } else {
+            // Assign
+            watcher = RefWatcher.DISABLED
+        }
+
+        PYDroid.init(
+            this,
+            getString(R.string.app_name),
+            "https://github.com/pyamsoft/home-button",
+            "https://github.com/pyamsoft/home-button/issues",
+            PRIVACY_POLICY_URL,
+            TERMS_CONDITIONS_URL,
+            BuildConfig.VERSION_CODE,
+            BuildConfig.DEBUG
+        ) { provider ->
+            component = DaggerHomeButtonComponent.factory()
+                .create(this, provider.theming())
+        }
     }
 
-    if (BuildConfig.DEBUG) {
-      // Assign
-      watcher = LeakCanary.install(this)
-    } else {
-      // Assign
-      watcher = RefWatcher.DISABLED
+    override fun getSystemService(name: String): Any? {
+        val service = PYDroid.getSystemService(name)
+        if (service != null) {
+            return service
+        }
+
+        if (name == HomeButtonComponent::class.java.name) {
+            return requireNotNull(component)
+        }
+
+        return super.getSystemService(name)
     }
 
-    PYDroid.init(
-        this,
-        getString(R.string.app_name),
-        "https://github.com/pyamsoft/home-button",
-        "https://github.com/pyamsoft/home-button/issues",
-        PRIVACY_POLICY_URL,
-        TERMS_CONDITIONS_URL,
-        BuildConfig.VERSION_CODE,
-        BuildConfig.DEBUG
-    ) { provider ->
-      component = DaggerHomeButtonComponent.factory()
-          .create(this, provider.theming())
+    companion object {
+        const val PRIVACY_POLICY_URL = "https://pyamsoft.blogspot.com/p/home-button-privacy-policy.html"
+        const val TERMS_CONDITIONS_URL =
+            "https://pyamsoft.blogspot.com/p/home-button-terms-and-conditions.html"
     }
-  }
-
-  override fun getSystemService(name: String): Any? {
-    val service = PYDroid.getSystemService(name)
-    if (service != null) {
-      return service
-    }
-
-    if (name == HomeButtonComponent::class.java.name) {
-      return requireNotNull(component)
-    }
-
-    return super.getSystemService(name)
-  }
-
-  companion object {
-    const val PRIVACY_POLICY_URL = "https://pyamsoft.blogspot.com/p/home-button-privacy-policy.html"
-    const val TERMS_CONDITIONS_URL =
-      "https://pyamsoft.blogspot.com/p/home-button-terms-and-conditions.html"
-  }
 }

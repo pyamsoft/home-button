@@ -28,38 +28,37 @@ import com.pyamsoft.pydroid.ui.arch.PrefUiView
 import javax.inject.Inject
 
 internal class SettingsView @Inject internal constructor(
-  preferenceScreen: PreferenceScreen
+    preferenceScreen: PreferenceScreen
 ) : PrefUiView<UnitViewState, SettingsViewEvent>(preferenceScreen) {
 
-  private val homePref by boundPref<Preference>(R.string.priority_key)
+    private val homePref by boundPref<Preference>(R.string.priority_key)
 
-  override fun onInflated(
-    preferenceScreen: PreferenceScreen,
-    savedInstanceState: Bundle?
-  ) {
-    setupShowNotification()
-  }
-
-  override fun onRender(
-    state: UnitViewState,
-    savedState: UiSavedState
-  ) {
-  }
-
-  override fun onTeardown() {
-    super.onTeardown()
-    homePref.onPreferenceChangeListener = null
-  }
-
-  private fun setupShowNotification() {
-    homePref.onPreferenceChangeListener = Preference.OnPreferenceChangeListener { _, newValue ->
-      if (newValue is Boolean) {
-        publish(NotificationVisibility(newValue))
-        return@OnPreferenceChangeListener true
-      } else {
-        return@OnPreferenceChangeListener false
-      }
+    override fun onInflated(
+        preferenceScreen: PreferenceScreen,
+        savedInstanceState: Bundle?
+    ) {
+        setupShowNotification()
     }
-  }
 
+    override fun onRender(
+        state: UnitViewState,
+        savedState: UiSavedState
+    ) {
+    }
+
+    override fun onTeardown() {
+        super.onTeardown()
+        homePref.onPreferenceChangeListener = null
+    }
+
+    private fun setupShowNotification() {
+        homePref.onPreferenceChangeListener = Preference.OnPreferenceChangeListener { _, newValue ->
+            if (newValue is Boolean) {
+                publish(NotificationVisibility(newValue))
+                return@OnPreferenceChangeListener true
+            } else {
+                return@OnPreferenceChangeListener false
+            }
+        }
+    }
 }

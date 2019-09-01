@@ -19,8 +19,8 @@
 
 <resources>
 
-  <string name="app_name">Home Button</string>
-  <string name="home_button_started">Home Button Started</string>
-  <string name="press_to_home">Press to Go Home</string>
+    <string name="app_name">Home Button</string>
+    <string name="home_button_started">Home Button Started</string>
+    <string name="press_to_home">Press to Go Home</string>
 
 </resources>
