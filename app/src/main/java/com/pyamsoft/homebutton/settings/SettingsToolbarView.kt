@@ -17,7 +17,6 @@
 
 package com.pyamsoft.homebutton.settings
 
-import android.os.Bundle
 import com.pyamsoft.homebutton.R
 import com.pyamsoft.pydroid.arch.UiSavedState
 import com.pyamsoft.pydroid.arch.UiView
@@ -28,18 +27,20 @@ import com.pyamsoft.pydroid.ui.util.setUpEnabled
 import javax.inject.Inject
 
 internal class SettingsToolbarView @Inject internal constructor(
-    private val toolbarActivity: ToolbarActivity
+    toolbarActivity: ToolbarActivity
 ) : UiView<UnitViewState, SettingsViewEvent>() {
+
+    init {
+        doOnInflate {
+            toolbarActivity.withToolbar { toolbar ->
+                toolbar.setTitle(R.string.app_name)
+                toolbar.setUpEnabled(false)
+            }
+        }
+    }
 
     override fun id(): Int {
         throw InvalidIdException
-    }
-
-    override fun doInflate(savedInstanceState: Bundle?) {
-        toolbarActivity.withToolbar { toolbar ->
-            toolbar.setTitle(R.string.app_name)
-            toolbar.setUpEnabled(false)
-        }
     }
 
     override fun render(

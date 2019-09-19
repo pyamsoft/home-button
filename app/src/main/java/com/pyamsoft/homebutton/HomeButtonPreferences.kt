@@ -35,12 +35,9 @@ class HomeButtonPreferences(context: Context) {
     val notificationChannelId: String
         get() {
             val channelId = preferences.getString(KEY_CHANNEL_ID, UUID.randomUUID().toString())
-            if (channelId == null) {
-                throw IllegalStateException("Channel Id cannot be null")
-            } else {
-                preferences.edit { putString(KEY_CHANNEL_ID, channelId) }
-                return channelId
-            }
+            checkNotNull(channelId) { "Channel Id cannot be null" }
+            preferences.edit { putString(KEY_CHANNEL_ID, channelId) }
+            return channelId
         }
 
     fun clearNotificationChannel() {

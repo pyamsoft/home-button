@@ -17,7 +17,6 @@
 
 package com.pyamsoft.homebutton.settings
 
-import android.os.Bundle
 import androidx.preference.Preference
 import androidx.preference.PreferenceScreen
 import com.pyamsoft.homebutton.R
@@ -33,22 +32,20 @@ internal class SettingsView @Inject internal constructor(
 
     private val homePref by boundPref<Preference>(R.string.priority_key)
 
-    override fun onInflated(
-        preferenceScreen: PreferenceScreen,
-        savedInstanceState: Bundle?
-    ) {
-        setupShowNotification()
+    init {
+        doOnInflate {
+            setupShowNotification()
+        }
+
+        doOnTeardown {
+            homePref.onPreferenceChangeListener = null
+        }
     }
 
     override fun onRender(
         state: UnitViewState,
         savedState: UiSavedState
     ) {
-    }
-
-    override fun onTeardown() {
-        super.onTeardown()
-        homePref.onPreferenceChangeListener = null
     }
 
     private fun setupShowNotification() {
