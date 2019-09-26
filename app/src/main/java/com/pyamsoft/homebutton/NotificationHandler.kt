@@ -47,11 +47,10 @@ class NotificationHandler @Inject internal constructor(private val context: Cont
     fun start(showNotification: Boolean = preferences.notificationPriority) {
         val notificationChannelId = setupNotificationChannel(showNotification)
 
-        val priority: Int
-        if (showNotification) {
-            priority = NotificationCompat.PRIORITY_DEFAULT
+        val priority = if (showNotification) {
+            NotificationCompat.PRIORITY_DEFAULT
         } else {
-            priority = NotificationCompat.PRIORITY_MIN
+            NotificationCompat.PRIORITY_MIN
         }
 
         val builder = NotificationCompat.Builder(context, notificationChannelId)
@@ -78,11 +77,10 @@ class NotificationHandler @Inject internal constructor(private val context: Cont
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
             return channelId
         } else {
-            val importance: Int
-            if (showNotification) {
-                importance = NotificationManager.IMPORTANCE_DEFAULT
+            val importance = if (showNotification) {
+                NotificationManager.IMPORTANCE_DEFAULT
             } else {
-                importance = NotificationManager.IMPORTANCE_MIN
+                NotificationManager.IMPORTANCE_MIN
             }
 
             // Delete the old notification if it exists, we don't use this ID anymore

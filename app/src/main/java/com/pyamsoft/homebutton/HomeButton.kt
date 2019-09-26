@@ -33,12 +33,10 @@ class HomeButton : Application() {
             return
         }
 
-        if (BuildConfig.DEBUG) {
-            // Assign
-            watcher = LeakCanary.install(this)
+        watcher = if (BuildConfig.DEBUG) {
+            LeakCanary.install(this)
         } else {
-            // Assign
-            watcher = RefWatcher.DISABLED
+            RefWatcher.DISABLED
         }
 
         PYDroid.init(

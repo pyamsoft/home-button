@@ -17,7 +17,6 @@
 
 package com.pyamsoft.homebutton.main
 
-import android.app.Activity
 import android.view.ViewGroup
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.ViewCompat
@@ -36,7 +35,6 @@ import com.pyamsoft.pydroid.util.toDp
 import javax.inject.Inject
 
 internal class MainToolbarView @Inject internal constructor(
-    activity: Activity,
     theming: Theming,
     toolbarProvider: ToolbarActivityProvider,
     parent: ViewGroup
@@ -48,7 +46,7 @@ internal class MainToolbarView @Inject internal constructor(
 
     init {
         doOnInflate {
-            val theme = if (theming.isDarkTheme(activity)) {
+            val theme = if (theming.isDarkTheme()) {
                 R.style.ThemeOverlay_MaterialComponents
             } else {
                 R.style.ThemeOverlay_MaterialComponents_Light

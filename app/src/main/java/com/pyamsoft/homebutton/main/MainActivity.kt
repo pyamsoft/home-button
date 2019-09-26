@@ -46,6 +46,7 @@ class MainActivity : RatingActivity() {
     @JvmField
     @Inject
     internal var mainFrameView: MainFrameView? = null
+
     @JvmField
     @Inject
     internal var toolbar: MainToolbarView? = null
@@ -74,7 +75,7 @@ class MainActivity : RatingActivity() {
         val layoutRoot = findViewById<ConstraintLayout>(R.id.content_root)
         Injector.obtain<HomeButtonComponent>(applicationContext)
             .plusMain()
-            .create(this, layoutRoot, this)
+            .create(layoutRoot, this)
             .inject(this)
 
         val frameView = requireNotNull(mainFrameView)
@@ -109,7 +110,12 @@ class MainActivity : RatingActivity() {
                 connect(it.id(), ConstraintSet.TOP, toolbar.id(), ConstraintSet.BOTTOM)
                 connect(it.id(), ConstraintSet.START, ConstraintSet.PARENT_ID, ConstraintSet.START)
                 connect(it.id(), ConstraintSet.END, ConstraintSet.PARENT_ID, ConstraintSet.END)
-                connect(it.id(), ConstraintSet.BOTTOM, ConstraintSet.PARENT_ID, ConstraintSet.BOTTOM)
+                connect(
+                    it.id(),
+                    ConstraintSet.BOTTOM,
+                    ConstraintSet.PARENT_ID,
+                    ConstraintSet.BOTTOM
+                )
                 constrainWidth(it.id(), ConstraintSet.MATCH_CONSTRAINT)
                 constrainHeight(it.id(), ConstraintSet.MATCH_CONSTRAINT)
             }
