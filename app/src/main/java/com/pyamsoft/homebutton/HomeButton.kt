@@ -19,26 +19,13 @@ package com.pyamsoft.homebutton
 
 import android.app.Application
 import com.pyamsoft.pydroid.ui.PYDroid
-import com.squareup.leakcanary.LeakCanary
-import com.squareup.leakcanary.RefWatcher
 
 class HomeButton : Application() {
 
-    private var watcher: RefWatcher? = null
     private var component: HomeButtonComponent? = null
 
     override fun onCreate() {
         super.onCreate()
-        if (LeakCanary.isInAnalyzerProcess(this)) {
-            return
-        }
-
-        watcher = if (BuildConfig.DEBUG) {
-            LeakCanary.install(this)
-        } else {
-            RefWatcher.DISABLED
-        }
-
         PYDroid.init(
             this,
             getString(R.string.app_name),
@@ -68,7 +55,8 @@ class HomeButton : Application() {
     }
 
     companion object {
-        const val PRIVACY_POLICY_URL = "https://pyamsoft.blogspot.com/p/home-button-privacy-policy.html"
+        const val PRIVACY_POLICY_URL =
+            "https://pyamsoft.blogspot.com/p/home-button-privacy-policy.html"
         const val TERMS_CONDITIONS_URL =
             "https://pyamsoft.blogspot.com/p/home-button-terms-and-conditions.html"
     }
