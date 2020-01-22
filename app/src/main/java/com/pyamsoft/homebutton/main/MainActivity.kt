@@ -22,16 +22,18 @@ import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.coordinatorlayout.widget.CoordinatorLayout
+import androidx.lifecycle.ViewModelProvider
 import com.pyamsoft.homebutton.BuildConfig
 import com.pyamsoft.homebutton.HomeButtonComponent
 import com.pyamsoft.homebutton.R
 import com.pyamsoft.homebutton.R.mipmap
 import com.pyamsoft.homebutton.R.style
 import com.pyamsoft.homebutton.settings.SettingsFragment
-import com.pyamsoft.pydroid.arch.UnitViewModel
+import com.pyamsoft.pydroid.arch.StateSaver
 import com.pyamsoft.pydroid.arch.createComponent
 import com.pyamsoft.pydroid.ui.Injector
 import com.pyamsoft.pydroid.ui.about.AboutFragment
+import com.pyamsoft.pydroid.ui.arch.factory
 import com.pyamsoft.pydroid.ui.rating.ChangeLogBuilder
 import com.pyamsoft.pydroid.ui.rating.RatingActivity
 import com.pyamsoft.pydroid.ui.rating.buildChangeLog
@@ -57,6 +59,11 @@ class MainActivity : RatingActivity() {
     @Inject
     internal var theming: Theming? = null
 
+    @JvmField
+    @Inject
+    internal var factory: ViewModelProvider.Factory? = null
+    private val viewModel by factory<MainViewModel> { factory }
+
     override val versionName: String = BuildConfig.VERSION_NAME
 
     override val applicationIcon: Int = mipmap.ic_launcher
@@ -71,6 +78,8 @@ class MainActivity : RatingActivity() {
 
     override val fragmentContainerId: Int
         get() = requireNotNull(mainFrameView).id()
+
+    private var stateSaver: StateSaver? = null
 
     override val changeLogLines: ChangeLogBuilder = buildChangeLog {
         change("Lower memory consumption and faster operation")
@@ -95,11 +104,11 @@ class MainActivity : RatingActivity() {
 
         val frameView = requireNotNull(mainFrameView)
         val toolbar = requireNotNull(toolbar)
-        val dropshadow = DropshadowView.create(layoutRoot)
+        val dropshadow = DropshadowView.createTyped<MainViewState, MainViewEvent>(layoutRoot)
 
-        createComponent(
+        stateSaver = createComponent(
             savedInstanceState, this,
-            UnitViewModel.create(),
+            viewModel,
             frameView,
             toolbar,
             dropshadow
@@ -143,12 +152,13 @@ class MainActivity : RatingActivity() {
         super.onDestroy()
         mainFrameView = null
         toolbar = null
+        stateSaver = null
+        factory = null
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        mainFrameView?.saveState(outState)
-        toolbar?.saveState(outState)
+        stateSaver?.saveState(outState)
     }
 
     private fun addPreferenceFragment() {

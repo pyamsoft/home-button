@@ -21,26 +21,40 @@ import android.content.Context
 import androidx.annotation.CheckResult
 import androidx.core.content.edit
 import androidx.preference.PreferenceManager
+import com.pyamsoft.pydroid.core.Enforcer
 import java.util.UUID
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class HomeButtonPreferences(context: Context) {
+@Singleton
+class HomeButtonPreferences @Inject internal constructor(
+    private val enforcer: Enforcer,
+    context: Context
+) {
 
-    private val preferences =
-        PreferenceManager.getDefaultSharedPreferences(context.applicationContext)
     private val keyNotificationPriority: String = context.getString(R.string.priority_key)
 
-    val notificationPriority: Boolean
-        @get:CheckResult get() = preferences.getBoolean(keyNotificationPriority, true)
+    private val preferences by lazy {
+        PreferenceManager.getDefaultSharedPreferences(context.applicationContext)
+    }
 
-    val notificationChannelId: String
-        get() {
-            val channelId = preferences.getString(KEY_CHANNEL_ID, UUID.randomUUID().toString())
-            checkNotNull(channelId) { "Channel Id cannot be null" }
-            preferences.edit { putString(KEY_CHANNEL_ID, channelId) }
-            return channelId
-        }
+    @CheckResult
+    suspend fun notificationPriority(): Boolean {
+        enforcer.assertNotOnMainThread()
+        return preferences.getBoolean(keyNotificationPriority, true)
+    }
 
-    fun clearNotificationChannel() {
+    @CheckResult
+    suspend fun notificationChannelId(): String {
+        enforcer.assertNotOnMainThread()
+        val channelId = preferences.getString(KEY_CHANNEL_ID, UUID.randomUUID().toString())
+        checkNotNull(channelId) { "Channel Id cannot be null" }
+        preferences.edit { putString(KEY_CHANNEL_ID, channelId) }
+        return channelId
+    }
+
+    suspend fun clearNotificationChannel() {
+        enforcer.assertNotOnMainThread()
         preferences.edit { remove(KEY_CHANNEL_ID) }
     }
 

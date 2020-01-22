@@ -24,9 +24,6 @@ import com.pyamsoft.homebutton.HomeButton
 import com.pyamsoft.homebutton.R
 import com.pyamsoft.homebutton.R.string
 import com.pyamsoft.pydroid.arch.BaseUiView
-import com.pyamsoft.pydroid.arch.UiSavedState
-import com.pyamsoft.pydroid.arch.UnitViewEvent
-import com.pyamsoft.pydroid.arch.UnitViewState
 import com.pyamsoft.pydroid.ui.app.ToolbarActivityProvider
 import com.pyamsoft.pydroid.ui.privacy.addPrivacy
 import com.pyamsoft.pydroid.ui.privacy.removePrivacy
@@ -38,7 +35,7 @@ internal class MainToolbarView @Inject internal constructor(
     theming: ThemeProvider,
     toolbarProvider: ToolbarActivityProvider,
     parent: ViewGroup
-) : BaseUiView<UnitViewState, UnitViewEvent>(parent) {
+) : BaseUiView<MainViewState, MainViewEvent>(parent) {
 
     override val layout: Int = R.layout.main_toolbar
 
@@ -67,9 +64,6 @@ internal class MainToolbarView @Inject internal constructor(
         }
     }
 
-    override fun onRender(
-        state: UnitViewState,
-        savedState: UiSavedState
-    ) {
+    override fun onRender(state: MainViewState) {
     }
 }

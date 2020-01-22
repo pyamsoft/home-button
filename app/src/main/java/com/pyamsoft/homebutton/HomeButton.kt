@@ -37,7 +37,7 @@ class HomeButton : Application() {
             BuildConfig.DEBUG
         ) { provider ->
             component = DaggerHomeButtonComponent.factory()
-                .create(this, provider.theming())
+                .create(this, provider.theming(), provider.enforcer())
         }
     }
 

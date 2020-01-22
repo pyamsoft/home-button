@@ -31,10 +31,12 @@ import androidx.core.content.getSystemService
 import timber.log.Timber
 import javax.inject.Inject
 
-class NotificationHandler @Inject internal constructor(private val context: Context) {
+class NotificationHandler @Inject internal constructor(
+    private val context: Context,
+    private val preferences: HomeButtonPreferences
+) {
 
     private val text = context.getString(R.string.press_to_home)
-    private val preferences by lazy { HomeButtonPreferences(context) }
     private val notificationManagerCompat by lazy { NotificationManagerCompat.from(context) }
     private val pendingIntent by lazy {
         PendingIntent.getActivity(context, RC, HOME, PendingIntent.FLAG_UPDATE_CURRENT)
@@ -44,14 +46,12 @@ class NotificationHandler @Inject internal constructor(private val context: Cont
     }
 
     @JvmOverloads
-    fun start(showNotification: Boolean = preferences.notificationPriority) {
-        val notificationChannelId = setupNotificationChannel(showNotification)
+    suspend fun start(showNotification: Boolean? = null) {
+        val show = showNotification ?: preferences.notificationPriority()
+        val notificationChannelId = setupNotificationChannel(show)
 
-        val priority = if (showNotification) {
-            NotificationCompat.PRIORITY_DEFAULT
-        } else {
-            NotificationCompat.PRIORITY_MIN
-        }
+        val priority =
+            if (show) NotificationCompat.PRIORITY_DEFAULT else NotificationCompat.PRIORITY_MIN
 
         val builder = NotificationCompat.Builder(context, notificationChannelId)
             .apply {
@@ -69,11 +69,11 @@ class NotificationHandler @Inject internal constructor(private val context: Cont
         notificationManagerCompat.notify(ID, builder.setPriority(priority).build())
     }
 
-    private fun setupNotificationChannel(showNotification: Boolean): String {
+    private suspend fun setupNotificationChannel(showNotification: Boolean): String {
         val name = "Home Service"
         val desc = "Notification related to the Home Button service"
 
-        var channelId = preferences.notificationChannelId
+        var channelId = preferences.notificationChannelId()
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
             return channelId
         } else {
@@ -92,7 +92,7 @@ class NotificationHandler @Inject internal constructor(private val context: Cont
             if (notificationManager.getNotificationChannel(channelId) != null) {
                 notificationManager.deleteNotificationChannel(channelId)
                 preferences.clearNotificationChannel()
-                channelId = preferences.notificationChannelId
+                channelId = preferences.notificationChannelId()
             }
 
             val notificationChannel =

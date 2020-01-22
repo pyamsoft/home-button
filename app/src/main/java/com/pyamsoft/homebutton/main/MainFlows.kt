@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Peter Kenji Yamanaka
+ * Copyright 2020 Peter Kenji Yamanaka
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,11 +15,11 @@
  *
  */
 
-package com.pyamsoft.homebutton.settings
+package com.pyamsoft.homebutton.main
 
 import com.pyamsoft.pydroid.arch.UiViewEvent
+import com.pyamsoft.pydroid.arch.UiViewState
 
-sealed class SettingsViewEvent : UiViewEvent {
+object MainViewState : UiViewState
 
-    data class NotificationVisibility(val isVisible: Boolean) : SettingsViewEvent()
-}
+object MainViewEvent : UiViewEvent

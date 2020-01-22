@@ -21,9 +21,8 @@ import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import com.pyamsoft.homebutton.HomeButtonComponent
-import com.pyamsoft.homebutton.NotificationHandler
 import com.pyamsoft.homebutton.R
-import com.pyamsoft.homebutton.settings.SettingsControllerEvent.NotificationChanged
+import com.pyamsoft.pydroid.arch.StateSaver
 import com.pyamsoft.pydroid.arch.createComponent
 import com.pyamsoft.pydroid.ui.Injector
 import com.pyamsoft.pydroid.ui.app.requireToolbarActivity
@@ -39,18 +38,18 @@ class SettingsPreferenceFragment : AppSettingsPreferenceFragment() {
 
     @JvmField
     @Inject
-    internal var notificationHandler: NotificationHandler? = null
+    internal var settingsView: SettingsView? = null
+
+    @JvmField
+    @Inject
+    internal var toolbarView: SettingsToolbarView? = null
 
     @JvmField
     @Inject
     internal var factory: ViewModelProvider.Factory? = null
-    @JvmField
-    @Inject
-    internal var settingsView: SettingsView? = null
-    @JvmField
-    @Inject
-    internal var toolbarView: SettingsToolbarView? = null
     private val viewModel by factory<SettingsViewModel> { factory }
+
+    private var stateSaver: StateSaver? = null
 
     override fun onViewCreated(
         view: View,
@@ -62,22 +61,12 @@ class SettingsPreferenceFragment : AppSettingsPreferenceFragment() {
             .create(requireToolbarActivity(), preferenceScreen)
             .inject(this)
 
-        createComponent(
+        stateSaver = createComponent(
             savedInstanceState, viewLifecycleOwner,
             viewModel,
             requireNotNull(settingsView),
             requireNotNull(toolbarView)
-        ) {
-            return@createComponent when (it) {
-                is NotificationChanged -> handleNotificationVisibilityChange(it.isVisible)
-            }
-        }
-
-        requireNotNull(notificationHandler).start()
-    }
-
-    private fun handleNotificationVisibilityChange(visible: Boolean) {
-        requireNotNull(notificationHandler).start(visible)
+        ) {}
     }
 
     override fun onDestroyView() {
@@ -85,14 +74,13 @@ class SettingsPreferenceFragment : AppSettingsPreferenceFragment() {
 
         toolbarView = null
         settingsView = null
-        notificationHandler = null
         factory = null
+        stateSaver = null
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        settingsView?.saveState(outState)
-        toolbarView?.saveState(outState)
+        stateSaver?.saveState(outState)
     }
 
     companion object {

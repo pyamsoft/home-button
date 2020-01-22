@@ -18,7 +18,7 @@
 package com.pyamsoft.homebutton.settings
 
 import com.pyamsoft.homebutton.R
-import com.pyamsoft.pydroid.arch.UiSavedState
+import com.pyamsoft.pydroid.arch.UiBundleReader
 import com.pyamsoft.pydroid.arch.UiView
 import com.pyamsoft.pydroid.arch.UnitViewState
 import com.pyamsoft.pydroid.ui.app.ToolbarActivity
@@ -43,9 +43,9 @@ internal class SettingsToolbarView @Inject internal constructor(
         throw InvalidIdException
     }
 
-    override fun render(
-        state: UnitViewState,
-        savedState: UiSavedState
-    ) {
+    override fun onInit(savedInstanceState: UiBundleReader) {
+    }
+
+    override fun render(state: UnitViewState) {
     }
 }

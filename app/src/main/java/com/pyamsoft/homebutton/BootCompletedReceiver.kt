@@ -21,6 +21,11 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import com.pyamsoft.pydroid.ui.Injector
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.cancel
+import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -39,8 +44,11 @@ class BootCompletedReceiver : BroadcastReceiver() {
             Injector.obtain<HomeButtonComponent>(context.applicationContext)
                 .inject(this)
 
-            requireNotNull(notificationHandler).start()
-            notificationHandler = null
+            CoroutineScope(Job()).launch(context = Dispatchers.Default) {
+                requireNotNull(notificationHandler).start()
+                notificationHandler = null
+                cancel()
+            }
         }
     }
 }
