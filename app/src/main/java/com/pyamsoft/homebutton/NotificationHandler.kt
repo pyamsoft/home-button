@@ -28,8 +28,8 @@ import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.getSystemService
-import timber.log.Timber
 import javax.inject.Inject
+import timber.log.Timber
 
 class NotificationHandler @Inject internal constructor(
     private val context: Context,

@@ -21,13 +21,13 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import com.pyamsoft.pydroid.ui.Injector
+import javax.inject.Inject
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 import timber.log.Timber
-import javax.inject.Inject
 
 class BootCompletedReceiver : BroadcastReceiver() {
 
