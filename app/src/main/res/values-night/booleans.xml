@@ -1,6 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Copyright 2019 Peter Kenji Yamanaka
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
@@ -18,15 +16,5 @@
   -->
 
 <resources>
-
-    <style name="Base.Theme.HomeButton" parent="@style/Theme.MaterialComponents.NoActionBar">
-        <item name="colorPrimary">@color/primary</item>
-        <item name="colorPrimaryDark">@color/primaryDark</item>
-        <item name="colorAccent">@color/accent</item>
-    </style>
-
-    <style name="Theme.HomeButton" parent="@style/Base.Theme.HomeButton">
-        <item name="preferenceTheme">@style/PreferenceThemeOverlay.v14.Material</item>
-    </style>
-
+    <bool name="light_bars">false</bool>
 </resources>

@@ -1,6 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Copyright 2019 Peter Kenji Yamanaka
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
@@ -18,12 +16,5 @@
   -->
 
 <resources>
-
-    <style name="Theme.HomeButton" parent="@style/Base.Theme.HomeButton.Normal" />
-
-    <style name="Theme.HomeButton.Dialog" parent="@style/Base.Theme.HomeButton.Dialog" />
-
-    <style name="Theme.HomeButton.Dialog.Alert" parent="@style/Base.Theme.HomeButton.Dialog.Alert" />
-
-    <style name="Theme.HomeButton.Splash" parent="@style/Base.Theme.HomeButton.Splash" />
+    <bool name="light_bars">true</bool>
 </resources>

@@ -28,6 +28,7 @@ import dagger.BindsInstance
 import dagger.Component
 import dagger.Module
 import dagger.Provides
+import javax.inject.Named
 import javax.inject.Singleton
 
 @Singleton
@@ -48,7 +49,8 @@ internal interface HomeButtonComponent {
         fun create(
             @BindsInstance context: Context,
             @BindsInstance theming: Theming,
-            @BindsInstance enforcer: Enforcer
+            @BindsInstance enforcer: Enforcer,
+            @Named("debug") @BindsInstance debug: Boolean
         ): HomeButtonComponent
     }
 

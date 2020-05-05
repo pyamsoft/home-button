@@ -18,7 +18,6 @@
 apply plugin: "com.android.application"
 apply plugin: "kotlin-android"
 apply plugin: "kotlin-kapt"
-apply plugin: "com.getkeepsafe.dexcount"
 
 android {
     compileSdkVersion rootProject.ext.maxSdk
@@ -41,13 +40,27 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+
     signingConfigs {
+        debug {
+            storeFile file("debug.keystore")
+            keyAlias "androiddebugkey"
+            keyPassword "android"
+            storePassword "android"
+        }
         release {
             storeFile new File(RELEASE_STORE_FILE)
             keyAlias RELEASE_KEY_ALIAS
             keyPassword RELEASE_KEY_PASSWD
             storePassword RELEASE_STORE_PASSWD
         }
+    }
+
+    kotlinOptions {
+        jvmTarget = "1.8"
     }
 
     buildTypes {
@@ -60,9 +73,14 @@ android {
         }
 
         debug {
+            signingConfig signingConfigs.debug
             applicationIdSuffix ".dev"
             versionNameSuffix "-dev"
         }
+    }
+
+    viewBinding {
+        enabled true
     }
 }
 

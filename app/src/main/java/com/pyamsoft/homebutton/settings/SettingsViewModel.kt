@@ -23,15 +23,24 @@ import com.pyamsoft.homebutton.settings.SettingsViewEvent.NotificationVisibility
 import com.pyamsoft.pydroid.arch.UiViewModel
 import com.pyamsoft.pydroid.arch.UnitControllerEvent
 import com.pyamsoft.pydroid.arch.UnitViewState
-import javax.inject.Inject
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import javax.inject.Inject
+import javax.inject.Named
 
 internal class SettingsViewModel @Inject internal constructor(
+    @Named("debug") debug: Boolean,
     private val notificationHandler: NotificationHandler
 ) : UiViewModel<UnitViewState, SettingsViewEvent, UnitControllerEvent>(
-    initialState = UnitViewState
+    initialState = UnitViewState, debug = debug
 ) {
+
+    init {
+        doOnInit {
+            viewModelScope.launch {
+                notificationHandler.start()
+            }
+        }
+    }
 
     override fun handleViewEvent(event: SettingsViewEvent) {
         return when (event) {
@@ -40,7 +49,7 @@ internal class SettingsViewModel @Inject internal constructor(
     }
 
     private fun onVisibilityEvent(visible: Boolean) {
-        viewModelScope.launch(context = Dispatchers.Default) {
+        viewModelScope.launch {
             notificationHandler.start(showNotification = visible)
         }
     }

@@ -28,8 +28,10 @@ import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.getSystemService
-import javax.inject.Inject
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import timber.log.Timber
+import javax.inject.Inject
 
 class NotificationHandler @Inject internal constructor(
     private val context: Context,
@@ -46,28 +48,29 @@ class NotificationHandler @Inject internal constructor(
     }
 
     @JvmOverloads
-    suspend fun start(showNotification: Boolean? = null) {
-        val show = showNotification ?: preferences.notificationPriority()
-        val notificationChannelId = setupNotificationChannel(show)
+    suspend fun start(showNotification: Boolean? = null) =
+        withContext(context = Dispatchers.Default) {
+            val show = showNotification ?: preferences.notificationPriority()
+            val notificationChannelId = setupNotificationChannel(show)
 
-        val priority =
-            if (show) NotificationCompat.PRIORITY_DEFAULT else NotificationCompat.PRIORITY_MIN
+            val priority =
+                if (show) NotificationCompat.PRIORITY_DEFAULT else NotificationCompat.PRIORITY_MIN
 
-        val builder = NotificationCompat.Builder(context, notificationChannelId)
-            .apply {
-                setContentIntent(pendingIntent)
-                setSmallIcon(R.drawable.ic_home_notification)
-                setOngoing(true)
-                setWhen(0)
-                setNumber(0)
-                setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
-                setContentText(text)
-                color = ContextCompat.getColor(context, R.color.primary)
-            }
+            val builder = NotificationCompat.Builder(context, notificationChannelId)
+                .apply {
+                    setContentIntent(pendingIntent)
+                    setSmallIcon(R.drawable.ic_home_notification)
+                    setOngoing(true)
+                    setWhen(0)
+                    setNumber(0)
+                    setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
+                    setContentText(text)
+                    color = ContextCompat.getColor(context, R.color.colorPrimary)
+                }
 
-        notificationManagerCompat.cancel(ID)
-        notificationManagerCompat.notify(ID, builder.setPriority(priority).build())
-    }
+            notificationManagerCompat.cancel(ID)
+            notificationManagerCompat.notify(ID, builder.setPriority(priority).build())
+        }
 
     private suspend fun setupNotificationChannel(showNotification: Boolean): String {
         val name = "Home Service"

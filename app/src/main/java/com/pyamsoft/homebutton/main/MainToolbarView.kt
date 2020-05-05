@@ -18,11 +18,11 @@
 package com.pyamsoft.homebutton.main
 
 import android.view.ViewGroup
-import androidx.appcompat.widget.Toolbar
 import androidx.core.view.ViewCompat
 import com.pyamsoft.homebutton.HomeButton
 import com.pyamsoft.homebutton.R
 import com.pyamsoft.homebutton.R.string
+import com.pyamsoft.homebutton.databinding.MainToolbarBinding
 import com.pyamsoft.pydroid.arch.BaseUiView
 import com.pyamsoft.pydroid.ui.app.ToolbarActivityProvider
 import com.pyamsoft.pydroid.ui.privacy.addPrivacy
@@ -35,11 +35,11 @@ internal class MainToolbarView @Inject internal constructor(
     theming: ThemeProvider,
     toolbarProvider: ToolbarActivityProvider,
     parent: ViewGroup
-) : BaseUiView<MainViewState, MainViewEvent>(parent) {
+) : BaseUiView<MainViewState, MainViewEvent, MainToolbarBinding>(parent) {
 
-    override val layout: Int = R.layout.main_toolbar
+    override val viewBinding = MainToolbarBinding::inflate
 
-    override val layoutRoot by boundView<Toolbar>(R.id.main_toolbar)
+    override val layoutRoot by boundView { mainToolbar }
 
     init {
         doOnInflate {

@@ -19,6 +19,7 @@ package com.pyamsoft.homebutton
 
 import android.app.Application
 import com.pyamsoft.pydroid.ui.PYDroid
+import com.pyamsoft.pydroid.util.isDebugMode
 
 class HomeButton : Application() {
 
@@ -28,16 +29,16 @@ class HomeButton : Application() {
         super.onCreate()
         PYDroid.init(
             this,
-            getString(R.string.app_name),
-            "https://github.com/pyamsoft/home-button",
-            "https://github.com/pyamsoft/home-button/issues",
-            PRIVACY_POLICY_URL,
-            TERMS_CONDITIONS_URL,
-            BuildConfig.VERSION_CODE,
-            BuildConfig.DEBUG
+            PYDroid.Parameters(
+                viewSourceUrl = "https://github.com/pyamsoft/home-button",
+                bugReportUrl = "https://github.com/pyamsoft/home-button/issues",
+                privacyPolicyUrl = PRIVACY_POLICY_URL,
+                termsConditionsUrl = TERMS_CONDITIONS_URL,
+                version = BuildConfig.VERSION_CODE
+            )
         ) { provider ->
             component = DaggerHomeButtonComponent.factory()
-                .create(this, provider.theming(), provider.enforcer())
+                .create(this, provider.theming(), provider.enforcer(), isDebugMode())
         }
     }
 
