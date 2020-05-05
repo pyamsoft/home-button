@@ -31,6 +31,8 @@
         <item name="alertDialogTheme">@style/Theme.HomeButton.Dialog.Alert</item>
 
         <item name="android:windowBackground">@color/windowBackground</item>
+        <item name="android:navigationBarColor">@color/colorPrimary</item>
+        <item name="android:statusBarColor">@color/colorPrimary</item>
     </style>
 
     <style name="Base.Theme.HomeButton.Dialog" parent="@style/Theme.MaterialComponents.DayNight.Dialog">
@@ -41,6 +43,8 @@
         <item name="colorOnSecondary">@color/colorOnSecondary</item>
 
         <item name="android:windowBackground">@drawable/dialog_background</item>
+        <item name="android:navigationBarColor">@color/colorPrimary</item>
+        <item name="android:statusBarColor">@color/colorPrimary</item>
     </style>
 
     <style name="Base.Theme.HomeButton.Dialog.Alert" parent="@style/Theme.MaterialComponents.DayNight.Dialog.Alert">
@@ -51,6 +55,8 @@
         <item name="colorOnSecondary">@color/colorOnSecondary</item>
 
         <item name="android:windowBackground">@drawable/dialog_background</item>
+        <item name="android:navigationBarColor">@color/colorPrimary</item>
+        <item name="android:statusBarColor">@color/colorPrimary</item>
     </style>
 
     <style name="Base.Theme.HomeButton.Splash" parent="@style/Base.Theme.HomeButton.Normal">
