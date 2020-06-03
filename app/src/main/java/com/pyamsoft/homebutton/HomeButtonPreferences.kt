@@ -49,8 +49,8 @@ class HomeButtonPreferences @Inject internal constructor(
     @CheckResult
     suspend fun notificationChannelId(): String = withContext(context = Dispatchers.IO) {
         Enforcer.assertNotOnMainThread()
-        val channelId = preferences.getString(KEY_CHANNEL_ID, UUID.randomUUID().toString())
-        requireNotNull(channelId) { "Channel Id cannot be null" }
+        val fallback = UUID.randomUUID().toString()
+        val channelId = requireNotNull(preferences.getString(KEY_CHANNEL_ID, fallback))
         preferences.edit { putString(KEY_CHANNEL_ID, channelId) }
         return@withContext channelId
     }
