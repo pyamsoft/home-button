@@ -22,39 +22,41 @@ import androidx.annotation.CheckResult
 import androidx.core.content.edit
 import androidx.preference.PreferenceManager
 import com.pyamsoft.pydroid.core.Enforcer
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import java.util.UUID
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
 class HomeButtonPreferences @Inject internal constructor(
-    private val enforcer: Enforcer,
     context: Context
 ) {
 
     private val keyNotificationPriority: String = context.getString(R.string.priority_key)
 
     private val preferences by lazy {
+        Enforcer.assertNotOnMainThread()
         PreferenceManager.getDefaultSharedPreferences(context.applicationContext)
     }
 
     @CheckResult
-    suspend fun notificationPriority(): Boolean {
-        enforcer.assertNotOnMainThread()
-        return preferences.getBoolean(keyNotificationPriority, true)
+    suspend fun notificationPriority(): Boolean = withContext(context = Dispatchers.IO) {
+        Enforcer.assertNotOnMainThread()
+        return@withContext preferences.getBoolean(keyNotificationPriority, true)
     }
 
     @CheckResult
-    suspend fun notificationChannelId(): String {
-        enforcer.assertNotOnMainThread()
+    suspend fun notificationChannelId(): String = withContext(context = Dispatchers.IO) {
+        Enforcer.assertNotOnMainThread()
         val channelId = preferences.getString(KEY_CHANNEL_ID, UUID.randomUUID().toString())
-        checkNotNull(channelId) { "Channel Id cannot be null" }
+        requireNotNull(channelId) { "Channel Id cannot be null" }
         preferences.edit { putString(KEY_CHANNEL_ID, channelId) }
-        return channelId
+        return@withContext channelId
     }
 
-    suspend fun clearNotificationChannel() {
-        enforcer.assertNotOnMainThread()
+    suspend fun clearNotificationChannel() = withContext(context = Dispatchers.IO) {
+        Enforcer.assertNotOnMainThread()
         preferences.edit { remove(KEY_CHANNEL_ID) }
     }
 

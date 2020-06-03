@@ -28,11 +28,14 @@ import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.getSystemService
-import javax.inject.Inject
+import com.pyamsoft.pydroid.core.Enforcer
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import timber.log.Timber
+import javax.inject.Inject
+import javax.inject.Singleton
 
+@Singleton
 class NotificationHandler @Inject internal constructor(
     private val context: Context,
     private val preferences: HomeButtonPreferences
@@ -44,12 +47,14 @@ class NotificationHandler @Inject internal constructor(
         PendingIntent.getActivity(context, RC, HOME, PendingIntent.FLAG_UPDATE_CURRENT)
     }
     private val notificationManager by lazy {
+        Enforcer.assertNotOnMainThread()
         requireNotNull(context.getSystemService<NotificationManager>())
     }
 
     @JvmOverloads
     suspend fun start(showNotification: Boolean? = null) =
         withContext(context = Dispatchers.Default) {
+            Enforcer.assertNotOnMainThread()
             val show = showNotification ?: preferences.notificationPriority()
             val notificationChannelId = setupNotificationChannel(show)
 
@@ -73,6 +78,7 @@ class NotificationHandler @Inject internal constructor(
         }
 
     private suspend fun setupNotificationChannel(showNotification: Boolean): String {
+        Enforcer.assertNotOnMainThread()
         val name = "Home Service"
         val desc = "Notification related to the Home Button service"
 
