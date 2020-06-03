@@ -54,7 +54,11 @@ internal class MainToolbarView @Inject internal constructor(
                 toolbarProvider.setToolbar(this)
                 setTitle(string.app_name)
                 ViewCompat.setElevation(this, 0.toDp(context).toFloat())
-                addPrivacy(HomeButton.PRIVACY_POLICY_URL, HomeButton.TERMS_CONDITIONS_URL)
+                viewScope.addPrivacy(
+                    binding.mainToolbar,
+                    HomeButton.PRIVACY_POLICY_URL,
+                    HomeButton.TERMS_CONDITIONS_URL
+                )
             }
         }
 
