@@ -36,19 +36,19 @@ class HomeButtonPreferences @Inject internal constructor(
     private val keyNotificationPriority: String = context.getString(R.string.priority_key)
 
     private val preferences by lazy {
-        Enforcer.assertNotOnMainThread()
+        Enforcer.assertOffMainThread()
         PreferenceManager.getDefaultSharedPreferences(context.applicationContext)
     }
 
     @CheckResult
     suspend fun notificationPriority(): Boolean = withContext(context = Dispatchers.IO) {
-        Enforcer.assertNotOnMainThread()
+        Enforcer.assertOffMainThread()
         return@withContext preferences.getBoolean(keyNotificationPriority, true)
     }
 
     @CheckResult
     suspend fun notificationChannelId(): String = withContext(context = Dispatchers.IO) {
-        Enforcer.assertNotOnMainThread()
+        Enforcer.assertOffMainThread()
         val fallback = UUID.randomUUID().toString()
         val channelId = requireNotNull(preferences.getString(KEY_CHANNEL_ID, fallback))
         preferences.edit { putString(KEY_CHANNEL_ID, channelId) }
@@ -56,7 +56,7 @@ class HomeButtonPreferences @Inject internal constructor(
     }
 
     suspend fun clearNotificationChannel() = withContext(context = Dispatchers.IO) {
-        Enforcer.assertNotOnMainThread()
+        Enforcer.assertOffMainThread()
         preferences.edit { remove(KEY_CHANNEL_ID) }
     }
 

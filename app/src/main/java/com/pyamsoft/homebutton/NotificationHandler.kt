@@ -47,14 +47,14 @@ class NotificationHandler @Inject internal constructor(
         PendingIntent.getActivity(context, RC, HOME, PendingIntent.FLAG_UPDATE_CURRENT)
     }
     private val notificationManager by lazy {
-        Enforcer.assertNotOnMainThread()
+        Enforcer.assertOffMainThread()
         requireNotNull(context.getSystemService<NotificationManager>())
     }
 
     @JvmOverloads
     suspend fun start(showNotification: Boolean? = null) =
         withContext(context = Dispatchers.Default) {
-            Enforcer.assertNotOnMainThread()
+            Enforcer.assertOffMainThread()
             val show = showNotification ?: preferences.notificationPriority()
             val notificationChannelId = setupNotificationChannel(show)
 
@@ -78,7 +78,7 @@ class NotificationHandler @Inject internal constructor(
         }
 
     private suspend fun setupNotificationChannel(showNotification: Boolean): String {
-        Enforcer.assertNotOnMainThread()
+        Enforcer.assertOffMainThread()
         val name = "Home Service"
         val desc = "Notification related to the Home Button service"
 
