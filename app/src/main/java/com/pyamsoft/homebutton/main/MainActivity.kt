@@ -71,10 +71,6 @@ class MainActivity : RatingActivity() {
         findViewById<CoordinatorLayout>(R.id.snackbar_root)
     }
 
-    override val changeLogTheme: Int = 0
-
-    override val versionCheckTheme: Int = 0
-
     override val fragmentContainerId: Int
         get() = requireNotNull(mainFrameView).id()
 

@@ -21,7 +21,6 @@ import androidx.annotation.CheckResult
 import androidx.lifecycle.ViewModelProvider
 import androidx.preference.PreferenceScreen
 import com.pyamsoft.homebutton.HomeButtonViewModelFactory
-import com.pyamsoft.homebutton.ViewModelKey
 import com.pyamsoft.homebutton.settings.SettingsComponent.ViewModelModule
 import com.pyamsoft.pydroid.arch.UiViewModel
 import com.pyamsoft.pydroid.ui.app.ToolbarActivity
@@ -29,6 +28,7 @@ import dagger.Binds
 import dagger.BindsInstance
 import dagger.Module
 import dagger.Subcomponent
+import dagger.multibindings.ClassKey
 import dagger.multibindings.IntoMap
 
 @Subcomponent(modules = [ViewModelModule::class])
@@ -54,7 +54,7 @@ internal interface SettingsComponent {
 
         @Binds
         @IntoMap
-        @ViewModelKey(SettingsViewModel::class)
+        @ClassKey(SettingsViewModel::class)
         internal abstract fun settingsViewModel(viewModel: SettingsViewModel): UiViewModel<*, *, *>
     }
 }
