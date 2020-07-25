@@ -29,12 +29,13 @@ import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.getSystemService
 import com.pyamsoft.pydroid.core.Enforcer
+import javax.inject.Inject
+import javax.inject.Singleton
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import timber.log.Timber
-import javax.inject.Inject
-import javax.inject.Singleton
 
+// TODO(Peter): Convert to pydroid-notify
 @Singleton
 class NotificationHandler @Inject internal constructor(
     private val context: Context,
