@@ -36,7 +36,7 @@ buildscript {
 		minSdk = 22
 		maxSdk = 29
 
-		pydroid = "22.0.0"
+		pydroid = "22.0.1"
 
 		leakCanary = "2.4"
 
@@ -44,7 +44,7 @@ buildscript {
 	}
 
 	dependencies {
-		classpath 'com.android.tools.build:gradle:4.0.0'
+		classpath 'com.android.tools.build:gradle:4.0.1'
 
 		// Gradle version checker
 		classpath 'com.github.ben-manes:gradle-versions-plugin:0.29.0'
