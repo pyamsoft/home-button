@@ -34,9 +34,9 @@ buildscript {
 
 	ext {
 		minSdk = 22
-		maxSdk = 29
+		maxSdk = 30
 
-		pydroid = "22.0.1"
+		pydroid = "22.0.2"
 
 		leakCanary = "2.4"
 
