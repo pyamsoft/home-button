@@ -32,8 +32,6 @@ import javax.inject.Inject
 
 class SettingsPreferenceFragment : AppSettingsPreferenceFragment() {
 
-    override val hideClearAll: Boolean = true
-
     override val preferenceXmlResId: Int = R.xml.preferences
 
     @JvmField
