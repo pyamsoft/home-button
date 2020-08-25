@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.pyamsoft.homebutton
+package com.pyamsoft.homebutton.viewmodel
 
 import com.pyamsoft.pydroid.arch.UiViewModel
 import com.pyamsoft.pydroid.arch.UiViewModelFactory

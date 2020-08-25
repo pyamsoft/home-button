@@ -50,7 +50,7 @@
         </activity>
 
         <receiver
-            android:name=".BootCompletedReceiver"
+            android:name=".receiver.BootCompletedReceiver"
             android:enabled="true"
             android:exported="true">
             <intent-filter>

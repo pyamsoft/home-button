@@ -17,7 +17,7 @@
 package com.pyamsoft.homebutton.settings
 
 import androidx.lifecycle.viewModelScope
-import com.pyamsoft.homebutton.NotificationHandler
+import com.pyamsoft.homebutton.notification.NotificationHandler
 import com.pyamsoft.homebutton.settings.SettingsViewEvent.NotificationVisibility
 import com.pyamsoft.pydroid.arch.UiViewModel
 import com.pyamsoft.pydroid.arch.UnitControllerEvent

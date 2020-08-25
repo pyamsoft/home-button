@@ -19,7 +19,7 @@ package com.pyamsoft.homebutton.settings
 import androidx.annotation.CheckResult
 import androidx.lifecycle.ViewModelProvider
 import androidx.preference.PreferenceScreen
-import com.pyamsoft.homebutton.HomeButtonViewModelFactory
+import com.pyamsoft.homebutton.viewmodel.HomeButtonViewModelFactory
 import com.pyamsoft.homebutton.settings.SettingsComponent.ViewModelModule
 import com.pyamsoft.pydroid.arch.UiViewModel
 import com.pyamsoft.pydroid.ui.app.ToolbarActivity

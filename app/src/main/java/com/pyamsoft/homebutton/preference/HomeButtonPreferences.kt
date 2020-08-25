@@ -14,12 +14,13 @@
  * limitations under the License.
  */
 
-package com.pyamsoft.homebutton
+package com.pyamsoft.homebutton.preference
 
 import android.content.Context
 import androidx.annotation.CheckResult
 import androidx.core.content.edit
 import androidx.preference.PreferenceManager
+import com.pyamsoft.homebutton.R
 import com.pyamsoft.pydroid.core.Enforcer
 import java.util.UUID
 import javax.inject.Inject

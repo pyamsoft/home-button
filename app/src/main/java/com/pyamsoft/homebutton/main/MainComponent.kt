@@ -19,7 +19,7 @@ package com.pyamsoft.homebutton.main
 import android.view.ViewGroup
 import androidx.annotation.CheckResult
 import androidx.lifecycle.ViewModelProvider
-import com.pyamsoft.homebutton.HomeButtonViewModelFactory
+import com.pyamsoft.homebutton.viewmodel.HomeButtonViewModelFactory
 import com.pyamsoft.homebutton.main.MainComponent.ViewModelModule
 import com.pyamsoft.pydroid.arch.UiViewModel
 import com.pyamsoft.pydroid.ui.app.ToolbarActivityProvider

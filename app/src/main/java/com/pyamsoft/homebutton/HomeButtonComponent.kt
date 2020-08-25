@@ -19,6 +19,7 @@ package com.pyamsoft.homebutton
 import android.content.Context
 import androidx.annotation.CheckResult
 import com.pyamsoft.homebutton.main.MainComponent
+import com.pyamsoft.homebutton.receiver.BootCompletedReceiver
 import com.pyamsoft.homebutton.settings.SettingsComponent
 import com.pyamsoft.pydroid.ui.theme.Theming
 import dagger.BindsInstance

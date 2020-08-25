@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.pyamsoft.homebutton
+package com.pyamsoft.homebutton.notification
 
 import android.app.Notification
 import android.app.NotificationChannel
@@ -27,6 +27,8 @@ import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.getSystemService
+import com.pyamsoft.homebutton.preference.HomeButtonPreferences
+import com.pyamsoft.homebutton.R
 import com.pyamsoft.pydroid.core.Enforcer
 import javax.inject.Inject
 import javax.inject.Singleton
