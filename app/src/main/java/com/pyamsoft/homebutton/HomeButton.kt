@@ -39,7 +39,7 @@ class HomeButton : Application() {
         ) { provider ->
             // Using pydroid-notify
             OssLibraries.usingNotify = true
-           
+
             component = DaggerHomeButtonComponent.factory()
                 .create(this, provider.theming(), isDebugMode())
         }
