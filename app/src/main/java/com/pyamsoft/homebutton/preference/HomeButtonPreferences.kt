@@ -17,16 +17,16 @@
 package com.pyamsoft.homebutton.preference
 
 import android.content.Context
+import android.content.SharedPreferences
 import androidx.annotation.CheckResult
 import androidx.core.content.edit
 import androidx.preference.PreferenceManager
 import com.pyamsoft.homebutton.R
 import com.pyamsoft.pydroid.core.Enforcer
-import java.util.UUID
-import javax.inject.Inject
-import javax.inject.Singleton
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
+import javax.inject.Singleton
 
 @Singleton
 class HomeButtonPreferences @Inject internal constructor(
@@ -37,27 +37,22 @@ class HomeButtonPreferences @Inject internal constructor(
 
     private val preferences by lazy {
         Enforcer.assertOffMainThread()
-        PreferenceManager.getDefaultSharedPreferences(context.applicationContext)
+        PreferenceManager.getDefaultSharedPreferences(context.applicationContext).apply {
+            removeOldPreferences(this)
+        }
+    }
+
+    private fun removeOldPreferences(preferences: SharedPreferences) {
+        Enforcer.assertOffMainThread()
+        preferences.edit {
+            remove(KEY_CHANNEL_ID)
+        }
     }
 
     @CheckResult
     suspend fun notificationPriority(): Boolean = withContext(context = Dispatchers.IO) {
         Enforcer.assertOffMainThread()
         return@withContext preferences.getBoolean(keyNotificationPriority, true)
-    }
-
-    @CheckResult
-    suspend fun notificationChannelId(): String = withContext(context = Dispatchers.IO) {
-        Enforcer.assertOffMainThread()
-        val fallback = UUID.randomUUID().toString()
-        val channelId = requireNotNull(preferences.getString(KEY_CHANNEL_ID, fallback))
-        preferences.edit { putString(KEY_CHANNEL_ID, channelId) }
-        return@withContext channelId
-    }
-
-    suspend fun clearNotificationChannel() = withContext(context = Dispatchers.IO) {
-        Enforcer.assertOffMainThread()
-        preferences.edit { remove(KEY_CHANNEL_ID) }
     }
 
     companion object {

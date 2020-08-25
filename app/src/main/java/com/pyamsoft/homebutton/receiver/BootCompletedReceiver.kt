@@ -22,12 +22,11 @@ import android.content.Intent
 import com.pyamsoft.homebutton.HomeButtonComponent
 import com.pyamsoft.homebutton.notification.NotificationHandler
 import com.pyamsoft.pydroid.ui.Injector
-import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 import timber.log.Timber
+import javax.inject.Inject
 
 class BootCompletedReceiver : BroadcastReceiver() {
 
@@ -41,13 +40,13 @@ class BootCompletedReceiver : BroadcastReceiver() {
     ) {
         if (Intent.ACTION_BOOT_COMPLETED == intent?.action) {
             Timber.d("Home Button has started via boot receiver")
+
             Injector.obtain<HomeButtonComponent>(context.applicationContext)
                 .inject(this)
 
+            // Use GlobalScope to launch the notification handler
             GlobalScope.launch(context = Dispatchers.Default) {
                 requireNotNull(notificationHandler).start()
-                notificationHandler = null
-                cancel()
             }
         }
     }

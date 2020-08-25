@@ -17,6 +17,7 @@
 package com.pyamsoft.homebutton
 
 import android.app.Application
+import com.pyamsoft.pydroid.bootstrap.libraries.OssLibraries
 import com.pyamsoft.pydroid.ui.PYDroid
 import com.pyamsoft.pydroid.util.isDebugMode
 
@@ -36,6 +37,9 @@ class HomeButton : Application() {
                 version = BuildConfig.VERSION_CODE
             )
         ) { provider ->
+            // Using pydroid-notify
+            OssLibraries.usingNotify = true
+           
             component = DaggerHomeButtonComponent.factory()
                 .create(this, provider.theming(), isDebugMode())
         }
