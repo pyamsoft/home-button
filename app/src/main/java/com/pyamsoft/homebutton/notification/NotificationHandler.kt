@@ -37,6 +37,7 @@ class NotificationHandler @Inject internal constructor(
         withContext(context = Dispatchers.Default) {
             Enforcer.assertOffMainThread()
             val show = showNotification ?: preferences.notificationPriority()
+            notifier.cancel(ID)
             notifier.show(
                 ID,
                 NotifyChannelInfo(
