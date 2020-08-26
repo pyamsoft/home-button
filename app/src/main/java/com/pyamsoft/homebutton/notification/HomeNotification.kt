@@ -20,5 +20,4 @@ import com.pyamsoft.pydroid.notify.NotifyData
 
 data class HomeNotification internal constructor(
     val show: Boolean
-) : NotifyData {
-}
+) : NotifyData

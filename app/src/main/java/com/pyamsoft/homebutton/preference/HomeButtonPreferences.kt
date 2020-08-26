@@ -50,7 +50,7 @@ class HomeButtonPreferences @Inject internal constructor(
     }
 
     @CheckResult
-    suspend fun notificationPriority(): Boolean = withContext(context = Dispatchers.IO) {
+    suspend fun showNotification(): Boolean = withContext(context = Dispatchers.IO) {
         Enforcer.assertOffMainThread()
         return@withContext preferences.getBoolean(keyNotificationPriority, true)
     }

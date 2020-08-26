@@ -16,16 +16,18 @@
 
 package com.pyamsoft.homebutton.settings
 
+import android.app.Activity
+import android.os.Build
 import androidx.preference.Preference
 import androidx.preference.PreferenceScreen
 import com.pyamsoft.homebutton.R
-import com.pyamsoft.homebutton.settings.SettingsViewEvent.NotificationVisibility
 import com.pyamsoft.pydroid.arch.UnitViewState
 import com.pyamsoft.pydroid.ui.arch.PrefUiView
 import javax.inject.Inject
 
 internal class SettingsView @Inject internal constructor(
-    preferenceScreen: PreferenceScreen
+    private val activity: Activity,
+    preferenceScreen: PreferenceScreen,
 ) : PrefUiView<UnitViewState, SettingsViewEvent>(preferenceScreen) {
 
     private val homePref by boundPref<Preference>(R.string.priority_key)
@@ -44,9 +46,24 @@ internal class SettingsView @Inject internal constructor(
     }
 
     private fun setupShowNotification() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            newManageNotification()
+        } else {
+            oldManageNotification()
+        }
+    }
+
+    private fun newManageNotification() {
+        homePref.onPreferenceClickListener = Preference.OnPreferenceClickListener {
+            publish(SettingsViewEvent.OpenNotificationSettings(activity))
+            return@OnPreferenceClickListener true
+        }
+    }
+
+    private fun oldManageNotification() {
         homePref.onPreferenceChangeListener = Preference.OnPreferenceChangeListener { _, newValue ->
             if (newValue is Boolean) {
-                publish(NotificationVisibility(newValue))
+                publish(SettingsViewEvent.NotificationVisibility(newValue))
                 return@OnPreferenceChangeListener true
             } else {
                 return@OnPreferenceChangeListener false

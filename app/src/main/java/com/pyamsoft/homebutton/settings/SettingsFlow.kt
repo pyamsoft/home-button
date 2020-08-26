@@ -16,9 +16,16 @@
 
 package com.pyamsoft.homebutton.settings
 
+import android.app.Activity
 import com.pyamsoft.pydroid.arch.UiViewEvent
 
 sealed class SettingsViewEvent : UiViewEvent {
 
-    data class NotificationVisibility(val isVisible: Boolean) : SettingsViewEvent()
+    data class NotificationVisibility internal constructor(
+        val isVisible: Boolean
+    ) : SettingsViewEvent()
+
+    data class OpenNotificationSettings internal constructor(
+        val activity: Activity
+    ) : SettingsViewEvent()
 }

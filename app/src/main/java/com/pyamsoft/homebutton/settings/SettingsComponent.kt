@@ -16,6 +16,7 @@
 
 package com.pyamsoft.homebutton.settings
 
+import android.app.Activity
 import androidx.annotation.CheckResult
 import androidx.lifecycle.ViewModelProvider
 import androidx.preference.PreferenceScreen
@@ -40,6 +41,7 @@ internal interface SettingsComponent {
 
         @CheckResult
         fun create(
+            @BindsInstance activity: Activity,
             @BindsInstance toolbarActivity: ToolbarActivity,
             @BindsInstance preferenceScreen: PreferenceScreen
         ): SettingsComponent

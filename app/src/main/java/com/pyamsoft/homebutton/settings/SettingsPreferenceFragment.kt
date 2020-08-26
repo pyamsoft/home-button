@@ -55,7 +55,7 @@ class SettingsPreferenceFragment : AppSettingsPreferenceFragment() {
         super.onViewCreated(view, savedInstanceState)
         Injector.obtain<HomeButtonComponent>(view.context.applicationContext)
             .plusSettings()
-            .create(requireToolbarActivity(), preferenceScreen)
+            .create(requireActivity(), requireToolbarActivity(), preferenceScreen)
             .inject(this)
 
         stateSaver = createComponent(

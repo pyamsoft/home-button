@@ -16,6 +16,7 @@
 
 package com.pyamsoft.homebutton
 
+import android.app.Application
 import android.content.Context
 import androidx.annotation.CheckResult
 import com.pyamsoft.homebutton.main.MainComponent
@@ -25,11 +26,13 @@ import com.pyamsoft.homebutton.settings.SettingsComponent
 import com.pyamsoft.pydroid.ui.theme.Theming
 import dagger.BindsInstance
 import dagger.Component
+import dagger.Module
+import dagger.Provides
 import javax.inject.Named
 import javax.inject.Singleton
 
 @Singleton
-@Component(modules = [NotificationModule::class])
+@Component(modules = [HomeButtonComponent.BaseModule::class, NotificationModule::class])
 internal interface HomeButtonComponent {
 
     fun inject(receiver: BootCompletedReceiver)
@@ -44,9 +47,23 @@ internal interface HomeButtonComponent {
     interface Factory {
 
         fun create(
-            @BindsInstance context: Context,
+            @BindsInstance application: Application,
             @BindsInstance theming: Theming,
             @Named("debug") @BindsInstance debug: Boolean
         ): HomeButtonComponent
+    }
+
+    @Module
+    abstract class BaseModule {
+
+        @Module
+        companion object {
+
+            @Provides
+            @JvmStatic
+            fun provideContext(application: Application): Context {
+                return application
+            }
+        }
     }
 }
