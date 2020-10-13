@@ -17,45 +17,42 @@
 package com.pyamsoft.homebutton
 
 import android.app.Application
+import androidx.annotation.CheckResult
 import com.pyamsoft.pydroid.bootstrap.libraries.OssLibraries
 import com.pyamsoft.pydroid.ui.PYDroid
 import com.pyamsoft.pydroid.util.isDebugMode
 
 class HomeButton : Application() {
 
-    private var component: HomeButtonComponent? = null
-
-    override fun onCreate() {
-        super.onCreate()
-        PYDroid.init(
+    private val component by lazy {
+        val url = "https://github.com/pyamsoft/home-button"
+        val provider = PYDroid.init(
             this,
             PYDroid.Parameters(
-                viewSourceUrl = "https://github.com/pyamsoft/home-button",
-                bugReportUrl = "https://github.com/pyamsoft/home-button/issues",
+                viewSourceUrl = url,
+                bugReportUrl = "$url/issues",
                 privacyPolicyUrl = PRIVACY_POLICY_URL,
                 termsConditionsUrl = TERMS_CONDITIONS_URL,
                 version = BuildConfig.VERSION_CODE
             )
-        ) { provider ->
-            // Using pydroid-notify
-            OssLibraries.usingNotify = true
+        )
 
-            component = DaggerHomeButtonComponent.factory()
-                .create(this, provider.theming(), isDebugMode())
-        }
+        // Using pydroid-notify
+        OssLibraries.usingNotify = true
+
+        return@lazy DaggerHomeButtonComponent.factory()
+            .create(this, provider.theming(), isDebugMode())
     }
 
     override fun getSystemService(name: String): Any? {
-        val service = PYDroid.getSystemService(name)
-        if (service != null) {
-            return service
-        }
+        return PYDroid.getSystemService(name) ?: fallbackGetSystemService(name)
+    }
 
-        if (name == HomeButtonComponent::class.java.name) {
-            return requireNotNull(component)
+    @CheckResult
+    private fun fallbackGetSystemService(name: String): Any? {
+        return if (name == HomeButtonComponent::class.java.name) component else {
+            super.getSystemService(name)
         }
-
-        return super.getSystemService(name)
     }
 
     companion object {
