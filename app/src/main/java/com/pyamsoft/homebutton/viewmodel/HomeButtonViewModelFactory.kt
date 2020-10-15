@@ -16,6 +16,7 @@
 
 package com.pyamsoft.homebutton.viewmodel
 
+import com.pyamsoft.pydroid.arch.UiStateViewModel
 import com.pyamsoft.pydroid.arch.UiViewModel
 import com.pyamsoft.pydroid.arch.UiViewModelFactory
 import javax.inject.Inject
@@ -26,7 +27,7 @@ internal class HomeButtonViewModelFactory @Inject internal constructor(
     private val viewModels: MutableMap<Class<*>, Provider<UiViewModel<*, *, *>>>
 ) : UiViewModelFactory() {
 
-    override fun <T : UiViewModel<*, *, *>> viewModel(modelClass: KClass<T>): UiViewModel<*, *, *> {
+    override fun <T : UiStateViewModel<*>> viewModel(modelClass: KClass<T>): UiStateViewModel<*> {
         @Suppress("UNCHECKED_CAST")
         return requireNotNull(viewModels[modelClass.java]).get() as T
     }
