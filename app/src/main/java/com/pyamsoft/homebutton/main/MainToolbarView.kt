@@ -18,6 +18,7 @@ package com.pyamsoft.homebutton.main
 
 import android.view.ViewGroup
 import androidx.core.view.ViewCompat
+import androidx.core.view.updatePadding
 import com.pyamsoft.homebutton.HomeButton
 import com.pyamsoft.homebutton.R
 import com.pyamsoft.homebutton.databinding.MainToolbarBinding
@@ -26,8 +27,9 @@ import com.pyamsoft.pydroid.ui.app.ToolbarActivityProvider
 import com.pyamsoft.pydroid.ui.privacy.addPrivacy
 import com.pyamsoft.pydroid.ui.privacy.removePrivacy
 import com.pyamsoft.pydroid.ui.theme.ThemeProvider
-import com.google.android.material.R as R2
+import com.pyamsoft.pydroid.util.doOnApplyWindowInsets
 import javax.inject.Inject
+import com.google.android.material.R as R2
 
 internal class MainToolbarView @Inject internal constructor(
     theming: ThemeProvider,
@@ -37,27 +39,37 @@ internal class MainToolbarView @Inject internal constructor(
 
     override val viewBinding = MainToolbarBinding::inflate
 
-    override val layoutRoot by boundView { mainToolbar }
+    override val layoutRoot by boundView { mainAppbar }
 
     init {
         doOnInflate {
-            layoutRoot.apply {
-                popupTheme =
-                    if (theming.isDarkTheme()) R2.style.ThemeOverlay_MaterialComponents else R2.style.ThemeOverlay_MaterialComponents_Light
+            val theme = if (theming.isDarkTheme()) {
+                R2.style.ThemeOverlay_MaterialComponents
+            } else {
+                R2.style.ThemeOverlay_MaterialComponents_Light
+            }
+
+            binding.mainToolbar.apply {
+                popupTheme = theme
                 toolbarProvider.setToolbar(this)
                 setTitle(R.string.app_name)
                 ViewCompat.setElevation(this, 0F)
-                viewScope.addPrivacy(
-                    binding.mainToolbar,
-                    HomeButton.PRIVACY_POLICY_URL,
-                    HomeButton.TERMS_CONDITIONS_URL
-                )
             }
+
+            layoutRoot.doOnApplyWindowInsets { v, insets, padding ->
+                v.updatePadding(top = padding.top + insets.systemWindowInsetTop)
+            }
+
+            viewScope.addPrivacy(
+                binding.mainToolbar,
+                HomeButton.PRIVACY_POLICY_URL,
+                HomeButton.TERMS_CONDITIONS_URL
+            )
         }
 
         doOnTeardown {
             toolbarProvider.setToolbar(null)
-            layoutRoot.removePrivacy()
+            binding.mainToolbar.removePrivacy()
         }
     }
 

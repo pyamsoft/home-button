@@ -1,6 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Copyright 2020 Peter Kenji Yamanaka
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,15 +14,9 @@
   ~ limitations under the License.
   -->
 
-<resources>
-    <!-- If primary and secondary are the same, so are their On colors -->
-    <color name="colorPrimary">#FF3F51B5</color>
-    <color name="colorOnPrimary">@color/white</color>
+<View xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/preference_spacer"
+    android:layout_width="match_parent"
+    android:layout_height="48dp">
 
-    <color name="colorSecondary">#FFE91E63</color>
-    <color name="colorOnSecondary">@color/colorOnPrimary</color>
-
-    <color name="windowBackground">@color/material_light_background</color>
-
-    <color name="colorPrimarySeeThrough">#D73F51B5</color>
-</resources>
+</View>

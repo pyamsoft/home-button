@@ -43,6 +43,10 @@ class SettingsPreferenceFragment : AppSettingsPreferenceFragment() {
 
     @JvmField
     @Inject
+    internal var spacer: SettingsSpacer? = null
+
+    @JvmField
+    @Inject
     internal var factory: ViewModelProvider.Factory? = null
     private val viewModel by viewModelFactory<SettingsViewModel> { factory }
 
@@ -62,7 +66,8 @@ class SettingsPreferenceFragment : AppSettingsPreferenceFragment() {
             savedInstanceState, viewLifecycleOwner,
             viewModel,
             requireNotNull(settingsView),
-            requireNotNull(toolbarView)
+            requireNotNull(toolbarView),
+            requireNotNull(spacer)
         ) {}
     }
 
