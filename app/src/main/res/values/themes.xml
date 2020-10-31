@@ -26,6 +26,4 @@
 
     <style name="Theme.HomeButton.Splash" parent="@style/Base.Theme.HomeButton.Splash" />
 
-    <style name="Theme.HomeButton.Overlay" parent="@style/Base.Theme.HomeButton.Overlay" />
-
 </resources>

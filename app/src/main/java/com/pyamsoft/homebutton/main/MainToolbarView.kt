@@ -25,9 +25,12 @@ import com.pyamsoft.pydroid.arch.BaseUiView
 import com.pyamsoft.pydroid.ui.app.ToolbarActivityProvider
 import com.pyamsoft.pydroid.ui.privacy.addPrivacy
 import com.pyamsoft.pydroid.ui.privacy.removePrivacy
+import com.pyamsoft.pydroid.ui.theme.ThemeProvider
+import com.google.android.material.R as R2
 import javax.inject.Inject
 
 internal class MainToolbarView @Inject internal constructor(
+    theming: ThemeProvider,
     toolbarProvider: ToolbarActivityProvider,
     parent: ViewGroup
 ) : BaseUiView<MainViewState, MainViewEvent, MainToolbarBinding>(parent) {
@@ -39,7 +42,8 @@ internal class MainToolbarView @Inject internal constructor(
     init {
         doOnInflate {
             layoutRoot.apply {
-                popupTheme = R.style.Theme_HomeButton_Overlay
+                popupTheme =
+                    if (theming.isDarkTheme()) R2.style.ThemeOverlay_MaterialComponents else R2.style.ThemeOverlay_MaterialComponents_Light
                 toolbarProvider.setToolbar(this)
                 setTitle(R.string.app_name)
                 ViewCompat.setElevation(this, 0F)
