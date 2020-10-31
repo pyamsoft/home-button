@@ -62,4 +62,6 @@
         <item name="android:windowBackground">@drawable/splash_screen</item>
     </style>
 
+    <style name="Base.Theme.HomeButton.Overlay" parent="@style/ThemeOverlay.MaterialComponents.Light" />
+
 </resources>

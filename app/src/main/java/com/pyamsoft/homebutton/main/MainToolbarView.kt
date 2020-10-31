@@ -20,18 +20,14 @@ import android.view.ViewGroup
 import androidx.core.view.ViewCompat
 import com.pyamsoft.homebutton.HomeButton
 import com.pyamsoft.homebutton.R
-import com.pyamsoft.homebutton.R.string
 import com.pyamsoft.homebutton.databinding.MainToolbarBinding
 import com.pyamsoft.pydroid.arch.BaseUiView
 import com.pyamsoft.pydroid.ui.app.ToolbarActivityProvider
 import com.pyamsoft.pydroid.ui.privacy.addPrivacy
 import com.pyamsoft.pydroid.ui.privacy.removePrivacy
-import com.pyamsoft.pydroid.ui.theme.ThemeProvider
-import com.pyamsoft.pydroid.util.toDp
 import javax.inject.Inject
 
 internal class MainToolbarView @Inject internal constructor(
-    theming: ThemeProvider,
     toolbarProvider: ToolbarActivityProvider,
     parent: ViewGroup
 ) : BaseUiView<MainViewState, MainViewEvent, MainToolbarBinding>(parent) {
@@ -42,17 +38,11 @@ internal class MainToolbarView @Inject internal constructor(
 
     init {
         doOnInflate {
-            val theme = if (theming.isDarkTheme()) {
-                R.style.ThemeOverlay_MaterialComponents
-            } else {
-                R.style.ThemeOverlay_MaterialComponents_Light
-            }
-
             layoutRoot.apply {
-                popupTheme = theme
+                popupTheme = R.style.Theme_HomeButton_Overlay
                 toolbarProvider.setToolbar(this)
-                setTitle(string.app_name)
-                ViewCompat.setElevation(this, 0.toDp(context).toFloat())
+                setTitle(R.string.app_name)
+                ViewCompat.setElevation(this, 0F)
                 viewScope.addPrivacy(
                     binding.mainToolbar,
                     HomeButton.PRIVACY_POLICY_URL,

@@ -25,8 +25,6 @@ import androidx.lifecycle.ViewModelProvider
 import com.pyamsoft.homebutton.BuildConfig
 import com.pyamsoft.homebutton.HomeButtonComponent
 import com.pyamsoft.homebutton.R
-import com.pyamsoft.homebutton.R.mipmap
-import com.pyamsoft.homebutton.R.style
 import com.pyamsoft.homebutton.settings.SettingsFragment
 import com.pyamsoft.pydroid.arch.StateSaver
 import com.pyamsoft.pydroid.arch.createComponent
@@ -35,7 +33,6 @@ import com.pyamsoft.pydroid.ui.arch.viewModelFactory
 import com.pyamsoft.pydroid.ui.rating.ChangeLogBuilder
 import com.pyamsoft.pydroid.ui.rating.RatingActivity
 import com.pyamsoft.pydroid.ui.rating.buildChangeLog
-import com.pyamsoft.pydroid.ui.theme.ThemeProvider
 import com.pyamsoft.pydroid.ui.theme.Theming
 import com.pyamsoft.pydroid.ui.util.commit
 import com.pyamsoft.pydroid.ui.util.layout
@@ -64,7 +61,7 @@ class MainActivity : RatingActivity() {
 
     override val versionName: String = BuildConfig.VERSION_NAME
 
-    override val applicationIcon: Int = mipmap.ic_launcher
+    override val applicationIcon: Int = R.mipmap.ic_launcher
 
     override val snackbarRoot: ViewGroup by lazy(NONE) {
         findViewById<CoordinatorLayout>(R.id.snackbar_root)
@@ -82,18 +79,14 @@ class MainActivity : RatingActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        setTheme(style.Theme_HomeButton)
+        setTheme(R.style.Theme_HomeButton)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.snackbar_screen)
 
         val layoutRoot = findViewById<ConstraintLayout>(R.id.content_root)
         Injector.obtain<HomeButtonComponent>(applicationContext)
             .plusMain()
-            .create(
-                layoutRoot,
-                this,
-                ThemeProvider { requireNotNull(theming).isDarkTheme(this) }
-            )
+            .create(layoutRoot, this)
             .inject(this)
 
         val frameView = requireNotNull(mainFrameView)

@@ -19,11 +19,10 @@ package com.pyamsoft.homebutton.main
 import android.view.ViewGroup
 import androidx.annotation.CheckResult
 import androidx.lifecycle.ViewModelProvider
-import com.pyamsoft.homebutton.viewmodel.HomeButtonViewModelFactory
 import com.pyamsoft.homebutton.main.MainComponent.ViewModelModule
+import com.pyamsoft.homebutton.viewmodel.HomeButtonViewModelFactory
 import com.pyamsoft.pydroid.arch.UiViewModel
 import com.pyamsoft.pydroid.ui.app.ToolbarActivityProvider
-import com.pyamsoft.pydroid.ui.theme.ThemeProvider
 import dagger.Binds
 import dagger.BindsInstance
 import dagger.Module
@@ -42,8 +41,7 @@ internal interface MainComponent {
         @CheckResult
         fun create(
             @BindsInstance parent: ViewGroup,
-            @BindsInstance toolbarActivityProvider: ToolbarActivityProvider,
-            @BindsInstance themeProvider: ThemeProvider
+            @BindsInstance toolbarActivityProvider: ToolbarActivityProvider
         ): MainComponent
     }
 

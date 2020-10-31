@@ -1,4 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?><!--
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
   ~ Copyright 2020 Peter Kenji Yamanaka
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,5 +17,8 @@
   -->
 
 <resources>
-    <bool name="light_bars">false</bool>
+
+
+    <style name="Base.Theme.HomeButton.Overlay" parent="@style/ThemeOverlay.MaterialComponents" />
+
 </resources>
