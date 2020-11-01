@@ -25,6 +25,4 @@
     <color name="colorOnSecondary">@color/colorOnPrimary</color>
 
     <color name="windowBackground">@color/material_light_background</color>
-
-    <color name="colorPrimarySeeThrough">#D73F51B5</color>
 </resources>

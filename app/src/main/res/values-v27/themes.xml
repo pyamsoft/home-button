@@ -19,22 +19,22 @@
 <resources>
 
     <style name="Theme.HomeButton" parent="@style/Base.Theme.HomeButton.Normal">
-        <item name="android:windowLightStatusBar">@bool/light_bars</item>
-        <item name="android:windowLightNavigationBar">false</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:windowLightNavigationBar">@bool/light_bars</item>
     </style>
 
     <style name="Theme.HomeButton.Dialog" parent="@style/Base.Theme.HomeButton.Dialog">
-        <item name="android:windowLightStatusBar">@bool/light_bars</item>
-        <item name="android:windowLightNavigationBar">false</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:windowLightNavigationBar">@bool/light_bars</item>
     </style>
 
     <style name="Theme.HomeButton.Dialog.Alert" parent="@style/Base.Theme.HomeButton.Dialog.Alert">
-        <item name="android:windowLightStatusBar">@bool/light_bars</item>
-        <item name="android:windowLightNavigationBar">false</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:windowLightNavigationBar">@bool/light_bars</item>
     </style>
 
     <style name="Theme.HomeButton.Splash" parent="@style/Base.Theme.HomeButton.Splash">
-        <item name="android:windowLightStatusBar">@bool/light_bars</item>
-        <item name="android:windowLightNavigationBar">false</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:windowLightNavigationBar">@bool/light_bars</item>
     </style>
 </resources>
