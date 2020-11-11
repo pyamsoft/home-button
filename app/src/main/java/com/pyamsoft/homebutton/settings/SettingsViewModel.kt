@@ -26,14 +26,10 @@ import com.pyamsoft.pydroid.arch.UnitViewState
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-import javax.inject.Named
 
 internal class SettingsViewModel @Inject internal constructor(
-    @Named("debug") debug: Boolean,
     private val notificationHandler: NotificationHandler
-) : UiViewModel<UnitViewState, SettingsViewEvent, UnitControllerEvent>(
-    initialState = UnitViewState, debug = debug
-) {
+) : UiViewModel<UnitViewState, SettingsViewEvent, UnitControllerEvent>(UnitViewState) {
 
     init {
         doOnBind {

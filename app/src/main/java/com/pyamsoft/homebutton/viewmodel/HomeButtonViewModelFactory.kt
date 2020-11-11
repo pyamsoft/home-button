@@ -24,11 +24,29 @@ import javax.inject.Provider
 import kotlin.reflect.KClass
 
 internal class HomeButtonViewModelFactory @Inject internal constructor(
+    // Need to use MutableMap instead of Map because of Java -> Kotlin fun.
+    // private val stateViewModels: MutableMap<Class<*>, Provider<UiStateViewModel<*>>>,
+
+    // Need to use MutableMap instead of Map because of Java -> Kotlin fun.
     private val viewModels: MutableMap<Class<*>, Provider<UiViewModel<*, *, *>>>
 ) : UiViewModelFactory() {
 
     override fun <T : UiStateViewModel<*>> viewModel(modelClass: KClass<T>): UiStateViewModel<*> {
-        @Suppress("UNCHECKED_CAST")
-        return requireNotNull(viewModels[modelClass.java]).get() as T
+        // Full view models first in case
+        val vm = viewModels[modelClass.java]?.get()
+        if (vm != null) {
+            @Suppress("UNCHECKED_CAST")
+            return vm as T
+        }
+
+        // Then state view models
+        // val stateVm = stateViewModels[modelClass.java]?.get()
+        // if (stateVm != null) {
+        //     @Suppress("UNCHECKED_CAST")
+        //     return stateVm as T
+        // }
+
+        // Otherwise nothing
+        fail()
     }
 }

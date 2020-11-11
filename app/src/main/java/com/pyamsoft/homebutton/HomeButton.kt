@@ -20,7 +20,6 @@ import android.app.Application
 import androidx.annotation.CheckResult
 import com.pyamsoft.pydroid.bootstrap.libraries.OssLibraries
 import com.pyamsoft.pydroid.ui.PYDroid
-import com.pyamsoft.pydroid.util.isDebugMode
 
 class HomeButton : Application() {
 
@@ -40,8 +39,10 @@ class HomeButton : Application() {
         // Using pydroid-notify
         OssLibraries.usingNotify = true
 
-        return@lazy DaggerHomeButtonComponent.factory()
-            .create(this, provider.theming(), isDebugMode())
+        // Using pydroid-autopsy
+        OssLibraries.usingAutopsy = true
+
+        return@lazy DaggerHomeButtonComponent.factory().create(this, provider.theming())
     }
 
     override fun getSystemService(name: String): Any? {

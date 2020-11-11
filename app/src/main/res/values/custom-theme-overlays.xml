@@ -18,11 +18,12 @@
 
 <resources>
 
-    <style name="Theme.HomeButton" parent="@style/Custom.Theme.HomeButton">
-        <item name="android:windowLightStatusBar">false</item>
+    <style name="Custom.ThemeOverlay.HomeButton.Dialog" parent="@style/Base.ThemeOverlay.HomeButton.Dialog">
+        <item name="android:windowBackground">@drawable/dialog_background</item>
     </style>
 
-    <style name="Theme.HomeButton.Splash" parent="@style/Custom.Theme.HomeButton.Splash">
-        <item name="android:windowLightStatusBar">false</item>
+    <style name="Custom.ThemeOverlay.HomeButton.Dialog.Alert" parent="@style/Base.ThemeOverlay.HomeButton.Dialog.Alert">
+        <item name="android:windowBackground">@drawable/dialog_background</item>
     </style>
+
 </resources>
