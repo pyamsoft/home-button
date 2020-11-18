@@ -20,6 +20,7 @@ import android.app.Activity
 import androidx.lifecycle.viewModelScope
 import com.pyamsoft.homebutton.notification.NotificationHandler
 import com.pyamsoft.homebutton.settings.SettingsViewEvent.NotificationVisibility
+import com.pyamsoft.pydroid.arch.EventBus
 import com.pyamsoft.pydroid.arch.UiViewModel
 import com.pyamsoft.pydroid.arch.UnitControllerEvent
 import com.pyamsoft.pydroid.arch.UnitViewState
@@ -32,10 +33,8 @@ internal class SettingsViewModel @Inject internal constructor(
 ) : UiViewModel<UnitViewState, SettingsViewEvent, UnitControllerEvent>(UnitViewState) {
 
     init {
-        doOnBind {
-            viewModelScope.launch(context = Dispatchers.Default) {
-                notificationHandler.start()
-            }
+        viewModelScope.launch(context = Dispatchers.Default) {
+            notificationHandler.start()
         }
     }
 

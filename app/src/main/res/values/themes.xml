@@ -20,6 +20,6 @@
 
     <style name="Theme.HomeButton" parent="@style/Custom.Theme.HomeButton" />
 
-    <style name="Theme.HomeButton.Splash" parent="@style/Base.Theme.HomeButton.Splash" />
+    <style name="Theme.HomeButton.Splash" parent="@style/Custom.Theme.HomeButton.Splash" />
 
 </resources>
