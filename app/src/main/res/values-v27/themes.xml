@@ -20,7 +20,7 @@
 
     <style name="Theme.HomeButton" parent="@style/Custom.Theme.HomeButton">
         <item name="android:windowLightStatusBar">false</item>
-        <item name="android:windowLightNavigationBar">false</item>
+        <item name="android:windowLightNavigationBar">@bool/light_bars</item>
     </style>
 
     <style name="Theme.HomeButton.Splash" parent="@style/Custom.Theme.HomeButton.Splash">
