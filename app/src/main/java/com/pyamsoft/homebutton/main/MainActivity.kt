@@ -30,9 +30,8 @@ import com.pyamsoft.pydroid.arch.StateSaver
 import com.pyamsoft.pydroid.arch.createComponent
 import com.pyamsoft.pydroid.ui.Injector
 import com.pyamsoft.pydroid.ui.arch.viewModelFactory
-import com.pyamsoft.pydroid.ui.rating.ChangeLogBuilder
-import com.pyamsoft.pydroid.ui.rating.RatingActivity
-import com.pyamsoft.pydroid.ui.rating.buildChangeLog
+import com.pyamsoft.pydroid.ui.changelog.ChangeLogActivity
+import com.pyamsoft.pydroid.ui.changelog.buildChangeLog
 import com.pyamsoft.pydroid.ui.theme.Theming
 import com.pyamsoft.pydroid.ui.util.commit
 import com.pyamsoft.pydroid.ui.util.layout
@@ -41,7 +40,9 @@ import com.pyamsoft.pydroid.util.stableLayoutHideNavigation
 import javax.inject.Inject
 import kotlin.LazyThreadSafetyMode.NONE
 
-class MainActivity : RatingActivity() {
+class MainActivity : ChangeLogActivity() {
+
+    private var stateSaver: StateSaver? = null
 
     @JvmField
     @Inject
@@ -60,9 +61,15 @@ class MainActivity : RatingActivity() {
     internal var factory: ViewModelProvider.Factory? = null
     private val viewModel by viewModelFactory<MainViewModel> { factory }
 
-    override val versionName: String = BuildConfig.VERSION_NAME
+    override val versionName = BuildConfig.VERSION_NAME
 
-    override val applicationIcon: Int = R.mipmap.ic_launcher
+    override val applicationIcon = R.mipmap.ic_launcher
+
+    override val changelog = buildChangeLog {
+        change("Lower memory consumption and faster operation")
+        bugfix("Fixed a memory leak in the license viewing experience")
+        feature("Added links to Terms of Service and Privacy Policy")
+    }
 
     override val snackbarRoot: ViewGroup by lazy(NONE) {
         findViewById<CoordinatorLayout>(R.id.snackbar_root)
@@ -70,14 +77,6 @@ class MainActivity : RatingActivity() {
 
     override val fragmentContainerId: Int
         get() = requireNotNull(mainFrameView).id()
-
-    private var stateSaver: StateSaver? = null
-
-    override val changeLogLines: ChangeLogBuilder = buildChangeLog {
-        change("Lower memory consumption and faster operation")
-        bugfix("Fixed a memory leak in the license viewing experience")
-        feature("Added links to Terms of Service and Privacy Policy")
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.Theme_HomeButton)

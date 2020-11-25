@@ -46,7 +46,8 @@ class HomeButton : Application() {
     }
 
     override fun getSystemService(name: String): Any? {
-        return PYDroid.getSystemService(name) ?: fallbackGetSystemService(name)
+        // Use component here in a weird way to guarantee the lazy is initialized.
+        return component.run { PYDroid.getSystemService(name) } ?: fallbackGetSystemService(name)
     }
 
     @CheckResult
