@@ -60,9 +60,8 @@ internal class MainToolbarView @Inject internal constructor(
                 v.updatePadding(top = padding.top + insets.systemWindowInsetTop)
             }
 
-            viewScope.addPrivacy(
-                binding.mainToolbar,
-                HomeButton.PRIVACY_POLICY_URL,
+            binding.mainToolbar.addPrivacy(
+                viewScope, HomeButton.PRIVACY_POLICY_URL,
                 HomeButton.TERMS_CONDITIONS_URL
             )
         }
