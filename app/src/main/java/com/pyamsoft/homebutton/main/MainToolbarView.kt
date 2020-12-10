@@ -71,7 +71,4 @@ internal class MainToolbarView @Inject internal constructor(
             binding.mainToolbar.removePrivacy()
         }
     }
-
-    override fun onRender(state: MainViewState) {
-    }
 }

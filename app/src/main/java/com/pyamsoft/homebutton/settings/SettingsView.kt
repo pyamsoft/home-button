@@ -42,9 +42,6 @@ internal class SettingsView @Inject internal constructor(
         }
     }
 
-    override fun onRender(state: UnitViewState) {
-    }
-
     private fun setupShowNotification() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             newManageNotification()
