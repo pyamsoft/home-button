@@ -66,9 +66,7 @@ class MainActivity : ChangeLogActivity() {
     override val applicationIcon = R.mipmap.ic_launcher
 
     override val changelog = buildChangeLog {
-        change("Lower memory consumption and faster operation")
-        bugfix("Fixed a memory leak in the license viewing experience")
-        feature("Added links to Terms of Service and Privacy Policy")
+        feature("Support for full screen content and gesture navigation")
     }
 
     override val snackbarRoot: ViewGroup by lazy(NONE) {
