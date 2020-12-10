@@ -19,25 +19,41 @@ package com.pyamsoft.homebutton.settings
 import android.content.Context
 import android.view.ViewGroup
 import androidx.core.view.updateLayoutParams
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.LifecycleRegistry
 import androidx.preference.PreferenceViewHolder
 import com.pyamsoft.homebutton.R
 import com.pyamsoft.pydroid.ui.preference.PreferenceCompat
 import com.pyamsoft.pydroid.util.doOnApplyWindowInsets
 
 internal class PreferenceBottomSpace internal constructor(
-    context: Context
-) : PreferenceCompat(context) {
+    context: Context,
+) : PreferenceCompat(context), LifecycleOwner {
+
+    private val registry by lazy(LazyThreadSafetyMode.NONE) { LifecycleRegistry(this) }
 
     init {
         layoutResource = R.layout.preference_spacer
+
+        registry.currentState = Lifecycle.State.RESUMED
+    }
+
+    override fun getLifecycle(): Lifecycle {
+        return registry
     }
 
     override fun onBindViewHolder(holder: PreferenceViewHolder) {
         super.onBindViewHolder(holder)
-        holder.itemView.doOnApplyWindowInsets { v, insets, _ ->
+        holder.itemView.doOnApplyWindowInsets(this) { v, insets, _ ->
             v.updateLayoutParams<ViewGroup.MarginLayoutParams> {
                 height = insets.systemWindowInsetBottom
             }
         }
+    }
+
+    override fun onDetached() {
+        super.onDetached()
+        registry.currentState = Lifecycle.State.DESTROYED
     }
 }
