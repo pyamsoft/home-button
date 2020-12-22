@@ -19,6 +19,7 @@ package com.pyamsoft.homebutton.main
 import android.view.ViewGroup
 import androidx.core.view.ViewCompat
 import androidx.core.view.updatePadding
+import androidx.lifecycle.LifecycleOwner
 import com.pyamsoft.homebutton.HomeButton
 import com.pyamsoft.homebutton.R
 import com.pyamsoft.homebutton.databinding.MainToolbarBinding
@@ -34,7 +35,8 @@ import com.google.android.material.R as R2
 internal class MainToolbarView @Inject internal constructor(
     theming: ThemeProvider,
     toolbarProvider: ToolbarActivityProvider,
-    parent: ViewGroup
+    parent: ViewGroup,
+    owner: LifecycleOwner
 ) : BaseUiView<MainViewState, MainViewEvent, MainToolbarBinding>(parent) {
 
     override val viewBinding = MainToolbarBinding::inflate
@@ -56,7 +58,7 @@ internal class MainToolbarView @Inject internal constructor(
                 ViewCompat.setElevation(this, 0F)
             }
 
-            layoutRoot.doOnApplyWindowInsets { v, insets, padding ->
+            layoutRoot.doOnApplyWindowInsets(owner) { v, insets, padding ->
                 v.updatePadding(top = padding.top + insets.systemWindowInsetTop)
             }
 

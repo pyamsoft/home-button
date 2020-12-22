@@ -18,6 +18,7 @@ package com.pyamsoft.homebutton.main
 
 import android.view.ViewGroup
 import androidx.annotation.CheckResult
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProvider
 import com.pyamsoft.homebutton.main.MainComponent.ViewModelModule
 import com.pyamsoft.homebutton.viewmodel.HomeButtonViewModelFactory
@@ -41,6 +42,7 @@ internal interface MainComponent {
 
         @CheckResult
         fun create(
+            @BindsInstance owner: LifecycleOwner,
             @BindsInstance parent: ViewGroup,
             @BindsInstance toolbarActivityProvider: ToolbarActivityProvider,
             @BindsInstance themeProvider: ThemeProvider,
