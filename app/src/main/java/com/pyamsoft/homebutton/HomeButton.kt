@@ -32,13 +32,7 @@ class HomeButton : Application() {
                 bugReportUrl = "$url/issues",
                 privacyPolicyUrl = PRIVACY_POLICY_URL,
                 termsConditionsUrl = TERMS_CONDITIONS_URL,
-                version = BuildConfig.VERSION_CODE,
-                debug = PYDroid.DebugParameters(
-                    enabled = false,
-                    upgradeAvailable = false,
-                    ratingAvailable = false,
-                    loggingEnabled = true
-                )
+                version = BuildConfig.VERSION_CODE
             )
         )
 
