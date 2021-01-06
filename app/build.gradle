@@ -25,8 +25,8 @@ android {
         applicationId "com.pyamsoft.homebutton"
         minSdkVersion rootProject.ext.minSdk
         targetSdkVersion rootProject.ext.maxSdk
-        versionCode 138
-        versionName "REL.20210106-3"
+        versionCode 139
+        versionName "REL.20210106-4"
 
         // For vector drawables
         vectorDrawables.useSupportLibrary = true

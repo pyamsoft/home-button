@@ -17,9 +17,11 @@
 package com.pyamsoft.homebutton
 
 import android.app.Application
+import android.util.Log
 import androidx.annotation.CheckResult
 import com.pyamsoft.pydroid.bootstrap.libraries.OssLibraries
 import com.pyamsoft.pydroid.ui.PYDroid
+import timber.log.Timber
 
 class HomeButton : Application() {
 
@@ -41,6 +43,13 @@ class HomeButton : Application() {
 
         // Using pydroid-autopsy
         OssLibraries.usingAutopsy = true
+
+        Timber.plant(object: Timber.Tree() {
+            override fun log(priority: Int, tag: String?, message: String, t: Throwable?) {
+                Log.d(tag ?: "HomeButton", message, t)
+            }
+
+        })
 
         return@lazy DaggerHomeButtonComponent.factory().create(this, provider.theming())
     }
