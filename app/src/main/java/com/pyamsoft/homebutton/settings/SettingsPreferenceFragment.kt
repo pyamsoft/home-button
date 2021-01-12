@@ -57,7 +57,7 @@ class SettingsPreferenceFragment : AppSettingsPreferenceFragment() {
         savedInstanceState: Bundle?
     ) {
         super.onViewCreated(view, savedInstanceState)
-        Injector.obtain<HomeButtonComponent>(view.context.applicationContext)
+        Injector.obtainFromApplication<HomeButtonComponent>(view.context)
             .plusSettings()
             .create(requireActivity(), requireToolbarActivity(), preferenceScreen)
             .inject(this)

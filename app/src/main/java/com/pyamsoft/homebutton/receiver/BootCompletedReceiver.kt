@@ -41,7 +41,7 @@ class BootCompletedReceiver : BroadcastReceiver() {
         if (Intent.ACTION_BOOT_COMPLETED == intent?.action) {
             Timber.d("Home Button has started via boot receiver")
 
-            Injector.obtain<HomeButtonComponent>(context.applicationContext)
+            Injector.obtainFromApplication<HomeButtonComponent>(context)
                 .inject(this)
 
             // Use GlobalScope to launch the notification handler
