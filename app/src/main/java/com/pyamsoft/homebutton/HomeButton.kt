@@ -42,7 +42,7 @@ class HomeButton : Application() {
         // Using pydroid-autopsy
         OssLibraries.usingAutopsy = true
 
-        return@lazy DaggerHomeButtonComponent.factory().create(this, provider.theming())
+        return@lazy DaggerHomeButtonComponent.factory().create(this, provider.get().theming())
     }
 
     override fun getSystemService(name: String): Any? {

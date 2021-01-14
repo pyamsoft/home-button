@@ -37,11 +37,9 @@ internal class SettingsViewModel @Inject internal constructor(
         }
     }
 
-    override fun handleViewEvent(event: SettingsViewEvent) {
-        return when (event) {
-            is NotificationVisibility -> onVisibilityEvent(event.isVisible)
-            is SettingsViewEvent.OpenNotificationSettings -> openSettings(event.activity)
-        }
+    override fun handleViewEvent(event: SettingsViewEvent) = when (event) {
+        is NotificationVisibility -> onVisibilityEvent(event.isVisible)
+        is SettingsViewEvent.OpenNotificationSettings -> openSettings(event.activity)
     }
 
     private fun openSettings(activity: Activity) {
