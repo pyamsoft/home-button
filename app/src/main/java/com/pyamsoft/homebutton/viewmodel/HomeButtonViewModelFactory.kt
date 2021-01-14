@@ -16,37 +16,36 @@
 
 package com.pyamsoft.homebutton.viewmodel
 
-import com.pyamsoft.pydroid.arch.UiStateViewModel
-import com.pyamsoft.pydroid.arch.UiViewModel
-import com.pyamsoft.pydroid.arch.UiViewModelFactory
+import androidx.annotation.CheckResult
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.savedstate.SavedStateRegistryOwner
+import com.pyamsoft.pydroid.arch.SavedStateViewModelFactory
+import com.pyamsoft.pydroid.arch.UiSavedState
+import dagger.Reusable
 import javax.inject.Inject
 import javax.inject.Provider
-import kotlin.reflect.KClass
 
-internal class HomeButtonViewModelFactory @Inject internal constructor(
-    // Need to use MutableMap instead of Map because of Java -> Kotlin fun.
-    // private val stateViewModels: MutableMap<Class<*>, Provider<UiStateViewModel<*>>>,
+interface HomeButtonViewModelFactory {
 
-    // Need to use MutableMap instead of Map because of Java -> Kotlin fun.
-    private val viewModels: MutableMap<Class<*>, Provider<UiViewModel<*, *, *>>>
-) : UiViewModelFactory() {
+    @CheckResult
+    fun create(owner: SavedStateRegistryOwner): ViewModelProvider.Factory
 
-    override fun <T : UiStateViewModel<*>> viewModel(modelClass: KClass<T>): UiStateViewModel<*> {
-        // Full view models first in case
-        val vm = viewModels[modelClass.java]?.get()
-        if (vm != null) {
-            @Suppress("UNCHECKED_CAST")
-            return vm as T
+}
+
+@Reusable
+internal class HomeButtonViewModelFactoryImpl @Inject internal constructor(
+    private val viewModels: Map<Class<*>, @JvmSuppressWildcards Provider<ViewModel>>
+) : HomeButtonViewModelFactory {
+
+    override fun create(owner: SavedStateRegistryOwner): ViewModelProvider.Factory {
+        return object : SavedStateViewModelFactory(owner, null) {
+            override fun <T : ViewModel> createViewModel(
+                modelClass: Class<T>,
+                savedState: UiSavedState
+            ): ViewModel {
+                return viewModels[modelClass]?.get() ?: fail(modelClass)
+            }
         }
-
-        // Then state view models
-        // val stateVm = stateViewModels[modelClass.java]?.get()
-        // if (stateVm != null) {
-        //     @Suppress("UNCHECKED_CAST")
-        //     return stateVm as T
-        // }
-
-        // Otherwise nothing
-        fail()
     }
 }

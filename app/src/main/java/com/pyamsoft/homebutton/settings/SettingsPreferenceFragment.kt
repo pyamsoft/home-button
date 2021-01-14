@@ -18,14 +18,14 @@ package com.pyamsoft.homebutton.settings
 
 import android.os.Bundle
 import android.view.View
-import androidx.lifecycle.ViewModelProvider
 import com.pyamsoft.homebutton.HomeButtonComponent
 import com.pyamsoft.homebutton.R
+import com.pyamsoft.homebutton.viewmodel.HomeButtonViewModelFactory
 import com.pyamsoft.pydroid.arch.StateSaver
 import com.pyamsoft.pydroid.arch.createComponent
 import com.pyamsoft.pydroid.ui.Injector
 import com.pyamsoft.pydroid.ui.app.requireToolbarActivity
-import com.pyamsoft.pydroid.ui.arch.viewModelFactory
+import com.pyamsoft.pydroid.ui.arch.fromViewModelFactory
 import com.pyamsoft.pydroid.ui.settings.AppSettingsPreferenceFragment
 import javax.inject.Inject
 
@@ -47,8 +47,8 @@ class SettingsPreferenceFragment : AppSettingsPreferenceFragment() {
 
     @JvmField
     @Inject
-    internal var factory: ViewModelProvider.Factory? = null
-    private val viewModel by viewModelFactory<SettingsViewModel> { factory }
+    internal var factory: HomeButtonViewModelFactory? = null
+    private val viewModel by fromViewModelFactory<SettingsViewModel> { factory?.create(this) }
 
     private var stateSaver: StateSaver? = null
 

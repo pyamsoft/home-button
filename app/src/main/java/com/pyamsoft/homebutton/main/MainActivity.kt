@@ -21,15 +21,15 @@ import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.coordinatorlayout.widget.CoordinatorLayout
-import androidx.lifecycle.ViewModelProvider
 import com.pyamsoft.homebutton.BuildConfig
 import com.pyamsoft.homebutton.HomeButtonComponent
 import com.pyamsoft.homebutton.R
 import com.pyamsoft.homebutton.settings.SettingsFragment
+import com.pyamsoft.homebutton.viewmodel.HomeButtonViewModelFactory
 import com.pyamsoft.pydroid.arch.StateSaver
 import com.pyamsoft.pydroid.arch.createComponent
 import com.pyamsoft.pydroid.ui.Injector
-import com.pyamsoft.pydroid.ui.arch.viewModelFactory
+import com.pyamsoft.pydroid.ui.arch.fromViewModelFactory
 import com.pyamsoft.pydroid.ui.changelog.ChangeLogActivity
 import com.pyamsoft.pydroid.ui.changelog.buildChangeLog
 import com.pyamsoft.pydroid.ui.theme.Theming
@@ -58,8 +58,8 @@ class MainActivity : ChangeLogActivity() {
 
     @JvmField
     @Inject
-    internal var factory: ViewModelProvider.Factory? = null
-    private val viewModel by viewModelFactory<MainViewModel> { factory }
+    internal var factory: HomeButtonViewModelFactory? = null
+    private val viewModel by fromViewModelFactory<MainViewModel> { factory?.create(this) }
 
     override val versionName = BuildConfig.VERSION_NAME
 
