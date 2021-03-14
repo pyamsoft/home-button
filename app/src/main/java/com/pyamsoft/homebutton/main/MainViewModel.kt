@@ -21,8 +21,4 @@ import com.pyamsoft.pydroid.arch.UnitControllerEvent
 import javax.inject.Inject
 
 internal class MainViewModel @Inject internal constructor(
-) : UiViewModel<MainViewState, MainViewEvent, UnitControllerEvent>(MainViewState) {
-
-    override fun handleViewEvent(event: MainViewEvent) {
-    }
-}
+) : UiViewModel<MainViewState, MainViewEvent, UnitControllerEvent>(MainViewState)

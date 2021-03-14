@@ -19,10 +19,10 @@ package com.pyamsoft.homebutton.settings
 import android.app.Activity
 import androidx.lifecycle.viewModelScope
 import com.pyamsoft.homebutton.notification.NotificationHandler
-import com.pyamsoft.homebutton.settings.SettingsViewEvent.NotificationVisibility
 import com.pyamsoft.pydroid.arch.UiViewModel
 import com.pyamsoft.pydroid.arch.UnitControllerEvent
 import com.pyamsoft.pydroid.arch.UnitViewState
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -37,18 +37,13 @@ internal class SettingsViewModel @Inject internal constructor(
         }
     }
 
-    override fun handleViewEvent(event: SettingsViewEvent) = when (event) {
-        is NotificationVisibility -> onVisibilityEvent(event.isVisible)
-        is SettingsViewEvent.OpenNotificationSettings -> openSettings(event.activity)
-    }
-
-    private fun openSettings(activity: Activity) {
-        viewModelScope.launch(context = Dispatchers.Default) {
+    internal fun handleOpenSettings(scope: CoroutineScope, activity: Activity) {
+        scope.launch(context = Dispatchers.Default) {
             notificationHandler.openSettings(activity)
         }
     }
 
-    private fun onVisibilityEvent(visible: Boolean) {
+    internal fun handleVisibilityEvent(visible: Boolean) {
         viewModelScope.launch(context = Dispatchers.Default) {
             notificationHandler.start(show = visible)
         }

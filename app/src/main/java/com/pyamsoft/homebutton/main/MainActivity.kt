@@ -27,7 +27,7 @@ import com.pyamsoft.homebutton.R
 import com.pyamsoft.homebutton.settings.SettingsFragment
 import com.pyamsoft.homebutton.viewmodel.HomeButtonViewModelFactory
 import com.pyamsoft.pydroid.arch.StateSaver
-import com.pyamsoft.pydroid.arch.createComponent
+import com.pyamsoft.pydroid.arch.bindController
 import com.pyamsoft.pydroid.ui.Injector
 import com.pyamsoft.pydroid.ui.arch.fromViewModelFactory
 import com.pyamsoft.pydroid.ui.changelog.ChangeLogActivity
@@ -93,14 +93,13 @@ class MainActivity : ChangeLogActivity() {
         val toolbar = requireNotNull(toolbar)
         val dropshadow = DropshadowView.createTyped<MainViewState, MainViewEvent>(layoutRoot)
 
-        stateSaver = createComponent(
-            savedInstanceState, this,
-            viewModel,
+        stateSaver = viewModel.bindController(
+            savedInstanceState,
+            this,
             frameView,
             toolbar,
             dropshadow
-        ) {
-        }
+        ) {}
 
         stableLayoutHideNavigation()
 
