@@ -29,7 +29,7 @@ import javax.inject.Inject
 
 internal class SettingsViewModel @Inject internal constructor(
     private val notificationHandler: NotificationHandler
-) : UiViewModel<UnitViewState, SettingsViewEvent, UnitControllerEvent>(UnitViewState) {
+) : UiViewModel<UnitViewState, UnitControllerEvent>(UnitViewState) {
 
     init {
         viewModelScope.launch(context = Dispatchers.Default) {

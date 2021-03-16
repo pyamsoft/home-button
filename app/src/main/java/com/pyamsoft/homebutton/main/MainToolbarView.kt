@@ -24,6 +24,8 @@ import com.pyamsoft.homebutton.HomeButton
 import com.pyamsoft.homebutton.R
 import com.pyamsoft.homebutton.databinding.MainToolbarBinding
 import com.pyamsoft.pydroid.arch.BaseUiView
+import com.pyamsoft.pydroid.arch.UnitViewEvent
+import com.pyamsoft.pydroid.arch.UnitViewState
 import com.pyamsoft.pydroid.ui.app.ToolbarActivityProvider
 import com.pyamsoft.pydroid.ui.privacy.addPrivacy
 import com.pyamsoft.pydroid.ui.privacy.removePrivacy
@@ -37,7 +39,7 @@ internal class MainToolbarView @Inject internal constructor(
     toolbarProvider: ToolbarActivityProvider,
     parent: ViewGroup,
     owner: LifecycleOwner
-) : BaseUiView<MainViewState, MainViewEvent, MainToolbarBinding>(parent) {
+) : BaseUiView<UnitViewState, UnitViewEvent, MainToolbarBinding>(parent) {
 
     override val viewBinding = MainToolbarBinding::inflate
 

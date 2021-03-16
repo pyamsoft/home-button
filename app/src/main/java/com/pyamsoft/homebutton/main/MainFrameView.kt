@@ -19,11 +19,13 @@ package com.pyamsoft.homebutton.main
 import android.view.ViewGroup
 import com.pyamsoft.homebutton.databinding.MainContainerBinding
 import com.pyamsoft.pydroid.arch.BaseUiView
+import com.pyamsoft.pydroid.arch.UnitViewEvent
+import com.pyamsoft.pydroid.arch.UnitViewState
 import javax.inject.Inject
 
 internal class MainFrameView @Inject internal constructor(
     parent: ViewGroup
-) : BaseUiView<MainViewState, MainViewEvent, MainContainerBinding>(parent) {
+) : BaseUiView<UnitViewState, UnitViewEvent, MainContainerBinding>(parent) {
 
     override val viewBinding = MainContainerBinding::inflate
 

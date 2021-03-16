@@ -18,7 +18,8 @@ package com.pyamsoft.homebutton.main
 
 import com.pyamsoft.pydroid.arch.UiViewModel
 import com.pyamsoft.pydroid.arch.UnitControllerEvent
+import com.pyamsoft.pydroid.arch.UnitViewState
 import javax.inject.Inject
 
 internal class MainViewModel @Inject internal constructor(
-) : UiViewModel<MainViewState, MainViewEvent, UnitControllerEvent>(MainViewState)
+) : UiViewModel<UnitViewState, UnitControllerEvent>(initialState = UnitViewState)

@@ -27,7 +27,9 @@ import com.pyamsoft.homebutton.R
 import com.pyamsoft.homebutton.settings.SettingsFragment
 import com.pyamsoft.homebutton.viewmodel.HomeButtonViewModelFactory
 import com.pyamsoft.pydroid.arch.StateSaver
-import com.pyamsoft.pydroid.arch.bindController
+import com.pyamsoft.pydroid.arch.UiController
+import com.pyamsoft.pydroid.arch.UnitControllerEvent
+import com.pyamsoft.pydroid.arch.createComponent
 import com.pyamsoft.pydroid.ui.Injector
 import com.pyamsoft.pydroid.ui.arch.fromViewModelFactory
 import com.pyamsoft.pydroid.ui.changelog.ChangeLogActivity
@@ -40,7 +42,7 @@ import com.pyamsoft.pydroid.util.stableLayoutHideNavigation
 import javax.inject.Inject
 import kotlin.LazyThreadSafetyMode.NONE
 
-class MainActivity : ChangeLogActivity() {
+class MainActivity : ChangeLogActivity(), UiController<UnitControllerEvent> {
 
     private var stateSaver: StateSaver? = null
 
@@ -91,10 +93,12 @@ class MainActivity : ChangeLogActivity() {
 
         val frameView = requireNotNull(mainFrameView)
         val toolbar = requireNotNull(toolbar)
-        val dropshadow = DropshadowView.createTyped<MainViewState, MainViewEvent>(layoutRoot)
+        val dropshadow = DropshadowView.create(layoutRoot)
 
-        stateSaver = viewModel.bindController(
+        stateSaver = createComponent(
             savedInstanceState,
+            this,
+            viewModel,
             this,
             frameView,
             toolbar,
@@ -134,6 +138,9 @@ class MainActivity : ChangeLogActivity() {
         }
 
         addPreferenceFragment()
+    }
+
+    override fun onControllerEvent(event: UnitControllerEvent) {
     }
 
     override fun onDestroy() {

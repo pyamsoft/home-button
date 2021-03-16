@@ -21,15 +21,14 @@ import android.view.View
 import com.pyamsoft.homebutton.HomeButtonComponent
 import com.pyamsoft.homebutton.R
 import com.pyamsoft.homebutton.viewmodel.HomeButtonViewModelFactory
-import com.pyamsoft.pydroid.arch.StateSaver
-import com.pyamsoft.pydroid.arch.bindController
+import com.pyamsoft.pydroid.arch.*
 import com.pyamsoft.pydroid.ui.Injector
 import com.pyamsoft.pydroid.ui.app.requireToolbarActivity
 import com.pyamsoft.pydroid.ui.arch.fromViewModelFactory
 import com.pyamsoft.pydroid.ui.settings.AppSettingsPreferenceFragment
 import javax.inject.Inject
 
-class SettingsPreferenceFragment : AppSettingsPreferenceFragment() {
+class SettingsPreferenceFragment : AppSettingsPreferenceFragment(), UiController<UnitControllerEvent> {
 
     override val preferenceXmlResId: Int = R.xml.preferences
 
@@ -62,14 +61,16 @@ class SettingsPreferenceFragment : AppSettingsPreferenceFragment() {
             .create(requireActivity(), requireToolbarActivity(), preferenceScreen)
             .inject(this)
 
-        stateSaver = viewModel.bindController(
+        stateSaver = createComponent(
             savedInstanceState,
             viewLifecycleOwner,
+            viewModel,
+            this,
             requireNotNull(settingsView),
             requireNotNull(toolbarView),
             requireNotNull(spacer)
         ) {
-            return@bindController when (it) {
+            return@createComponent when (it) {
                 is SettingsViewEvent.NotificationVisibility -> viewModel.handleVisibilityEvent(it.isVisible)
                 is SettingsViewEvent.OpenNotificationSettings -> viewModel.handleOpenSettings(
                     this,
@@ -77,6 +78,9 @@ class SettingsPreferenceFragment : AppSettingsPreferenceFragment() {
                 )
             }
         }
+    }
+
+    override fun onControllerEvent(event: UnitControllerEvent) {
     }
 
     override fun onDestroyView() {
