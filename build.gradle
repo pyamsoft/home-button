@@ -37,7 +37,7 @@ buildscript {
 
 		pydroid = "23.0.0-SNAPSHOT"
 
-		leakCanary = "2.6"
+		leakCanary = "2.7"
 
 		dagger = "2.33"
 
