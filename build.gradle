@@ -27,6 +27,10 @@ buildscript {
 		jcenter()
 
 		maven {
+			url "https://jitpack.io"
+		}
+
+		maven {
 			url "https://plugins.gradle.org/m2/"
 		}
 	}
@@ -35,7 +39,7 @@ buildscript {
 		minSdk = 22
 		maxSdk = 30
 
-		pydroid = "23.0.0-SNAPSHOT"
+		pydroid = "23.0.1"
 
 		leakCanary = "2.7"
 
@@ -124,6 +128,10 @@ allprojects {
 		google()
 		mavenCentral()
 		jcenter()
+
+		maven {
+			url "https://jitpack.io"
+		}
 
 		maven {
 			url "https://plugins.gradle.org/m2/"
