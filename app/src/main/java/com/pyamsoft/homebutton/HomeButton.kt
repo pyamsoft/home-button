@@ -23,44 +23,43 @@ import com.pyamsoft.pydroid.ui.PYDroid
 
 class HomeButton : Application() {
 
-    private val component by lazy {
-        val url = "https://github.com/pyamsoft/home-button"
-        val provider = PYDroid.init(
+  private val component by lazy {
+    val url = "https://github.com/pyamsoft/home-button"
+    val provider =
+        PYDroid.init(
             this,
             PYDroid.Parameters(
                 viewSourceUrl = url,
                 bugReportUrl = "$url/issues",
                 privacyPolicyUrl = PRIVACY_POLICY_URL,
                 termsConditionsUrl = TERMS_CONDITIONS_URL,
-                version = BuildConfig.VERSION_CODE
-            )
-        )
+                version = BuildConfig.VERSION_CODE))
 
-        // Using pydroid-notify
-        OssLibraries.usingNotify = true
+    // Using pydroid-notify
+    OssLibraries.usingNotify = true
 
-        // Using pydroid-autopsy
-        OssLibraries.usingAutopsy = true
+    // Using pydroid-autopsy
+    OssLibraries.usingAutopsy = true
 
-        return@lazy DaggerHomeButtonComponent.factory().create(this, provider.get().theming())
+    return@lazy DaggerHomeButtonComponent.factory().create(this, provider.get().theming())
+  }
+
+  override fun getSystemService(name: String): Any? {
+    // Use component here in a weird way to guarantee the lazy is initialized.
+    return component.run { PYDroid.getSystemService(name) } ?: fallbackGetSystemService(name)
+  }
+
+  @CheckResult
+  private fun fallbackGetSystemService(name: String): Any? {
+    return if (name == HomeButtonComponent::class.java.name) component
+    else {
+      super.getSystemService(name)
     }
+  }
 
-    override fun getSystemService(name: String): Any? {
-        // Use component here in a weird way to guarantee the lazy is initialized.
-        return component.run { PYDroid.getSystemService(name) } ?: fallbackGetSystemService(name)
-    }
-
-    @CheckResult
-    private fun fallbackGetSystemService(name: String): Any? {
-        return if (name == HomeButtonComponent::class.java.name) component else {
-            super.getSystemService(name)
-        }
-    }
-
-    companion object {
-        const val PRIVACY_POLICY_URL =
-            "https://pyamsoft.blogspot.com/p/home-button-privacy-policy.html"
-        const val TERMS_CONDITIONS_URL =
-            "https://pyamsoft.blogspot.com/p/home-button-terms-and-conditions.html"
-    }
+  companion object {
+    const val PRIVACY_POLICY_URL = "https://pyamsoft.blogspot.com/p/home-button-privacy-policy.html"
+    const val TERMS_CONDITIONS_URL =
+        "https://pyamsoft.blogspot.com/p/home-button-terms-and-conditions.html"
+  }
 }

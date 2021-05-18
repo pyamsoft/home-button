@@ -21,11 +21,9 @@ import com.pyamsoft.pydroid.arch.UiViewEvent
 
 sealed class SettingsViewEvent : UiViewEvent {
 
-    data class NotificationVisibility internal constructor(
-        val isVisible: Boolean
-    ) : SettingsViewEvent()
+  data class NotificationVisibility internal constructor(val isVisible: Boolean) :
+      SettingsViewEvent()
 
-    data class OpenNotificationSettings internal constructor(
-        val activity: Activity
-    ) : SettingsViewEvent()
+  data class OpenNotificationSettings internal constructor(val activity: Activity) :
+      SettingsViewEvent()
 }

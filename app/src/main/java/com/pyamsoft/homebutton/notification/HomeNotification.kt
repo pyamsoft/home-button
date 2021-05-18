@@ -18,6 +18,4 @@ package com.pyamsoft.homebutton.notification
 
 import com.pyamsoft.pydroid.notify.NotifyData
 
-data class HomeNotification internal constructor(
-    val show: Boolean
-) : NotifyData
+data class HomeNotification internal constructor(val show: Boolean) : NotifyData

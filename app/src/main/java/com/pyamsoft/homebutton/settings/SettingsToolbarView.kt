@@ -24,19 +24,17 @@ import com.pyamsoft.pydroid.ui.app.ToolbarActivity
 import com.pyamsoft.pydroid.ui.util.setUpEnabled
 import javax.inject.Inject
 
-internal class SettingsToolbarView @Inject internal constructor(
-    toolbarActivity: ToolbarActivity
-) : UiView<UnitViewState, SettingsViewEvent>() {
+internal class SettingsToolbarView @Inject internal constructor(toolbarActivity: ToolbarActivity) :
+    UiView<UnitViewState, SettingsViewEvent>() {
 
-    init {
-        doOnInflate {
-            toolbarActivity.withToolbar { toolbar ->
-                toolbar.setTitle(R.string.app_name)
-                toolbar.setUpEnabled(false)
-            }
-        }
+  init {
+    doOnInflate {
+      toolbarActivity.withToolbar { toolbar ->
+        toolbar.setTitle(R.string.app_name)
+        toolbar.setUpEnabled(false)
+      }
     }
+  }
 
-    override fun render(state: UiRender<UnitViewState>) {
-    }
+  override fun render(state: UiRender<UnitViewState>) {}
 }

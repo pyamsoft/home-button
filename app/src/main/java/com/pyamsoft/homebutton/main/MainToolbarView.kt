@@ -20,6 +20,7 @@ import android.view.ViewGroup
 import androidx.core.view.ViewCompat
 import androidx.core.view.updatePadding
 import androidx.lifecycle.LifecycleOwner
+import com.google.android.material.R as R2
 import com.pyamsoft.homebutton.HomeButton
 import com.pyamsoft.homebutton.R
 import com.pyamsoft.homebutton.databinding.MainToolbarBinding
@@ -32,47 +33,47 @@ import com.pyamsoft.pydroid.ui.privacy.removePrivacy
 import com.pyamsoft.pydroid.ui.theme.ThemeProvider
 import com.pyamsoft.pydroid.util.doOnApplyWindowInsets
 import javax.inject.Inject
-import com.google.android.material.R as R2
 
-internal class MainToolbarView @Inject internal constructor(
+internal class MainToolbarView
+@Inject
+internal constructor(
     theming: ThemeProvider,
     toolbarProvider: ToolbarActivityProvider,
     parent: ViewGroup,
     owner: LifecycleOwner
 ) : BaseUiView<UnitViewState, UnitViewEvent, MainToolbarBinding>(parent) {
 
-    override val viewBinding = MainToolbarBinding::inflate
+  override val viewBinding = MainToolbarBinding::inflate
 
-    override val layoutRoot by boundView { mainAppbar }
+  override val layoutRoot by boundView { mainAppbar }
 
-    init {
-        doOnInflate {
-            val theme = if (theming.isDarkTheme()) {
-                R2.style.ThemeOverlay_MaterialComponents
-            } else {
-                R2.style.ThemeOverlay_MaterialComponents_Light
-            }
+  init {
+    doOnInflate {
+      val theme =
+          if (theming.isDarkTheme()) {
+            R2.style.ThemeOverlay_MaterialComponents
+          } else {
+            R2.style.ThemeOverlay_MaterialComponents_Light
+          }
 
-            binding.mainToolbar.apply {
-                popupTheme = theme
-                toolbarProvider.setToolbar(this)
-                setTitle(R.string.app_name)
-                ViewCompat.setElevation(this, 0F)
-            }
+      binding.mainToolbar.apply {
+        popupTheme = theme
+        toolbarProvider.setToolbar(this)
+        setTitle(R.string.app_name)
+        ViewCompat.setElevation(this, 0F)
+      }
 
-            layoutRoot.doOnApplyWindowInsets(owner) { v, insets, padding ->
-                v.updatePadding(top = padding.top + insets.systemWindowInsetTop)
-            }
+      layoutRoot.doOnApplyWindowInsets(owner) { v, insets, padding ->
+        v.updatePadding(top = padding.top + insets.systemWindowInsetTop)
+      }
 
-            binding.mainToolbar.addPrivacy(
-                viewScope, HomeButton.PRIVACY_POLICY_URL,
-                HomeButton.TERMS_CONDITIONS_URL
-            )
-        }
-
-        doOnTeardown {
-            toolbarProvider.setToolbar(null)
-            binding.mainToolbar.removePrivacy()
-        }
+      binding.mainToolbar.addPrivacy(
+          viewScope, HomeButton.PRIVACY_POLICY_URL, HomeButton.TERMS_CONDITIONS_URL)
     }
+
+    doOnTeardown {
+      toolbarProvider.setToolbar(null)
+      binding.mainToolbar.removePrivacy()
+    }
+  }
 }

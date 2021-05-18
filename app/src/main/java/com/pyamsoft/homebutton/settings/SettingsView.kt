@@ -25,46 +25,46 @@ import com.pyamsoft.pydroid.arch.UnitViewState
 import com.pyamsoft.pydroid.ui.arch.PrefUiView
 import javax.inject.Inject
 
-internal class SettingsView @Inject internal constructor(
+internal class SettingsView
+@Inject
+internal constructor(
     private val activity: Activity,
     preferenceScreen: PreferenceScreen,
 ) : PrefUiView<UnitViewState, SettingsViewEvent>(preferenceScreen) {
 
-    private val homePref by boundPref<Preference>(R.string.priority_key)
+  private val homePref by boundPref<Preference>(R.string.priority_key)
 
-    init {
-        doOnInflate {
-            setupShowNotification()
-        }
+  init {
+    doOnInflate { setupShowNotification() }
 
-        doOnTeardown {
-            homePref.onPreferenceChangeListener = null
-        }
+    doOnTeardown { homePref.onPreferenceChangeListener = null }
+  }
+
+  private fun setupShowNotification() {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+      newManageNotification()
+    } else {
+      oldManageNotification()
     }
+  }
 
-    private fun setupShowNotification() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            newManageNotification()
-        } else {
-            oldManageNotification()
+  private fun newManageNotification() {
+    homePref.onPreferenceClickListener =
+        Preference.OnPreferenceClickListener {
+          publish(SettingsViewEvent.OpenNotificationSettings(activity))
+          return@OnPreferenceClickListener true
         }
-    }
+  }
 
-    private fun newManageNotification() {
-        homePref.onPreferenceClickListener = Preference.OnPreferenceClickListener {
-            publish(SettingsViewEvent.OpenNotificationSettings(activity))
-            return@OnPreferenceClickListener true
+  private fun oldManageNotification() {
+    homePref.onPreferenceChangeListener =
+        Preference.OnPreferenceChangeListener { _, newValue ->
+          if (newValue is Boolean) {
+            publish(SettingsViewEvent.NotificationVisibility(newValue))
+            return@OnPreferenceChangeListener true
+          } else {
+            return@OnPreferenceChangeListener false
+          }
         }
-    }
-
-    private fun oldManageNotification() {
-        homePref.onPreferenceChangeListener = Preference.OnPreferenceChangeListener { _, newValue ->
-            if (newValue is Boolean) {
-                publish(SettingsViewEvent.NotificationVisibility(newValue))
-                return@OnPreferenceChangeListener true
-            } else {
-                return@OnPreferenceChangeListener false
-            }
-        }
-    }
+  }
 }

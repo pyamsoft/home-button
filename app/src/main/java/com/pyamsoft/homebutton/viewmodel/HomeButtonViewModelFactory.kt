@@ -28,24 +28,24 @@ import javax.inject.Provider
 
 interface HomeButtonViewModelFactory {
 
-    @CheckResult
-    fun create(owner: SavedStateRegistryOwner): ViewModelProvider.Factory
-
+  @CheckResult fun create(owner: SavedStateRegistryOwner): ViewModelProvider.Factory
 }
 
 @Reusable
-internal class HomeButtonViewModelFactoryImpl @Inject internal constructor(
+internal class HomeButtonViewModelFactoryImpl
+@Inject
+internal constructor(
     private val viewModels: Map<Class<*>, @JvmSuppressWildcards Provider<ViewModel>>
 ) : HomeButtonViewModelFactory {
 
-    override fun create(owner: SavedStateRegistryOwner): ViewModelProvider.Factory {
-        return object : SavedStateViewModelFactory(owner, null) {
-            override fun <T : ViewModel> createViewModel(
-                modelClass: Class<T>,
-                savedState: UiSavedState
-            ): ViewModel {
-                return viewModels[modelClass]?.get() ?: fail(modelClass)
-            }
-        }
+  override fun create(owner: SavedStateRegistryOwner): ViewModelProvider.Factory {
+    return object : SavedStateViewModelFactory(owner, null) {
+      override fun <T : ViewModel> createViewModel(
+          modelClass: Class<T>,
+          savedState: UiSavedState
+      ): ViewModel {
+        return viewModels[modelClass]?.get() ?: fail(modelClass)
+      }
     }
+  }
 }

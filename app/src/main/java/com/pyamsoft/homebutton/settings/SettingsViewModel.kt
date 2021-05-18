@@ -22,30 +22,27 @@ import com.pyamsoft.homebutton.notification.NotificationHandler
 import com.pyamsoft.pydroid.arch.UiViewModel
 import com.pyamsoft.pydroid.arch.UnitControllerEvent
 import com.pyamsoft.pydroid.arch.UnitViewState
+import javax.inject.Inject
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
-internal class SettingsViewModel @Inject internal constructor(
-    private val notificationHandler: NotificationHandler
-) : UiViewModel<UnitViewState, UnitControllerEvent>(UnitViewState) {
+internal class SettingsViewModel
+@Inject
+internal constructor(private val notificationHandler: NotificationHandler) :
+    UiViewModel<UnitViewState, UnitControllerEvent>(UnitViewState) {
 
-    init {
-        viewModelScope.launch(context = Dispatchers.Default) {
-            notificationHandler.start()
-        }
+  init {
+    viewModelScope.launch(context = Dispatchers.Default) { notificationHandler.start() }
+  }
+
+  internal fun handleOpenSettings(scope: CoroutineScope, activity: Activity) {
+    scope.launch(context = Dispatchers.Default) { notificationHandler.openSettings(activity) }
+  }
+
+  internal fun handleVisibilityEvent(visible: Boolean) {
+    viewModelScope.launch(context = Dispatchers.Default) {
+      notificationHandler.start(show = visible)
     }
-
-    internal fun handleOpenSettings(scope: CoroutineScope, activity: Activity) {
-        scope.launch(context = Dispatchers.Default) {
-            notificationHandler.openSettings(activity)
-        }
-    }
-
-    internal fun handleVisibilityEvent(visible: Boolean) {
-        viewModelScope.launch(context = Dispatchers.Default) {
-            notificationHandler.start(show = visible)
-        }
-    }
+  }
 }

@@ -28,67 +28,68 @@ import com.pyamsoft.pydroid.core.Enforcer
 import com.pyamsoft.pydroid.notify.Notifier
 import com.pyamsoft.pydroid.notify.NotifyChannelInfo
 import com.pyamsoft.pydroid.notify.toNotifyId
+import javax.inject.Inject
+import javax.inject.Singleton
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import timber.log.Timber
-import javax.inject.Inject
-import javax.inject.Singleton
 
 @Singleton
-class NotificationHandler @Inject internal constructor(
+class NotificationHandler
+@Inject
+internal constructor(
     @InternalApi private val notifier: Notifier,
     private val preferences: HomeButtonPreferences,
     private val context: Context,
 ) {
 
-    private val notificationManager by lazy { NotificationManagerCompat.from(context) }
+  private val notificationManager by lazy { NotificationManagerCompat.from(context) }
 
-    suspend fun start(show: Boolean? = null) =
-        withContext(context = Dispatchers.Default) {
-            Enforcer.assertOffMainThread()
+  suspend fun start(show: Boolean? = null) =
+      withContext(context = Dispatchers.Default) {
+        Enforcer.assertOffMainThread()
 
-            val reallyShow = show ?: preferences.showNotification()
-            showNotification(reallyShow)
-        }
+        val reallyShow = show ?: preferences.showNotification()
+        showNotification(reallyShow)
+      }
 
-    suspend fun openSettings(activity: Activity) = withContext(context = Dispatchers.Default) {
+  suspend fun openSettings(activity: Activity) =
+      withContext(context = Dispatchers.Default) {
         Enforcer.assertOffMainThread()
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            if (notificationManager.getNotificationChannel(CHANNEL_ID) != null) {
-                // Channel already exists, cannot edit it - go to settings
-                openNotificationSettings(activity)
-                return@withContext
-            }
+          if (notificationManager.getNotificationChannel(CHANNEL_ID) != null) {
+            // Channel already exists, cannot edit it - go to settings
+            openNotificationSettings(activity)
+            return@withContext
+          }
         }
-    }
+      }
 
-    @RequiresApi(Build.VERSION_CODES.O)
-    private fun openNotificationSettings(activity: Activity) {
-        val settingsIntent = Intent(Settings.ACTION_CHANNEL_NOTIFICATION_SETTINGS).apply {
-            putExtra(Settings.EXTRA_APP_PACKAGE, context.packageName)
-            putExtra(Settings.EXTRA_CHANNEL_ID, CHANNEL_ID)
+  @RequiresApi(Build.VERSION_CODES.O)
+  private fun openNotificationSettings(activity: Activity) {
+    val settingsIntent =
+        Intent(Settings.ACTION_CHANNEL_NOTIFICATION_SETTINGS).apply {
+          putExtra(Settings.EXTRA_APP_PACKAGE, context.packageName)
+          putExtra(Settings.EXTRA_CHANNEL_ID, CHANNEL_ID)
         }
-        activity.startActivity(settingsIntent)
-    }
+    activity.startActivity(settingsIntent)
+  }
 
-    private fun showNotification(show: Boolean) {
-        notifier.cancel(ID)
-        notifier.show(
+  private fun showNotification(show: Boolean) {
+    notifier.cancel(ID)
+    notifier.show(
             ID,
             NotifyChannelInfo(
                 id = CHANNEL_ID,
                 title = "Home Service",
-                description = " Notification for the Home Button service"
-            ),
-            HomeNotification(show)
-        ).also {
-            Timber.d("Show notification with id: $ID")
-        }
-    }
+                description = " Notification for the Home Button service"),
+            HomeNotification(show))
+        .also { Timber.d("Show notification with id: $ID") }
+  }
 
-    companion object {
+  companion object {
 
-        private const val CHANNEL_ID = "home_button_foreground"
-        private val ID = 1001.toNotifyId()
-    }
+    private const val CHANNEL_ID = "home_button_foreground"
+    private val ID = 1001.toNotifyId()
+  }
 }

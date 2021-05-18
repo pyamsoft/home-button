@@ -34,34 +34,32 @@ import javax.inject.Singleton
 @Component(modules = [HomeButtonComponent.BaseModule::class, NotificationModule::class])
 internal interface HomeButtonComponent {
 
-    fun inject(receiver: BootCompletedReceiver)
+  fun inject(receiver: BootCompletedReceiver)
 
-    @CheckResult
-    fun plusMain(): MainComponent.Factory
+  @CheckResult fun plusMain(): MainComponent.Factory
 
-    @CheckResult
-    fun plusSettings(): SettingsComponent.Factory
+  @CheckResult fun plusSettings(): SettingsComponent.Factory
 
-    @Component.Factory
-    interface Factory {
+  @Component.Factory
+  interface Factory {
 
-        fun create(
-            @BindsInstance application: Application,
-            @BindsInstance theming: Theming,
-        ): HomeButtonComponent
-    }
+    fun create(
+        @BindsInstance application: Application,
+        @BindsInstance theming: Theming,
+    ): HomeButtonComponent
+  }
+
+  @Module
+  abstract class BaseModule {
 
     @Module
-    abstract class BaseModule {
+    companion object {
 
-        @Module
-        companion object {
-
-            @Provides
-            @JvmStatic
-            fun provideContext(application: Application): Context {
-                return application
-            }
-        }
+      @Provides
+      @JvmStatic
+      fun provideContext(application: Application): Context {
+        return application
+      }
     }
+  }
 }

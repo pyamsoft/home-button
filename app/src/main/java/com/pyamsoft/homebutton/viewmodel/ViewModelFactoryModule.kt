@@ -23,7 +23,9 @@ import dagger.Module
 @Module
 abstract class ViewModelFactoryModule {
 
-    @Binds
-    @CheckResult
-    internal abstract fun bindFactory(impl: HomeButtonViewModelFactoryImpl): HomeButtonViewModelFactory
+  @Binds
+  @CheckResult
+  internal abstract fun bindFactory(
+      impl: HomeButtonViewModelFactoryImpl
+  ): HomeButtonViewModelFactory
 }

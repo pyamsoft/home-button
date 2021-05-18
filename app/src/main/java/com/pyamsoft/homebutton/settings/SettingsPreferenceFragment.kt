@@ -28,77 +28,65 @@ import com.pyamsoft.pydroid.ui.arch.fromViewModelFactory
 import com.pyamsoft.pydroid.ui.settings.AppSettingsPreferenceFragment
 import javax.inject.Inject
 
-class SettingsPreferenceFragment : AppSettingsPreferenceFragment(), UiController<UnitControllerEvent> {
+class SettingsPreferenceFragment :
+    AppSettingsPreferenceFragment(), UiController<UnitControllerEvent> {
 
-    override val preferenceXmlResId: Int = R.xml.preferences
+  override val preferenceXmlResId: Int = R.xml.preferences
 
-    @JvmField
-    @Inject
-    internal var settingsView: SettingsView? = null
+  @JvmField @Inject internal var settingsView: SettingsView? = null
 
-    @JvmField
-    @Inject
-    internal var toolbarView: SettingsToolbarView? = null
+  @JvmField @Inject internal var toolbarView: SettingsToolbarView? = null
 
-    @JvmField
-    @Inject
-    internal var spacer: SettingsSpacer? = null
+  @JvmField @Inject internal var spacer: SettingsSpacer? = null
 
-    @JvmField
-    @Inject
-    internal var factory: HomeButtonViewModelFactory? = null
-    private val viewModel by fromViewModelFactory<SettingsViewModel> { factory?.create(this) }
+  @JvmField @Inject internal var factory: HomeButtonViewModelFactory? = null
+  private val viewModel by fromViewModelFactory<SettingsViewModel> { factory?.create(this) }
 
-    private var stateSaver: StateSaver? = null
+  private var stateSaver: StateSaver? = null
 
-    override fun onViewCreated(
-        view: View,
-        savedInstanceState: Bundle?
-    ) {
-        super.onViewCreated(view, savedInstanceState)
-        Injector.obtainFromApplication<HomeButtonComponent>(view.context)
-            .plusSettings()
-            .create(requireActivity(), requireToolbarActivity(), preferenceScreen)
-            .inject(this)
+  override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    super.onViewCreated(view, savedInstanceState)
+    Injector.obtainFromApplication<HomeButtonComponent>(view.context)
+        .plusSettings()
+        .create(requireActivity(), requireToolbarActivity(), preferenceScreen)
+        .inject(this)
 
-        stateSaver = createComponent(
+    stateSaver =
+        createComponent(
             savedInstanceState,
             viewLifecycleOwner,
             viewModel,
             this,
             requireNotNull(settingsView),
             requireNotNull(toolbarView),
-            requireNotNull(spacer)
-        ) {
-            return@createComponent when (it) {
-                is SettingsViewEvent.NotificationVisibility -> viewModel.handleVisibilityEvent(it.isVisible)
-                is SettingsViewEvent.OpenNotificationSettings -> viewModel.handleOpenSettings(
-                    this,
-                    requireActivity()
-                )
-            }
+            requireNotNull(spacer)) {
+          return@createComponent when (it) {
+            is SettingsViewEvent.NotificationVisibility ->
+                viewModel.handleVisibilityEvent(it.isVisible)
+            is SettingsViewEvent.OpenNotificationSettings ->
+                viewModel.handleOpenSettings(this, requireActivity())
+          }
         }
-    }
+  }
 
-    override fun onControllerEvent(event: UnitControllerEvent) {
-    }
+  override fun onControllerEvent(event: UnitControllerEvent) {}
 
-    override fun onDestroyView() {
-        super.onDestroyView()
+  override fun onDestroyView() {
+    super.onDestroyView()
 
-        toolbarView = null
-        settingsView = null
-        factory = null
-        stateSaver = null
-    }
+    toolbarView = null
+    settingsView = null
+    factory = null
+    stateSaver = null
+  }
 
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        stateSaver?.saveState(outState)
-    }
+  override fun onSaveInstanceState(outState: Bundle) {
+    super.onSaveInstanceState(outState)
+    stateSaver?.saveState(outState)
+  }
 
-    companion object {
+  companion object {
 
-        const val TAG = "SettingsPreferenceFragment"
-    }
+    const val TAG = "SettingsPreferenceFragment"
+  }
 }

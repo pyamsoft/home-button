@@ -23,39 +23,36 @@ import androidx.core.content.edit
 import androidx.preference.PreferenceManager
 import com.pyamsoft.homebutton.R
 import com.pyamsoft.pydroid.core.Enforcer
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 import javax.inject.Inject
 import javax.inject.Singleton
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 @Singleton
-class HomeButtonPreferences @Inject internal constructor(
-    context: Context
-) {
+class HomeButtonPreferences @Inject internal constructor(context: Context) {
 
-    private val keyNotificationPriority: String = context.getString(R.string.priority_key)
+  private val keyNotificationPriority: String = context.getString(R.string.priority_key)
 
-    private val preferences by lazy {
-        Enforcer.assertOffMainThread()
-        PreferenceManager.getDefaultSharedPreferences(context.applicationContext).apply {
-            removeOldPreferences(this)
-        }
+  private val preferences by lazy {
+    Enforcer.assertOffMainThread()
+    PreferenceManager.getDefaultSharedPreferences(context.applicationContext).apply {
+      removeOldPreferences(this)
     }
+  }
 
-    private fun removeOldPreferences(preferences: SharedPreferences) {
-        Enforcer.assertOffMainThread()
-        preferences.edit {
-            remove(KEY_CHANNEL_ID)
-        }
-    }
+  private fun removeOldPreferences(preferences: SharedPreferences) {
+    Enforcer.assertOffMainThread()
+    preferences.edit { remove(KEY_CHANNEL_ID) }
+  }
 
-    @CheckResult
-    suspend fun showNotification(): Boolean = withContext(context = Dispatchers.IO) {
+  @CheckResult
+  suspend fun showNotification(): Boolean =
+      withContext(context = Dispatchers.IO) {
         Enforcer.assertOffMainThread()
         return@withContext preferences.getBoolean(keyNotificationPriority, true)
-    }
+      }
 
-    companion object {
-        private const val KEY_CHANNEL_ID = "key_notification_channel_id"
-    }
+  companion object {
+    private const val KEY_CHANNEL_ID = "key_notification_channel_id"
+  }
 }
